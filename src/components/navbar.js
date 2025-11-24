@@ -11,10 +11,11 @@ export function Navbar() {
     border-bottom: 1px solid #404040;
     z-index: 1000;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 0 2rem;
     box-sizing: border-box;
+    gap: 1rem;
   `;
   
   // Sección izquierda - Logo/Imagen
@@ -22,6 +23,7 @@ export function Navbar() {
   logoSection.style.cssText = `
     display: flex;
     align-items: center;
+    margin-left: 0.5rem;
   `;
   
   const logo = document.createElement('img');
@@ -31,7 +33,7 @@ export function Navbar() {
     height: 60px;
     width: auto;
     transition: filter 0.3s ease;
-    transform: translateX(-20px);
+    transform: none;
     cursor: pointer;
     filter: invert(1);
   `;
@@ -53,6 +55,16 @@ export function Navbar() {
   });
   
   logoSection.appendChild(logo);
+
+  // Separador vertical entre logo y botón
+  const separator = document.createElement('div');
+  separator.setAttribute('aria-hidden', 'true');
+  separator.style.cssText = `
+    width: 1px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 0.75rem;
+  `;
   
   // Sección derecha - Menú hamburguesa
   const menuSection = document.createElement('div');
@@ -241,9 +253,93 @@ export function Navbar() {
   menuSection.appendChild(menuButton);
   menuSection.appendChild(dropdownMenu);
   
+  // Sección derecha - Iconos
+  const rightIconsSection = document.createElement('div');
+  rightIconsSection.style.cssText = `
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    gap: 0.75rem;
+    margin-right: 0.5rem;
+  `;
+
+  // Icono carrito de compras (SVG)
+  const cartIcon = document.createElement('span');
+  cartIcon.innerHTML = `<svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><circle cx="9" cy="21" r="1.5"/><circle cx="19" cy="21" r="1.5"/><path d="M2.5 4h2.5l2.2 11.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.6l1.2-6.4H6.1"/></svg>`;
+  cartIcon.style.cssText = `
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    min-width: 64px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+  `;
+  cartIcon.addEventListener('mouseenter', () => {
+    cartIcon.style.background = 'rgba(249, 115, 22, 0.1)';
+  });
+  cartIcon.addEventListener('mouseleave', () => {
+    cartIcon.style.background = 'transparent';
+  });
+
+  // Separador entre iconos
+  const rightSeparator = document.createElement('div');
+  rightSeparator.setAttribute('aria-hidden', 'true');
+  rightSeparator.style.cssText = `
+    width: 1px;
+    height: 32px;
+    background-color: rgba(255, 255, 255, 0.3);
+    margin: 0 0.5rem;
+  `;
+
+  // Icono paquete (SVG)
+  const packageIcon = document.createElement('span');
+  packageIcon.innerHTML = `<svg width="2.5rem" height="2.5rem" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="display:block;margin:auto;"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>`;
+  packageIcon.style.cssText = `
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 2.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    min-width: 64px;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.5rem;
+    width: 2.5rem;
+    text-align: center;
+    vertical-align: middle;
+  `;
+  packageIcon.addEventListener('mouseenter', () => {
+    packageIcon.style.background = 'rgba(249, 115, 22, 0.1)';
+  });
+  packageIcon.addEventListener('mouseleave', () => {
+    packageIcon.style.background = 'transparent';
+  });
+
+  rightIconsSection.appendChild(cartIcon);
+  rightIconsSection.appendChild(rightSeparator);
+  rightIconsSection.appendChild(packageIcon);
+
   // Ensamblar la navbar
   nav.appendChild(logoSection);
+  nav.appendChild(separator);
   nav.appendChild(menuSection);
+  nav.appendChild(rightIconsSection);
   
   // ==========================================
   //     FUNCIONALIDAD DE SCROLL INTELIGENTE
