@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Términos y Condiciones de Servicio - Despacho de Abogados</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/style(NO_USAR_SOLO_FONTS).css">
+  <style>
+   @font-face {
+  font-family: 'Aloja Extended';
+  src: url('/fonts/AlojaExtended.woff2') format('woff2'),
+       url('/fonts/AlojaExtended.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+h1, h2, h3, .top_legalidades {
+  color: #f97316 !important;
+}
+a {
+  color: #fb923c !important;
+}
+a:hover {
+  color: #ea580c !important;
+}
+  body { 
+    display: block !important; 
+    justify-content: unset !important; 
+    align-items: unset !important; 
+    background: #1a1a1a !important;
+    color: #fff !important;
+  }
+  .container.margen-navbar {
+    max-width: 1800px !important;
+    margin: 3rem auto 2rem auto !important;
+    padding: 2rem 2rem 2rem 2rem !important;
+    background: #1a1a1a;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+    color: #fff;
+   margin-top: 180px !important;
+  }
+  .tabla-cookie th, .tabla-cookie td {
+  padding: 1.1em 1.4em !important;
+  border: 1px solid #e0e0e0;
+  text-align: left;
+  word-break: normal;      /* Cambia break-word por normal */
+  white-space: nowrap;     /* Evita que el texto se apile */
+}
+  .tabla-cookie {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1em 0;
+    font-size: 1em;
+  }
+  /* ENVOLTORIO para hacer scroll en móvil */
+  .tabla-scroll {
+    width: 100%;
+    overflow-x: auto;
+  }
+  @media (max-width: 911px) {
+    .container.margen-navbar {
+      max-width: 98vw !important;
+      padding: 1.3em 1.2em !important;
+      margin: 4.5em 0 0.7em 0 !important;
+      font-size: 0.97em !important;
+      border-radius: 0 !important;
+      margin-top: 120px !important;
+    }
+    .container.margen-navbar h1,
+    .container.margen-navbar .Inicio-Informacion,
+    .container.margen-navbar .top_legalidades {
+      font-size: 1.58em !important;
+      word-break: break-word;
+    }
+    .container.margen-navbar p,
+    .container.margen-navbar li,
+    .container.margen-navbar th,
+    .container.margen-navbar td {
+      font-size: 0.97em !important;
+      line-height: 1.5 !important;
+      word-break: break-word;
+    }
+  .tabla-scroll {
+    width: 100%;
+    padding-bottom: 0.5em;
+    padding-right: 0.5em; /* Espacio a la derecha para la barra */
+    overflow-x: auto;
+    box-sizing: border-box;
+  }
+  .tabla-cookie {
+    min-width: 600px;
+    font-size: 0.95em !important;
+    display: table;
+  }
+  .tabla-cookie th, .tabla-cookie td {
+    padding: 0.9em 0.7em !important;
+    white-space: nowrap;   /* Mantiene el texto en una línea */
+  }
+}
+
+
+/* BOTÓN WHATSAPP UNIVERSAL */
+.boton-whatsapp,
+.botonWhatsapp,
+#botonWhatsapp,
+button[title*="WhatsApp"] {
+  position: fixed !important;
+  right: 20px !important;
+  bottom: 20px !important;
+  z-index: 1000 !important;
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: #28a745 !important;
+  cursor: pointer;
+  padding: 0 !important;
+  border: none !important;
+  font-size: 0 !important;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.boton-whatsapp img,
+.botonWhatsapp img,
+#botonWhatsapp img,
+button[title*="WhatsApp"] img {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: contain;
+  display: block;
+}
+
+.boton-whatsapp:hover,
+.botonWhatsapp:hover,
+#botonWhatsapp:hover,
+button[title*="WhatsApp"]:hover {
+  background: #218838 !important;
+  box-shadow: 0 6px 18px #21883855;
+}
+
+/* Tablet */
+@media (max-width: 1200px) and (min-width: 601px) {
+  .boton-whatsapp,
+  .botonWhatsapp,
+  #botonWhatsapp,
+  button[title*="WhatsApp"] {
+    width: 70px !important;
+    height: 70px !important;
+    min-width: 70px !important;
+    min-height: 70px !important;
+    right: 20px !important;
+    bottom: 20px !important;
+  }
+  .boton-whatsapp img,
+  .botonWhatsapp img,
+  #botonWhatsapp img,
+  button[title*="WhatsApp"] img {
+    width: 56px !important;
+    height: 56px !important;
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .boton-whatsapp,
+  .botonWhatsapp,
+  #botonWhatsapp,
+  button[title*="WhatsApp"] {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    right: 16px !important;
+    bottom: 16px !important;
+  }
+  .boton-whatsapp img,
+  .botonWhatsapp img,
+  #botonWhatsapp img,
+  button[title*="WhatsApp"] img {
+    width: 36px !important;
+    height: 36px !important;
+  }
+}
+</style>
+
+</head>
+<body>
+  <script type="module">
+  import { BotonContacto } from '/src/components/botonwhatsapp.js';
+  BotonContacto();
+  </script>
+  <!-- Navbar -->
+  <div id="navbar"></div>
+  <!-- Navbar -->
+
+  <div id="contenido-terminos" class="container margen-navbar">
+    <h1 class="Inicio-Informacion top_legalidades">Términos y Condiciones de Servicio</h1>
+    <p><b>Última actualización: 10 de noviembre de 2025</b></p>
+
+    <p>
+      Bienvenido a nuestro despacho de abogados. Al acceder y utilizar nuestro sitio web y contratar nuestros servicios profesionales, usted acepta cumplir con estos Términos y Condiciones en su totalidad. Si no está de acuerdo con alguna parte de estos términos, le solicitamos que no utilice nuestros servicios.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">1. Ámbito de aplicación y servicios</h2>
+    <p>
+      Estos términos regulan la prestación de servicios jurídicos profesionales, incluyendo asesoramiento legal, representación judicial, consultoría jurídica y demás servicios propios del ejercicio de la abogacía. Todos nuestros servicios se prestan conforme a la normativa colegial y deontológica aplicable.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">2. Relación profesional cliente-abogado</h2>
+    <p>
+      La relación profesional se formaliza mediante la aceptación expresa del encargo por parte del letrado y la firma del correspondiente contrato de servicios profesionales. Esta relación está sujeta al secreto profesional y a las normas deontológicas del Colegio de Abogados.
+    </p>
+    <p>
+      Para el inicio de cualquier actuación profesional, será necesario que el cliente proporcione toda la documentación e información relevante para el caso, así como el abono de las provisiones de fondos que se estipulen.
+    </p>
+    <p>
+      El tratamiento de sus datos personales se realizará conforme a la normativa de protección de datos vigente.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">3. Honorarios profesionales</h2>
+    <p>
+      Los honorarios profesionales se determinarán conforme al baremo orientativo del Colegio de Abogados, la complejidad del asunto, el tiempo empleado y el resultado obtenido. En todo caso, se informará previamente al cliente del coste estimado de los servicios.
+    </p>
+    <p>
+      Los honorarios devengados serán exigibles una vez prestado el servicio profesional. Los gastos y suplidos generados en el ejercicio de la defensa correrán por cuenta del cliente, salvo pacto en contrario.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">4. Obligaciones del cliente</h2>
+    <p>
+      El cliente se compromete a proporcionar información veraz y completa, facilitar toda la documentación necesaria, comunicar cualquier circunstancia relevante para el caso y abonar los honorarios y gastos conforme a lo acordado.
+    </p>
+    <p>
+      El cliente deberá mantener informado al despacho de cualquier cambio en sus datos de contacto y colaborar activamente en el desarrollo de las actuaciones profesionales.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">5. Limitaciones de responsabilidad</h2>
+    <p>
+      La responsabilidad profesional se limita a la actuación diligente conforme a la lex artis y las normas deontológicas. No se garantizan resultados específicos, dado que el éxito de las actuaciones jurídicas depende de múltiples factores externos.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">6. Confidencialidad y secreto profesional</h2>
+    <p>
+      Todos los asuntos tratados están protegidos por el secreto profesional del abogado, conforme al artículo 437 de la Ley Orgánica del Poder Judicial y las normas deontológicas colegiales. Esta obligación perdura incluso después de finalizada la relación profesional.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">7. Finalización del encargo</h2>
+    <p>
+      La relación profesional podrá finalizar por cumplimiento del encargo, mutuo acuerdo, renuncia justificada del letrado o revocación por parte del cliente. En caso de finalización anticipada, se liquidarán los honorarios proporcionalmente a los servicios prestados.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">8. Propiedad intelectual</h2>
+    <p>
+      Todos los documentos, informes y dictámenes elaborados por el despacho son propiedad intelectual del mismo. El cliente tendrá derecho al uso de los mismos para los fines del encargo, pero no podrá reproducirlos o divulgarlos sin autorización.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">9. Resolución de conflictos</h2>
+    <p>
+      Cualquier discrepancia relacionada con los servicios profesionales podrá someterse a los mecanismos de resolución de conflictos establecidos por el Colegio de Abogados o, en su caso, a la jurisdicción ordinaria.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">10. Modificaciones de los términos</h2>
+    <p>
+      Estos términos podrán ser modificados para adaptarse a cambios normativos o mejoras en la prestación de servicios. Las modificaciones se comunicarán a los clientes con la debida antelación.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">11. Legislación aplicable y jurisdicción</h2>
+    <p>
+      Estos términos se rigen por la legislación española, especialmente por la Ley Orgánica del Poder Judicial, el Estatuto General de la Abogacía y las normas deontológicas colegiales. Para cualquier controversia, serán competentes los tribunales del domicilio del despacho.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">12. Protección de datos y comunicaciones</h2>
+    <p>
+      El tratamiento de datos personales se realizará conforme al Reglamento General de Protección de Datos (RGPD) y la normativa nacional aplicable.
+    </p>
+    <p>
+      Las comunicaciones electrónicas entre el despacho y el cliente se considerarán válidas cuando se realicen a través de los medios habilitados y confirmados por ambas partes.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">13. Contacto</h2>
+    <p class="FinalLegalidades">
+      Para cualquier consulta sobre estos términos o nuestros servicios profesionales, puede contactarnos en <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a> o llamarnos al 613 95 96 89. Horario de atención: Lunes a Viernes de 9:00h a 18:00h.
+    </p>
+  </div>
+
+  <!-- Atribuciones Mathias -->
+  <div id="Atribución_Mathias"></div>
+  <!-- Atribuciones Mathias -->
+
+  <!-- Footer -->
+  <div id="footer"></div>
+  <!-- Footer -->
+
+  <!-- Scripts -->
+<script type="module">
+  import { Navbar } from '/src/components/navbar.js';
+  import { Footer } from '/src/components/footer.js';
+  import { EmpanadaBanner } from '/src/components/EmpanadaBanner.js';
+
+  window.addEventListener('DOMContentLoaded', () => {
+    EmpanadaBanner();
+    const navbarDiv = document.getElementById('navbar');
+    if (navbarDiv) navbarDiv.appendChild(Navbar());
+
+    const footerDiv = document.getElementById('footer');
+    if (footerDiv) footerDiv.appendChild(Footer());
+  });
+</script>
+</body>
+</html>
