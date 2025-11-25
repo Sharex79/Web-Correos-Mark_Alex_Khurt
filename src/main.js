@@ -8,6 +8,7 @@ import { Navbar } from './components/navbar.js';
 import { FotoInicial } from './components/fotoInicial.js';
 import { Presentacion } from './components/presentacion.js';
 import { Explicacion } from './components/explicacion.js';
+import { ContenedoresDobles } from './components/ContenedoresDobles.js';
 import { BotonesRespuestas } from './components/botonesRespuestas.js';
 import { Footer } from './components/footer.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
@@ -43,6 +44,7 @@ mainContent.append(
   EmpanadaBanner(),
   FotoInicial(),        // � Foto inicial - Hero principal
   Presentacion(),       // 👨‍💼 Presentación - Perfil del procurador
+  ContenedoresDobles(), // 🧩 Nuevo: Sección con 2 contenedores lado a lado (responsive)
   Explicacion(),        // 🌱 Explicación - Servicios legales mosaico
   BotonesRespuestas(),  // ❓ Botones respuestas - FAQ acordeones
   DireccionNueva(),     // 📍 Dirección
@@ -291,6 +293,7 @@ window.volverAlInicio = function() {
         EmpanadaBanner(),
         FotoInicial(),
         Presentacion(),
+        ContenedoresDobles(),
         Explicacion(),
         BotonesRespuestas(),
         DireccionNueva(),
