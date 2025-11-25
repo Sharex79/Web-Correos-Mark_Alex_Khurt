@@ -91,23 +91,145 @@ export function Navbar() {
     justify-content: center;
   `;
   
-  // Menú desplegable
-  const dropdownMenu = document.createElement('div');
-  dropdownMenu.style.cssText = `
-    position: absolute;
-    top: 100%;
+  // Panel lateral (slide-out) + overlay
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed;
+    top: 90px; /* debajo de la navbar */
+    left: 0;
     right: 0;
-    background-color: #2a2a2a;
-    border: 1px solid #404040;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    min-width: 200px;
+    bottom: 0;
+    background: rgba(0,0,0,0.45);
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    margin-top: 0.5rem;
+    transition: opacity 0.3s ease;
+    z-index: 990; /* por debajo de la navbar (1000) */
   `;
+
+  const sidePanel = document.createElement('aside');
+  sidePanel.style.cssText = `
+    position: fixed;
+    top: 90px; /* debajo de la navbar */
+    left: 0;
+    height: calc(100vh - 90px);
+    width: min(90vw, 360px);
+    background-color: #202020;
+    border-right: 1px solid #404040;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 995; /* por debajo de la navbar, por encima del contenido */
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0 0 0; /* eliminar espacio inferior para pegar el footer al fondo */
+    box-sizing: border-box;
+  `;
+
+  const panelList = document.createElement('nav');
+  panelList.style.cssText = `
+    display: block;
+    padding-top: 0;
+    flex: 1 1 auto;
+    overflow-y: auto;
+  `;
+
+  // Enlaces inferiores (no funcionales): Feedback, Ayuda, Ajustes
+  const bottomLinks = document.createElement('div');
+  bottomLinks.style.cssText = `
+    background-color: #202020;
+    border-top: 1px solid #404040;
+  `;
+
+  function makeBottomLink(label) {
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = label;
+    a.style.cssText = `
+      display: block;
+      padding: 0.9rem 1.25rem;
+      color: rgba(255,255,255,0.87);
+      text-decoration: none;
+      transition: background-color 0.3s ease, color 0.2s ease;
+      cursor: default;
+      border-bottom: 1px solid #2b2b2b;
+    `;
+    a.addEventListener('click', (e) => e.preventDefault());
+    a.addEventListener('mouseenter', () => {
+      a.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
+      a.style.color = '#f97316';
+    });
+    a.addEventListener('mouseleave', () => {
+      a.style.backgroundColor = 'transparent';
+      a.style.color = 'rgba(255,255,255,0.87)';
+    });
+    return a;
+  }
+
+  // Orden de arriba hacia abajo: Feedback, Ayuda, Ajustes
+  bottomLinks.appendChild(makeBottomLink('Feedback'));
+  bottomLinks.appendChild(makeBottomLink('Ayuda'));
+  bottomLinks.appendChild(makeBottomLink('Ajustes'));
+
+  // Footer de idiomas (al fondo del panel)
+  const langFooter = document.createElement('div');
+  langFooter.style.cssText = `
+    margin-top: auto;
+    background-color: #242424;
+    padding: 1rem 1.25rem 1.25rem 1.25rem;
+    color: rgba(255,255,255,0.92);
+    border-top: 1px solid #404040;
+  `;
+
+  const langLabel = document.createElement('div');
+  langLabel.textContent = 'Idioma:';
+  langLabel.style.cssText = `
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    opacity: 0.95;
+  `;
+
+  const langList = document.createElement('div');
+  langList.style.cssText = `
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  `;
+
+  const languages = ['ES', 'CA', 'EU'];
+  let selectedLang = 'ES';
+  languages.forEach((code) => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.textContent = code;
+    btn.setAttribute('data-lang', code);
+    btn.style.cssText = `
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.92);
+      padding: 0;
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: ${code === selectedLang ? '700' : '500'};
+      letter-spacing: 0.02em;
+    `;
+    btn.addEventListener('click', () => {
+      selectedLang = code;
+      Array.from(langList.children).forEach((el) => {
+        el.style.fontWeight = '500';
+      });
+      btn.style.fontWeight = '700';
+    });
+    btn.addEventListener('mouseenter', () => {
+      btn.style.textDecoration = 'underline';
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.textDecoration = 'none';
+    });
+    langList.appendChild(btn);
+  });
+
+  langFooter.appendChild(langLabel);
+  langFooter.appendChild(langList);
   
   // Opciones del menú con funcionalidad de navegación
   const menuItems = [
@@ -172,12 +294,8 @@ export function Navbar() {
       }
     }
     
-    // Cerrar el menú después de hacer clic
-    isMenuOpen = false;
-    dropdownMenu.style.opacity = '0';
-    dropdownMenu.style.visibility = 'hidden';
-    dropdownMenu.style.transform = 'translateY(-10px)';
-    menuButton.innerHTML = '☰';
+    // Cerrar el panel después de hacer clic
+    closePanel();
   }
   
   menuItems.forEach((item, index) => {
@@ -210,11 +328,31 @@ export function Navbar() {
       menuLink.style.color = 'rgba(255, 255, 255, 0.87)';
     });
     
-    dropdownMenu.appendChild(menuLink);
+    panelList.appendChild(menuLink);
   });
   
-  // Funcionalidad del menú desplegable
+  // Funcionalidad del panel lateral
   let isMenuOpen = false;
+
+  function openPanel() {
+    isMenuOpen = true;
+    sidePanel.style.transform = 'translateX(0)';
+    overlay.style.opacity = '1';
+    overlay.style.visibility = 'visible';
+    menuButton.innerHTML = '✕';
+    menuButton.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closePanel() {
+    isMenuOpen = false;
+    sidePanel.style.transform = 'translateX(-100%)';
+    overlay.style.opacity = '0';
+    overlay.style.visibility = 'hidden';
+    menuButton.innerHTML = '☰';
+    menuButton.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
   
   menuButton.addEventListener('mouseenter', () => {
     menuButton.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
@@ -225,33 +363,22 @@ export function Navbar() {
   });
   
   menuButton.addEventListener('click', () => {
-    isMenuOpen = !isMenuOpen;
-    if (isMenuOpen) {
-      dropdownMenu.style.opacity = '1';
-      dropdownMenu.style.visibility = 'visible';
-      dropdownMenu.style.transform = 'translateY(0)';
-      menuButton.innerHTML = '✕';
-    } else {
-      dropdownMenu.style.opacity = '0';
-      dropdownMenu.style.visibility = 'hidden';
-      dropdownMenu.style.transform = 'translateY(-10px)';
-      menuButton.innerHTML = '☰';
-    }
+    if (isMenuOpen) closePanel(); else openPanel();
   });
   
-  // Cerrar menú al hacer clic fuera
-  document.addEventListener('click', (e) => {
-    if (!menuSection.contains(e.target)) {
-      isMenuOpen = false;
-      dropdownMenu.style.opacity = '0';
-      dropdownMenu.style.visibility = 'hidden';
-      dropdownMenu.style.transform = 'translateY(-10px)';
-      menuButton.innerHTML = '☰';
-    }
+  // Cerrar al hacer clic en overlay o tecla ESC
+  overlay.addEventListener('click', () => closePanel());
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isMenuOpen) closePanel();
   });
   
   menuSection.appendChild(menuButton);
-  menuSection.appendChild(dropdownMenu);
+  sidePanel.appendChild(panelList);
+  sidePanel.appendChild(bottomLinks);
+  sidePanel.appendChild(langFooter);
+  // Agregar overlay y panel al body para cubrir toda la pantalla
+  document.body.appendChild(overlay);
+  document.body.appendChild(sidePanel);
   
   // Sección derecha - Iconos
   const rightIconsSection = document.createElement('div');
@@ -367,13 +494,9 @@ export function Navbar() {
       else if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
         nav.style.transform = 'translateY(-100%)';
         
-        // Cerrar menú si está abierto al ocultar navbar
+        // Cerrar panel si está abierto al ocultar navbar
         if (isMenuOpen) {
-          dropdownMenu.style.opacity = '0';
-          dropdownMenu.style.visibility = 'hidden';
-          dropdownMenu.style.transform = 'translateY(-10px)';
-          menuButton.innerHTML = '☰';
-          isMenuOpen = false;
+          closePanel();
         }
       }
       // Si subimos, mostrar navbar
