@@ -4,6 +4,8 @@
 //  Styles are injected only inside this file (no external CSS)
 // ==========================================
 
+import { FormularioPaqueteria } from './FormularioPaqueteria.js';
+
 export function ContenedoresDobles() {
   const section = document.createElement('section');
   section.className = 'contenedores-dobles';
@@ -17,9 +19,9 @@ export function ContenedoresDobles() {
       /* Contenedor principal */
       .contenedores-dobles {
         width: 100%;
-        max-width: 1200px;
-        margin: 2rem 0;
-        padding: 2.25rem;
+        max-width: 1320px;
+        margin: 2.25rem auto;
+        padding: clamp(1rem, 2.2vw, 2.25rem);
         border-radius: 16px;
         box-shadow: 0 6px 24px rgba(0,0,0,0.25);
         background: linear-gradient(180deg, rgba(30,30,30,0.6), rgba(30,30,30,0.45));
@@ -38,7 +40,7 @@ export function ContenedoresDobles() {
       /* Título de la sección */
       .contenedores-dobles__title {
         margin: 0 0 1.25rem 0;
-        font-size: 2rem;
+        font-size: clamp(1.4rem, 2.2vw, 2rem);
         font-weight: 700;
         color: #ff9f40;
         text-shadow: 0 2px 6px rgba(0,0,0,0.45);
@@ -48,13 +50,14 @@ export function ContenedoresDobles() {
       /* Grid flexible para los 2 contenedores */
       .contenedores-dobles__grid {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-        align-items: stretch;
+        grid-template-columns: repeat(2, minmax(320px, 1fr));
+        gap: clamp(1rem, 1.4vw, 1.5rem);
+        align-items: start;
       }
 
       .contenedores-dobles__box {
-        min-height: 320px;
+        min-height: 260px;
+        box-sizing: border-box;
         border-radius: 14px;
         padding: 1.5rem;
         display: flex;
@@ -103,19 +106,16 @@ export function ContenedoresDobles() {
       }
 
       /* Responsive: stack on smaller viewports */
-      @media (max-width: 960px) {
-        .contenedores-dobles__grid {
-          grid-template-columns: 1fr;
-        }
-        .contenedores-dobles__cta {
-          justify-content: flex-start;
-        }
+      @media (max-width: 1000px) {
+        .contenedores-dobles__grid { grid-template-columns: 1fr; }
+        .contenedores-dobles__cta { justify-content: flex-start; }
+        .contenedores-dobles { padding: clamp(.8rem, 1.6vw, 1.25rem); }
       }
 
       @media (max-width: 420px) {
-        .contenedores-dobles { padding: 1.25rem; }
-        .contenedores-dobles__title { font-size: 1.6rem; }
-        .contenedores-dobles__box { padding: 1rem; }
+        .contenedores-dobles { padding: .85rem; margin: 1rem .75rem; }
+        .contenedores-dobles__title { font-size: 1.25rem; }
+        .contenedores-dobles__box { padding: .85rem; }
       }
     `;
 
@@ -159,15 +159,10 @@ export function ContenedoresDobles() {
   const rightTitle = document.createElement('h3');
   rightTitle.textContent = 'Información / Bloque B';
 
-  const rightBody = document.createElement('div');
-  rightBody.className = 'contenedores-dobles__body';
-  rightBody.innerHTML = `<p class="contenedores-dobles__small">Utiliza este lado para destacar otra área (ejemplo — preguntas, tarifas o enlaces a documentos). Si la pantalla es pequeña, esta caja aparecerá debajo de la otra para una lectura cómoda y sencilla (mobile-first friendliness).</p>`;
-
-  const rightCta = document.createElement('div');
-  rightCta.className = 'contenedores-dobles__cta';
-  rightCta.innerHTML = `<button style="background:linear-gradient(135deg,#60a5fa,#3b82f6);color:white;padding:0.65rem 1rem;border-radius:10px;border:0;font-weight:700;cursor:pointer">Contactar</button>`;
-
-  boxRight.append(rightTitle, rightBody, rightCta);
+  // Add right side form component (paquetería)
+  const rightBody = FormularioPaqueteria();
+  // Keep the section title and the form element together
+  boxRight.append(rightTitle, rightBody);
 
   // Montar grid
   grid.append(boxLeft, boxRight);

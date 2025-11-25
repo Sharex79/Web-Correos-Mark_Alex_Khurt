@@ -1,0 +1,227 @@
+// ==========================================
+//   COMPONENTE FORMULARIO PAQUETERÍA
+//  Formulario modular para la sección derecha
+//  CSS inyectado y contenido EN ESPAÑOL
+// ==========================================
+
+export function FormularioPaqueteria() {
+  const container = document.createElement('div');
+  container.className = 'form-paqueteria';
+
+  // inyectar estilos una sola vez
+  if (!document.getElementById('form-paqueteria-styles')) {
+    const style = document.createElement('style');
+    style.id = 'form-paqueteria-styles';
+    style.textContent = `
+      :root{ --accent-orange: #ff9f40; --accent-blue-1: #60a5fa; --accent-blue-2: #3b82f6; }
+      .form-paqueteria{ display:flex; flex-direction:column; gap:1rem; width:100%; box-sizing:border-box; }
+
+      .form-paqueteria__header{ display:flex; flex-direction:column; gap:.25rem; }
+      .form-paqueteria__header h3{ margin:0; font-size:1.1rem; font-weight:800; color:var(--accent-orange); }
+      .form-paqueteria__subtitle{ color:rgba(255,255,255,0.9); font-size:.95rem; }
+
+      .form-paqueteria__form{ display:flex; flex-direction:column; gap:.85rem; padding:1rem; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+
+      .form-paqueteria__row{ display:flex; gap:.75rem; align-items:center; }
+      .form-paqueteria__col{ flex:1 1 auto; min-width:0; }
+
+      label{ display:block; font-weight:600; font-size:.95rem; color:rgba(255,255,255,0.95); margin-bottom: .35rem; }
+
+      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; }
+      input[type=text]::placeholder{ color:rgba(255,255,255,0.5); }
+      input[type=text]:focus, select:focus{ outline: none; box-shadow: 0 6px 18px rgba(50,50,50,0.35) inset, 0 0 0 4px rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.35); }
+
+      .form-paqueteria__sizegrid{ display:grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap:.6rem; }
+      .form-paqueteria__size{ padding:.6rem .85rem; border-radius:12px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:.5rem; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+      .form-paqueteria__size:hover{ transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.25); }
+      .form-paqueteria__size strong{ font-size: .95rem; display:block; }
+      .form-paqueteria__size span{ font-size: .85rem; color: rgba(255,255,255,0.78); }
+
+      .form-paqueteria__radiowrap{ display:flex; align-items:center; gap:.5rem; }
+      .form-paqueteria__size input[type=radio]{ width:18px; height:18px; }
+
+      .form-paqueteria__cta{ display:flex; justify-content:space-between; align-items:center; gap:.5rem; margin-top:.5rem; }
+      .form-paqueteria__btn{ padding:.6rem 1rem; border-radius:10px; border:0; cursor:pointer; font-weight:700; min-width:110px; }
+      .form-paqueteria__btn--primary{ background:linear-gradient(135deg,var(--accent-blue-1),var(--accent-blue-2)); color:#fff; box-shadow:0 6px 18px rgba(59,130,246,0.15); }
+      .form-paqueteria__btn--ghost{ background:transparent; color:rgba(255,255,255,0.93); border:1px solid rgba(255,255,255,0.06); }
+
+      .form-paqueteria__small{ font-size:.92rem; color: rgba(255,255,255,0.82); }
+
+      @media (max-width: 900px){
+        .form-paqueteria__row{ flex-direction:column; }
+        .form-paqueteria__sizegrid{ grid-template-columns: 1fr 1fr; }
+      }
+
+      @media (max-width: 520px){
+        .form-paqueteria__sizegrid{ grid-template-columns: 1fr; }
+        .form-paqueteria__cta{ flex-direction:column-reverse; align-items:stretch; }
+        .form-paqueteria__btn{ width:100%; }
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  // Header text
+  const header = document.createElement('div');
+  header.className = 'form-paqueteria__header';
+
+  const heroTitle = document.createElement('h3');
+  heroTitle.textContent = 'Servicio Especial de Paquetería';
+  heroTitle.style.cssText = 'margin:0;color:#ff9f40;font-size:1.2rem;font-weight:800;text-shadow:0 1px 4px rgba(0,0,0,0.4)';
+
+  const heroSubtitle = document.createElement('div');
+  heroSubtitle.className = 'form-paqueteria__subtitle';
+  heroSubtitle.textContent = 'Envíos rápidos y económicos para todo el mundo — Desde 5,63€';
+
+  header.append(heroTitle, heroSubtitle);
+
+  // Form element
+  const form = document.createElement('form');
+  form.className = 'form-paqueteria__form';
+  form.setAttribute('autocomplete','off');
+
+  // Helper to add labeled inputs
+  function addField(labelText, inputEl) {
+    const wrapper = document.createElement('div');
+    const label = document.createElement('label');
+    label.textContent = labelText;
+    wrapper.appendChild(label);
+    wrapper.appendChild(inputEl);
+    return wrapper;
+  }
+
+  // Producto select
+  const productoSelect = document.createElement('select');
+  productoSelect.innerHTML = `<option>Paquetería</option><option>Documentos</option>`;
+  form.appendChild(addField('Indica el producto que quieres enviar', productoSelect));
+
+  // Dirección de Origen
+  const direccionOrigen = document.createElement('input');
+  direccionOrigen.type = 'text'; direccionOrigen.placeholder = 'Dirección de origen (calle, nº, referencia)';
+  form.appendChild(addField('Dirección de origen', direccionOrigen));
+
+  // Dirección de Destinación
+  const direccionDest = document.createElement('input');
+  direccionDest.type = 'text'; direccionDest.placeholder = 'Dirección de destino (calle, nº, referencia)';
+  form.appendChild(addField('Dirección de destino', direccionDest));
+
+  // Codi postal origen
+  const codiOrigen = document.createElement('input');
+  codiOrigen.type = 'text'; codiOrigen.placeholder = 'Código postal origen';
+  form.appendChild(addField('Código postal origen', codiOrigen));
+
+  // Codi postal destinación
+  const codiDest = document.createElement('input');
+  codiDest.type = 'text'; codiDest.placeholder = 'Código postal destino';
+  form.appendChild(addField('Código postal destino', codiDest));
+
+  // País
+  const pais = document.createElement('input');
+  pais.type = 'text'; pais.placeholder = 'País';
+  // País — campo fijo (España)
+  // set both value and defaultValue so form.reset() and custom clears keep it as España
+  pais.value = 'España';
+  pais.defaultValue = 'España';
+  pais.readOnly = true;
+  pais.setAttribute('aria-label', 'País');
+  form.appendChild(addField('País', pais));
+
+  // Size selection grid with radio buttons
+  const sizeGrid = document.createElement('div');
+  sizeGrid.className = 'form-paqueteria__sizegrid';
+
+  const sizes = [
+    { code: 'XS', weight: 'Hasta 2 kg', dims: '30x20x20' },
+    { code: 'S', weight: 'Hasta 5 kg', dims: '35x35x24' },
+    { code: 'M', weight: 'Hasta 10 kg', dims: '40x40x37' },
+    { code: 'L', weight: 'Hasta 20 kg', dims: '55x55x39' }
+  ];
+
+  sizes.forEach((s, i) => {
+    const card = document.createElement('label');
+    card.className = 'form-paqueteria__size';
+    card.htmlFor = `size-${s.code}`;
+
+    const radio = document.createElement('input');
+    radio.type = 'radio';
+    radio.name = 'size';
+    radio.id = `size-${s.code}`;
+    radio.value = s.code;
+    if (i === 0) radio.checked = true;
+
+    const strong = document.createElement('strong');
+    strong.textContent = `${s.code} — ${s.weight}`;
+
+    const dims = document.createElement('span');
+    dims.className = 'form-paqueteria__small';
+    dims.textContent = `Dimensiones: ${s.dims}`;
+
+    card.append(radio, strong, dims);
+    sizeGrid.appendChild(card);
+  });
+
+  form.appendChild(addField('¿Qué tamaño y peso tiene el paquete?', sizeGrid));
+
+  // CTAs
+  const cta = document.createElement('div');
+  cta.className = 'form-paqueteria__cta';
+
+  const btnGhost = document.createElement('button');
+  btnGhost.type = 'button';
+  btnGhost.className = 'form-paqueteria__btn form-paqueteria__btn--ghost';
+  btnGhost.textContent = 'Borrar';
+  // Clear everything except the country which should remain "España".
+  btnGhost.onclick = () => {
+    // Reset select to first option
+    if (productoSelect) productoSelect.selectedIndex = 0;
+
+    // Clear text inputs
+    direccionOrigen.value = '';
+    direccionDest.value = '';
+    codiOrigen.value = '';
+    codiDest.value = '';
+
+    // Reset radios to first option
+    const radios = form.querySelectorAll('input[name="size"]');
+    radios.forEach((r, i) => r.checked = i === 0);
+
+    // Make sure the country stays España
+    pais.value = pais.defaultValue || 'España';
+
+    // Reset primary button text back to default
+    btnPrimary.textContent = 'Calcular envío';
+  };
+
+  const btnPrimary = document.createElement('button');
+  btnPrimary.type = 'submit';
+  btnPrimary.className = 'form-paqueteria__btn form-paqueteria__btn--primary';
+  btnPrimary.textContent = 'Calcular envío';
+
+  cta.append(btnGhost, btnPrimary);
+  form.appendChild(cta);
+
+  // Prevent default submit and show console-friendly object for now
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    // simple payload
+    const payload = {
+      producto: productoSelect.value,
+      direccion_origen: direccionOrigen.value || '',
+      direccion_destino: direccionDest.value || '',
+      codigo_postal_origen: codiOrigen.value || '',
+      codigo_postal_destino: codiDest.value || '',
+      pais: 'España',
+      talla: form.querySelector('input[name="size"]:checked')?.value || ''
+    };
+    // TODO: connect to price API or calculation
+    console.info('Formulario Paquetería:', payload);
+    // show a simple visual confirmation
+    btnPrimary.textContent = 'Calculado ✓';
+    setTimeout(() => (btnPrimary.textContent = 'Calcular envío'), 1400);
+  });
+
+  container.append(header, form);
+  return container;
+}
+
+export default FormularioPaqueteria;
