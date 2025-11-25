@@ -8,7 +8,7 @@ export function Footer() {
   // Se interpretan como fracciones de viewport (vh). Ej.: 0.4 = 40vh, 0.1 = 10vh
   // No se normalizan a 100%: el footer medirá la suma de ambos.
   const TOP_RATIO = 0.4;    // 40vh por defecto
-  const BOTTOM_RATIO = 0.1; // 10vh por defecto
+  const BOTTOM_RATIO = 0.06; // 10vh por defecto
   const topVH = Math.max(0, TOP_RATIO * 100);
   const bottomVH = Math.max(0, BOTTOM_RATIO * 100);
   const footerVH = topVH + bottomVH; // altura total del footer en vh
@@ -43,10 +43,27 @@ export function Footer() {
   bottomFrame.style.cssText = `
     background: #242424;
     border-top: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
   `;
   // Aplicar altura calculada en vh
   bottomFrame.style.flex = '0 0 auto';
   bottomFrame.style.height = `${bottomVH}vh`;
+
+  // Imagen centrada en el frame inferior (añade el archivo en /public)
+  const spainImg = document.createElement('img');
+  spainImg.src = '/SpainGoverment.png'; // coloca la imagen en public/spain-footer.png
+  spainImg.alt = 'Financiado por la Unión Europea - Plan de Recuperación';
+  spainImg.style.cssText = `
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    filter: none;
+  `;
+  bottomFrame.appendChild(spainImg);
 
   footer.appendChild(topFrame);
   footer.appendChild(bottomFrame);
