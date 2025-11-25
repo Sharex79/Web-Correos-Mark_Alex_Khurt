@@ -27,9 +27,9 @@ export function DireccionNueva() {
   
   // Título principal
   const mainTitle = document.createElement('h2');
-  mainTitle.textContent = '📍 Visítanos en nuestra oficina';
+  mainTitle.textContent = '¡¡Envia y Recoge tu paquete con Nosotros!!';
   mainTitle.style.cssText = `
-    margin: 0 0 2rem 0;
+    margin: 0 auto 2rem auto;
     font-size: 2.5rem;
     font-weight: 500;
     max-width: 700px;
@@ -51,27 +51,17 @@ export function DireccionNueva() {
     width: 100%;
   `;
   
-  // Subtítulo de dirección
-  const addressTitle = document.createElement('h3');
-  addressTitle.textContent = 'Nuestra dirección:';
-  addressTitle.style.cssText = `
-    margin: 0 0 1rem 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #fb923c;
-  `;
-  
-  // Dirección
+  // Texto informativo sin subtítulo
   const addressText = document.createElement('p');
-  addressText.textContent = 'Carrer Carles I, 6, Nord, 07003 Palma, Illes Balears';
+  addressText.textContent = 'Si deseas recoger o enviar algún paquete puedes hacerlo en los siguientes centros';
   addressText.style.cssText = `
     margin: 0;
     font-size: 1.3rem;
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
+    text-align: center;
   `;
   
-  addressContainer.appendChild(addressTitle);
   addressContainer.appendChild(addressText);
   
   // Contenedor del mapa
@@ -89,7 +79,7 @@ export function DireccionNueva() {
   
   // Mapa
   const mapFrame = document.createElement('iframe');
-  mapFrame.src = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d973.7094436846766!2d2.6454878!3d39.578077!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x129793fce043025d%3A0x6fcb837f29f687f4!2sLURA!5e0!3m2!1sen!2ses!4v1699999999999!5m2!1sen!2ses';
+  mapFrame.src = 'https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d98596.85426888848!2d2.6646639!3d39.5722325!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sOficina%20de%20Correos!5e0!3m2!1ses!2ses!4v1732563900000!5m2!1ses!2ses';
   mapFrame.style.cssText = `
     width: 100%;
     height: 450px;
@@ -158,7 +148,7 @@ export function DireccionNueva() {
   `;
   
   const weekdayText = document.createElement('p');
-  weekdayText.textContent = 'Lunes a Viernes: 8:00 AM - 19:00 PM';
+  weekdayText.textContent = 'Lunes a Viernes: 8:30 AM - 20:30 PM';
   weekdayText.style.cssText = `
     margin: 0;
     font-size: 1.3rem;
@@ -229,7 +219,7 @@ export function DireccionNueva() {
       section.style.padding = '2rem 1rem';
       mainTitle.style.fontSize = '2rem';
       scheduleTitle.style.fontSize = '1.6rem';
-      addressTitle.style.fontSize = '1.3rem';
+      addressText.style.fontSize = '1.1rem';
       mapFrame.style.height = '250px';
       
     } else {
@@ -237,8 +227,8 @@ export function DireccionNueva() {
       section.style.padding = '3rem 2rem';
       mainTitle.style.fontSize = '2.5rem';
       scheduleTitle.style.fontSize = '2rem';
-      addressTitle.style.fontSize = '1.5rem';
-      mapFrame.style.height = '350px';
+      addressText.style.fontSize = '1.3rem';
+      mapFrame.style.height = '450px';
     }
   };
   
