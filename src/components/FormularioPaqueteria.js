@@ -20,19 +20,19 @@ export function FormularioPaqueteria() {
       .form-paqueteria__header h3{ margin:0; font-size:1.1rem; font-weight:800; color:var(--accent-orange); }
       .form-paqueteria__subtitle{ color:rgba(255,255,255,0.9); font-size:.95rem; }
 
-      .form-paqueteria__form{ display:flex; flex-direction:column; gap:.85rem; padding:1rem; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.35); }
+      .form-paqueteria__form{ display:flex; flex-direction:column; gap:.85rem; padding:1rem; border-radius:12px; background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015)); border:1px solid rgba(255,255,255,0.04); box-shadow: 0 6px 18px rgba(0,0,0,0.35); max-width:100%; box-sizing:border-box; }
 
       .form-paqueteria__row{ display:flex; gap:.75rem; align-items:center; }
       .form-paqueteria__col{ flex:1 1 auto; min-width:0; }
 
       label{ display:block; font-weight:600; font-size:.95rem; color:rgba(255,255,255,0.95); margin-bottom: .35rem; }
 
-      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; }
+      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; min-width:0; }
       input[type=text]::placeholder{ color:rgba(255,255,255,0.5); }
       input[type=text]:focus, select:focus{ outline: none; box-shadow: 0 6px 18px rgba(50,50,50,0.35) inset, 0 0 0 4px rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.35); }
 
       .form-paqueteria__sizegrid{ display:grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap:.6rem; }
-      .form-paqueteria__size{ padding:.6rem .85rem; border-radius:12px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:.5rem; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+      .form-paqueteria__size{ padding:.6rem .85rem; border-radius:12px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:.5rem; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; min-width:0; }
       .form-paqueteria__size:hover{ transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,0.25); }
       .form-paqueteria__size strong{ font-size: .95rem; display:block; }
       .form-paqueteria__size span{ font-size: .85rem; color: rgba(255,255,255,0.78); }
@@ -50,12 +50,14 @@ export function FormularioPaqueteria() {
       @media (max-width: 900px){
         .form-paqueteria__row{ flex-direction:column; }
         .form-paqueteria__sizegrid{ grid-template-columns: 1fr 1fr; }
+        .form-paqueteria__form{ padding: .8rem; }
       }
 
       @media (max-width: 520px){
         .form-paqueteria__sizegrid{ grid-template-columns: 1fr; }
         .form-paqueteria__cta{ flex-direction:column-reverse; align-items:stretch; }
         .form-paqueteria__btn{ width:100%; }
+        .form-paqueteria__form{ padding: .6rem; }
       }
     `;
     document.head.appendChild(style);

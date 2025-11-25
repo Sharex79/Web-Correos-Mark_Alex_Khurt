@@ -5,6 +5,7 @@
 // ==========================================
 
 import { FormularioPaqueteria } from './FormularioPaqueteria.js';
+import { TrackingWidget } from './TrackingWidget.js';
 
 export function ContenedoresDobles() {
   const section = document.createElement('section');
@@ -52,18 +53,21 @@ export function ContenedoresDobles() {
         display: grid;
         grid-template-columns: repeat(2, minmax(320px, 1fr));
         gap: clamp(1rem, 1.4vw, 1.5rem);
-        align-items: start;
+        /* Make both columns equal height and stretch boxes */
+        align-items: stretch;
+        grid-auto-rows: 1fr; /* ensures rows match height so children can stretch */
       }
 
       .contenedores-dobles__box {
         min-height: 260px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; /* align content at the top */
+        flex: 1 1 auto; /* allow boxes to expand evenly and match height */
         box-sizing: border-box;
         border-radius: 14px;
         padding: 1.5rem;
-        display: flex;
-        flex-direction: column;
         gap: 1rem;
-        justify-content: space-between;
         border: 1px solid rgba(255,255,255,0.06);
         transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
       }
@@ -91,6 +95,8 @@ export function ContenedoresDobles() {
         line-height: 1.65;
         color: rgba(255,255,255,0.86);
         flex: 1 1 auto;
+        overflow: auto; /* prevents inner content from forcing the box larger */
+        min-height: 0; /* allow flex container to size children properly */
       }
 
       .contenedores-dobles__cta {
@@ -138,17 +144,12 @@ export function ContenedoresDobles() {
   boxLeft.setAttribute('aria-label', 'Contenedor izquierdo');
 
   const leftTitle = document.createElement('h3');
-  leftTitle.textContent = 'Servicio / Bloque A';
+  leftTitle.textContent = 'Sigue tu envío';
 
-  const leftBody = document.createElement('div');
-  leftBody.className = 'contenedores-dobles__body';
-  leftBody.innerHTML = `<p class="contenedores-dobles__small">Aquí puedes describir un servicio principal, añadir enlaces rápidos, o mostrar una llamada a la acción. Este contenedor está pensado como un bloque grande y sólido en el diseño — se adapta y se expande en pantallas pequeñas para mantener una lectura cómoda.</p>`;
+  // Use new TrackingWidget component for left box content
+  const leftBody = TrackingWidget();
 
-  const leftCta = document.createElement('div');
-  leftCta.className = 'contenedores-dobles__cta';
-  leftCta.innerHTML = `<button style="background:#ff7a1a;color:white;padding:0.65rem 1rem;border-radius:10px;border:0;font-weight:700;cursor:pointer">Más info</button>`;
-
-  boxLeft.append(leftTitle, leftBody, leftCta);
+  boxLeft.append(leftTitle, leftBody);
 
   // Box right
   const boxRight = document.createElement('article');
