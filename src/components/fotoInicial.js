@@ -11,7 +11,7 @@ export function FotoInicial() {
   // Estilos del contenedor - Ancho completo que toca los bordes
   section.style.cssText = `
     width: 100vw;
-    height: 600px;
+    height: 900px;
     margin: 0;
     margin-top: -20px;
     padding: 0;
@@ -26,14 +26,14 @@ export function FotoInicial() {
     transform: translateX(-50%);
   `;
   
-  // Imagen de fondo (usando una imagen genérica de paisaje)
+  // Imagen de fondo
   const heroImage = document.createElement('div');
   heroImage.style.cssText = `
     width: 100%;
     height: 100%;
-    background-image: url('https://www.procuradortomas.com/img/balanza.jpg');
+    background-image: url('/Foto_Inicio_Man_Paqueton.jpg');
     background-size: cover;
-    background-position: center center;
+    background-position: center 30%;
     background-repeat: no-repeat;
     position: relative;
     border-radius: 0;
@@ -135,14 +135,14 @@ export function FotoInicial() {
   const handleMobileView = (e) => {
     if (e.matches) {
       // Estilos para móvil
-      section.style.height = '400px'; // Más pequeño en móvil
+      section.style.height = '600px'; // Más pequeño en móvil
       title.style.fontSize = '2rem';
       actionButton.style.fontSize = '1rem';
       actionButton.style.padding = '0.7rem 1.5rem';
       contentContainer.style.padding = '0 1rem';
     } else {
       // Estilos para desktop
-      section.style.height = '600px'; // Más alto en desktop
+      section.style.height = '900px'; // Más alto en desktop
       title.style.fontSize = '3rem';
       actionButton.style.fontSize = '1.1rem';
       actionButton.style.padding = '0.8rem 2rem';

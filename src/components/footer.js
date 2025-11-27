@@ -16,10 +16,11 @@ export function Footer() {
   const footer = document.createElement('footer');
   footer.id = 'footer';
   footer.style.cssText = `
+   
     position: relative;
     width: 100%;
     min-height: ${footerVH}vh; /* suma directa de tus ratios */
-    margin: 0 0 0.5rem 0; /* pequeño margen inferior */
+    margin: 4rem 0 0.5rem 0; /* margen superior para separar del contenido */
     padding: 0;
     display: flex;
     flex-direction: column;

@@ -8,73 +8,108 @@ export function DireccionNueva() {
   section.className = 'direccion-oficina';
   section.id = 'direccion';
   
-  // Estilos del contenedor principal - Tema naranja suave
+  // Estilos del contenedor principal - Tema naranja suave con efecto de profundidad
   section.style.cssText = `
     width: 100%;
-    max-width: 900px;
-    padding: 3rem 2rem;
-    margin: 2rem 0;
-    background: linear-gradient(135deg, rgba(251, 146, 60, 0.08), rgba(249, 115, 22, 0.04));
-    border-radius: 16px;
-    border: 1px solid rgba(251, 146, 60, 0.2);
+    max-width: 1000px;
+    padding: 4rem 2.5rem;
+    margin: 3rem 0;
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.12), rgba(249, 115, 22, 0.06));
+    border-radius: 24px;
+    border: 2px solid rgba(251, 146, 60, 0.3);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(251, 146, 60, 0.15), 0 0 80px rgba(251, 146, 60, 0.05);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     text-align: center;
+    backdrop-filter: blur(10px);
   `;
   
-  // Título principal
+  // Título principal con icono
   const mainTitle = document.createElement('h2');
-  mainTitle.textContent = '¡¡Envia y Recoge tu paquete con Nosotros!!';
+  mainTitle.innerHTML = '¡¡Envia y Recoge tu paquete con Nosotros!!';
   mainTitle.style.cssText = `
-    margin: 0 auto 2rem auto;
-    font-size: 2.5rem;
-    font-weight: 500;
-    max-width: 700px;
-    color: #fb923c;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    line-height: 1.2;
+    margin: 0 auto 3rem auto;
+    font-size: 2.8rem;
+    font-weight: 700;
+    max-width: 800px;
+    background: linear-gradient(135deg, #fb923c, #f97316, #fb923c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow: none;
+    line-height: 1.3;
+    letter-spacing: 0.5px;
+    animation: titlePulse 3s ease-in-out infinite;
   `;
   
-  // Contenedor de información de dirección
+  // Animación del título
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = `
+    @keyframes titlePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.02); }
+    }
+  `;
+  document.head.appendChild(styleSheet);
+  
+  // Contenedor de información de dirección con diseño mejorado
   const addressContainer = document.createElement('div');
   addressContainer.style.cssText = `
-    background: rgba(251, 146, 60, 0.1);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem auto;
-    border: 1px solid rgba(251, 146, 60, 0.3);
-    transition: all 0.3s ease;
-    max-width: 700px;
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(249, 115, 22, 0.08));
+    border-radius: 20px;
+    padding: 2.5rem 3rem;
+    margin: 2.5rem auto;
+    border: 2px solid rgba(251, 146, 60, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 750px;
     width: 100%;
+    box-shadow: 0 4px 20px rgba(251, 146, 60, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
   `;
   
-  // Texto informativo sin subtítulo
+  // Efecto de brillo decorativo
+  const shine = document.createElement('div');
+  shine.style.cssText = `
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+  `;
+  addressContainer.appendChild(shine);
+  
+  // Texto informativo sin subtítulo con icono
   const addressText = document.createElement('p');
-  addressText.textContent = 'Si deseas recoger o enviar algún paquete puedes hacerlo en los siguientes centros';
+  addressText.innerHTML = 'Si deseas recoger o enviar algún paquete puedes hacerlo en los siguientes centros';
   addressText.style.cssText = `
     margin: 0;
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
+    font-size: 1.4rem;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 600;
     text-align: center;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
   `;
   
   addressContainer.appendChild(addressText);
   
-  // Contenedor del mapa
+  // Contenedor del mapa con diseño mejorado
   const mapContainer = document.createElement('div');
   mapContainer.style.cssText = `
-    margin: 2.5rem auto;
-    border-radius: 12px;
+    margin: 3rem auto;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-    border: 3px solid rgba(251, 146, 60, 0.3);
-    transition: all 0.3s ease;
-    max-width: 700px;
-
+    box-shadow: 0 12px 40px rgba(251, 146, 60, 0.25), 0 0 60px rgba(251, 146, 60, 0.1);
+    border: 3px solid rgba(251, 146, 60, 0.5);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 800px;
+    position: relative;
   `;
   
   // Mapa
@@ -93,39 +128,45 @@ export function DireccionNueva() {
   
   mapContainer.appendChild(mapFrame);
   
-  // Efectos hover en el mapa
+  // Efectos hover en el mapa mejorados
   mapContainer.addEventListener('mouseenter', () => {
-    mapContainer.style.transform = 'translateY(-5px) scale(1.02)';
-    mapContainer.style.boxShadow = '0 12px 35px rgba(251, 146, 60, 0.2)';
+    mapContainer.style.transform = 'translateY(-8px) scale(1.03)';
+    mapContainer.style.boxShadow = '0 16px 50px rgba(251, 146, 60, 0.35), 0 0 80px rgba(251, 146, 60, 0.15)';
+    mapContainer.style.borderColor = 'rgba(251, 146, 60, 0.7)';
   });
   
   mapContainer.addEventListener('mouseleave', () => {
     mapContainer.style.transform = 'translateY(0) scale(1)';
-    mapContainer.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.3)';
+    mapContainer.style.boxShadow = '0 12px 40px rgba(251, 146, 60, 0.25), 0 0 60px rgba(251, 146, 60, 0.1)';
+    mapContainer.style.borderColor = 'rgba(251, 146, 60, 0.5)';
   });
   
-  // Contenedor de horarios
+  // Contenedor de horarios con diseño premium
   const scheduleContainer = document.createElement('div');
   scheduleContainer.style.cssText = `
-    background: rgba(251, 146, 60, 0.1);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 2rem auto;
-    border: 1px solid rgba(251, 146, 60, 0.3);
-    transition: all 0.3s ease;
-    max-width: 500px;
+    background: linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(249, 115, 22, 0.08));
+    border-radius: 20px;
+    padding: 2.5rem 2rem;
+    margin: 3rem auto;
+    border: 2px solid rgba(251, 146, 60, 0.4);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-width: 550px;
     width: 100%;
+    box-shadow: 0 8px 30px rgba(251, 146, 60, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   `;
   
-  // Título de horarios
+  // Título de horarios con efecto gradiente
   const scheduleTitle = document.createElement('h3');
-  scheduleTitle.textContent = '🕒 Nuestro Horario Habitual';
+  scheduleTitle.textContent = 'Nuestro Horario Habitual';
   scheduleTitle.style.cssText = `
-    margin: 0 0 1.5rem 0;
-    font-size: 2rem;
+    margin: 0 0 2rem 0;
+    font-size: 2.2rem;
     font-weight: 700;
-    color: #fb923c;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #fb923c, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 2px 8px rgba(251, 146, 60, 0.3));
   `;
   
   // Contenedor de horarios específicos
@@ -196,17 +237,31 @@ export function DireccionNueva() {
   scheduleContainer.appendChild(scheduleTitle);
   scheduleContainer.appendChild(scheduleDetails);
   
-  // Efectos hover en los contenedores
-  [addressContainer, scheduleContainer].forEach(container => {
-    container.addEventListener('mouseenter', () => {
-      container.style.background = 'rgba(251, 146, 60, 0.15)';
-      container.style.transform = 'translateY(-2px)';
-    });
-    
-    container.addEventListener('mouseleave', () => {
-      container.style.background = 'rgba(251, 146, 60, 0.1)';
-      container.style.transform = 'translateY(0)';
-    });
+  // Efectos hover en los contenedores con animación de brillo
+  addressContainer.addEventListener('mouseenter', () => {
+    addressContainer.style.background = 'linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(249, 115, 22, 0.12))';
+    addressContainer.style.transform = 'translateY(-4px)';
+    addressContainer.style.boxShadow = '0 8px 30px rgba(251, 146, 60, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.15)';
+    shine.style.left = '100%';
+  });
+  
+  addressContainer.addEventListener('mouseleave', () => {
+    addressContainer.style.background = 'linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(249, 115, 22, 0.08))';
+    addressContainer.style.transform = 'translateY(0)';
+    addressContainer.style.boxShadow = '0 4px 20px rgba(251, 146, 60, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
+    shine.style.left = '-100%';
+  });
+  
+  scheduleContainer.addEventListener('mouseenter', () => {
+    scheduleContainer.style.background = 'linear-gradient(135deg, rgba(251, 146, 60, 0.2), rgba(249, 115, 22, 0.12))';
+    scheduleContainer.style.transform = 'translateY(-4px)';
+    scheduleContainer.style.boxShadow = '0 12px 40px rgba(251, 146, 60, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15)';
+  });
+  
+  scheduleContainer.addEventListener('mouseleave', () => {
+    scheduleContainer.style.background = 'linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(249, 115, 22, 0.08))';
+    scheduleContainer.style.transform = 'translateY(0)';
+    scheduleContainer.style.boxShadow = '0 8px 30px rgba(251, 146, 60, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.1)';
   });
   
   // ==========================================
@@ -216,34 +271,36 @@ export function DireccionNueva() {
   const handleMobileView = (e) => {
     if (e.matches) {
       // Móvil
-      section.style.padding = '2rem 1rem';
+      section.style.padding = '2.5rem 1.5rem';
       mainTitle.style.fontSize = '2rem';
-      scheduleTitle.style.fontSize = '1.6rem';
-      addressText.style.fontSize = '1.1rem';
-      mapFrame.style.height = '250px';
+      scheduleTitle.style.fontSize = '1.7rem';
+      addressText.style.fontSize = '1.15rem';
+      mapFrame.style.height = '300px';
       
     } else {
       // Desktop
-      section.style.padding = '3rem 2rem';
-      mainTitle.style.fontSize = '2.5rem';
-      scheduleTitle.style.fontSize = '2rem';
-      addressText.style.fontSize = '1.3rem';
-      mapFrame.style.height = '450px';
+      section.style.padding = '4rem 2.5rem';
+      mainTitle.style.fontSize = '2.8rem';
+      scheduleTitle.style.fontSize = '2.2rem';
+      addressText.style.fontSize = '1.4rem';
+      mapFrame.style.height = '500px';
     }
   };
   
   mediaQuery.addListener(handleMobileView);
   handleMobileView(mediaQuery);
   
-  // Efecto hover en toda la sección - Igual que botones respuestas
+  // Efecto hover en toda la sección mejorado
   section.addEventListener('mouseenter', () => {
-    section.style.transform = 'rotateX(2deg) translateY(-5px)';
-    section.style.boxShadow = '0 12px 40px rgba(251, 146, 60, 0.2)';
+    section.style.transform = 'rotateX(1deg) translateY(-8px)';
+    section.style.boxShadow = '0 16px 60px rgba(251, 146, 60, 0.3), 0 0 100px rgba(251, 146, 60, 0.1)';
+    section.style.borderColor = 'rgba(251, 146, 60, 0.5)';
   });
   
   section.addEventListener('mouseleave', () => {
     section.style.transform = 'rotateX(0deg) translateY(0)';
-    section.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+    section.style.boxShadow = '0 8px 32px rgba(251, 146, 60, 0.15), 0 0 80px rgba(251, 146, 60, 0.05)';
+    section.style.borderColor = 'rgba(251, 146, 60, 0.3)';
   });
   
   // Ensamblar componente

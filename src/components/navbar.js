@@ -27,8 +27,8 @@ export function Navbar() {
   `;
   
   const logo = document.createElement('img');
-  logo.src = '/Logo.png';
-  logo.alt = 'Law Firm Logo';
+  logo.src = '/Correos_Icon.png';
+  logo.alt = 'Correos Logo';
   logo.style.cssText = `
     height: 60px;
     width: auto;
