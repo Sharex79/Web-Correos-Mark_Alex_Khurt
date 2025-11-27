@@ -122,6 +122,15 @@ function injectEmpanadasStyles() {
       transform: scale(1.13);
     }
 
+    /* Forzar color negro en el texto del selector de idioma de Google Translate */
+    #google_translate_element span,
+    #google_translate_element a,
+    .goog-te-gadget span,
+    .goog-te-gadget a,
+    .goog-te-menu-value span {
+      color: #000 !important;
+    }
+
     /* SOLO MOVIL */
     @media (max-width: 600px) {
       .empanadas-banner {

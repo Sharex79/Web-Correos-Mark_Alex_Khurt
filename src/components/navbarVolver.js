@@ -155,7 +155,7 @@ export function Navbar() {
     a.style.cssText = `
       display: block;
       padding: 0.9rem 1.25rem;
-      color: rgba(255,255,255,0.87);
+      color: rgba(255,255,255,0.87) !important;
       text-decoration: none;
       transition: background-color 0.3s ease, color 0.2s ease;
       cursor: default;
@@ -164,11 +164,11 @@ export function Navbar() {
     a.addEventListener('click', (e) => e.preventDefault());
     a.addEventListener('mouseenter', () => {
       a.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
-      a.style.color = '#f97316';
+      a.style.setProperty('color', '#f97316', 'important');
     });
     a.addEventListener('mouseleave', () => {
       a.style.backgroundColor = 'transparent';
-      a.style.color = 'rgba(255,255,255,0.87)';
+      a.style.setProperty('color', 'rgba(255,255,255,0.87)', 'important');
     });
     return a;
   }
@@ -223,7 +223,7 @@ export function Navbar() {
       background: transparent;
       border: none;
       outline: none;
-      color: ${isSelected ? '#f97316' : 'rgba(255,255,255,0.92)'};
+      color: ${isSelected ? '#f97316' : 'rgba(255,255,255,0.92)'} !important;
       padding: 0;
       cursor: pointer;
       font-size: 1.05rem;
@@ -243,21 +243,21 @@ export function Navbar() {
       // Actualizar estilos de todos los botones
       Array.from(langList.children).forEach((el) => {
         const isActive = el.getAttribute('data-lang') === selectedLang;
-        el.style.color = isActive ? '#f97316' : 'rgba(255,255,255,0.92)';
+        el.style.setProperty('color', isActive ? '#f97316' : 'rgba(255,255,255,0.92)', 'important');
         el.style.fontWeight = isActive ? '700' : '500';
       });
     });
     
     btn.addEventListener('mouseenter', () => {
       if (item.code !== selectedLang) {
-        btn.style.color = '#f97316';
+        btn.style.setProperty('color', '#f97316', 'important');
       }
       btn.style.textDecoration = 'underline';
     });
     
     btn.addEventListener('mouseleave', () => {
       if (item.code !== selectedLang) {
-        btn.style.color = 'rgba(255,255,255,0.92)';
+        btn.style.setProperty('color', 'rgba(255,255,255,0.92)', 'important');
       }
       btn.style.textDecoration = 'none';
     });
@@ -283,11 +283,11 @@ export function Navbar() {
   // Botón "Volver" en el menú
   const volverLink = document.createElement('a');
   volverLink.href = '#';
-  volverLink.textContent = '🏠 Volver';
+  volverLink.textContent = 'Volver al Inicio';
   volverLink.style.cssText = `
     display: block;
     padding: 1.2rem 1.5rem;
-    color: rgba(255, 255, 255, 0.87);
+    color: rgba(255, 255, 255, 0.87) !important;
     text-decoration: none;
     transition: background-color 0.3s ease, color 0.2s ease;
     cursor: pointer;
@@ -303,12 +303,12 @@ export function Navbar() {
   
   volverLink.addEventListener('mouseenter', () => {
     volverLink.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
-    volverLink.style.color = '#f97316';
+    volverLink.style.setProperty('color', '#f97316', 'important');
   });
   
   volverLink.addEventListener('mouseleave', () => {
     volverLink.style.backgroundColor = 'transparent';
-    volverLink.style.color = 'rgba(255, 255, 255, 0.87)';
+    volverLink.style.setProperty('color', 'rgba(255, 255, 255, 0.87)', 'important');
   });
   
   panelList.appendChild(volverLink);

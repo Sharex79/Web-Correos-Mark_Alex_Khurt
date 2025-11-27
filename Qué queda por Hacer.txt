@@ -1,13 +1,12 @@
 1.)
--Elementos de Correos visuales ( .js's )
--Legalidad y su nueva Navbar ( solo la opción volver )
--Ayuda.js ( Tutorial con misma Navbar  que Legalidades )
--FeedBack.js ( Para rellenar y decir que fallo hay con la misma navbar que Legalidades )
--Algún .JS de los Elementos de Correos visuales con navbar de legalidades
+-Elementos de Correos visuales ( .js's )       Mark
+-Ayuda.js ( Tutorial con misma NavbarVolver )        xxxx
+-FeedBack.js ( Para rellenar y decir que fallo hay con NavbarVolver)     xxxx
+-Algún .JS de los Elementos de Correos visuales con NavbarVolver         xxxx
 
 2.)
--Linkear la navbar con todos los nuevos Elementos
--Probar y Buscar Fallos
+-Linkear la navbar con todos los nuevos Elementos    Alex
+-Probar y Buscar Fallos     TODOS
 
 
 

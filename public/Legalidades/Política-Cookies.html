@@ -31,6 +31,8 @@ a:hover {
     align-items: unset !important; 
     background: #1a1a1a !important;
     color: #fff !important;
+    opacity: 0;
+    transition: opacity 0.6s ease;
   }
   .container.margen-navbar {
     max-width: 1800px !important;
@@ -196,10 +198,6 @@ button[title*="WhatsApp"]:hover {
   <!-- Navbar -->
   <div id="navbar"></div>
   <!-- Navbar -->
-  <script type="module">
-  import { BotonContacto } from '/src/components/botonwhatsapp.js';
-  BotonContacto();
-  </script>
 
   <div id="contenido-cookies"></div>
   <!-- Placeholder eliminado - contenido cargado desde PoliticaCookies.js -->
