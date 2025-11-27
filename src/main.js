@@ -14,10 +14,11 @@ import { BotonVerde } from './components/botonwhatsapp.js';
 import { DireccionNueva } from './components/direccionNueva.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Contacto } from './components/Formulario.js';
-import { Accesibilidad } from './components/Legalidades/Accesibilidad.js';
+import { renderAccesibilidad } from './components/Legalidades/Accesibilidad.js';
 import { AvisosLegales } from './components/Legalidades/AvisosLegales.js';
 import { PoliticaCookies } from './components/Legalidades/PoliticaCookies.js';
 import { TerminosCondiciones } from './components/Legalidades/TerminosCondiciones.js';
+import { renderReclamos } from './components/Legalidades/Reclamos.js';
 
 
 
@@ -188,7 +189,7 @@ window.mostrarLegalidad = function(tipo) {
     let componenteLegal;
     switch(tipo) {
       case 'accesibilidad':
-        componenteLegal = Accesibilidad();
+        componenteLegal = renderAccesibilidad();
         break;
       case 'avisos-legales':
         componenteLegal = AvisosLegales();
@@ -198,6 +199,9 @@ window.mostrarLegalidad = function(tipo) {
         break;
       case 'terminos-condiciones':
         componenteLegal = TerminosCondiciones();
+        break;
+      case 'reclamos':
+        componenteLegal = renderReclamos();
         break;
       default:
         console.error('Tipo de legalidad desconocido:', tipo);

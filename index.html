@@ -5,6 +5,18 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">   <title>Proyecto Vite Modular</title>  
  <link rel="stylesheet" href="/src/style.css">  </head>  
 <body>  
- <script type="module" src="/src/main.js"></script>  
+ <script type="module">
+   // Iniciar con opacidad 0 para animación de entrada
+   document.body.style.opacity = '0';
+   document.body.style.transition = 'opacity 0.6s ease';
+   
+   // Importar y ejecutar main.js
+   import('/src/main.js').then(() => {
+     // Animar aparición después de cargar todo
+     requestAnimationFrame(() => {
+       document.body.style.opacity = '1';
+     });
+   });
+ </script>  
 </body>  
 </html>  

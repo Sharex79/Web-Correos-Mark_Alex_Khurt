@@ -240,7 +240,8 @@ export function Footer() {
     { text: 'Accesibilidad', href: '/Legalidades/Accesibilidad.html' },
     { text: 'Avisos Legales', href: '/Legalidades/Avisos-Legales.html' },
     { text: 'Política de Cookies', href: '/Legalidades/Política-Cookies.html' },
-    { text: 'Términos y Condiciones', href: '/Legalidades/Términos-Condiciones.html' }
+    { text: 'Términos y Condiciones', href: '/Legalidades/Términos-Condiciones.html' },
+    { text: 'Reclamos', href: '/Legalidades/Reclamos.html' }
   ];
 
   function makeLegalLink(item) {
@@ -259,6 +260,21 @@ export function Footer() {
       display: block;
       transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
     `;
+    
+    // Interceptar el click para agregar animación de desvanecimiento
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Desvanecer todo el contenido actual
+      document.body.style.transition = 'opacity 0.5s ease';
+      document.body.style.opacity = '0';
+      
+      // Después de la animación, navegar a la página
+      setTimeout(() => {
+        window.location.href = item.href;
+      }, 500);
+    });
+    
     a.addEventListener('mouseenter', () => {
       a.style.transform = 'scale(1.03)';
       a.style.boxShadow = '0 4px 14px rgba(0,0,0,.4)';

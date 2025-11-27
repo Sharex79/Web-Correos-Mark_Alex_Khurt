@@ -195,36 +195,64 @@ export function Navbar() {
     flex-wrap: wrap;
   `;
 
-  const languages = ['ES', 'CA', 'EU'];
+  const languages = [
+    { code: 'ES', lang: 'es' },
+    { code: 'CA', lang: 'ca' },
+    { code: 'EU', lang: 'eu' }
+  ];
   let selectedLang = 'ES';
-  languages.forEach((code) => {
+  
+  languages.forEach((item) => {
     const btn = document.createElement('button');
     btn.type = 'button';
-    btn.textContent = code;
-    btn.setAttribute('data-lang', code);
+    btn.textContent = item.code;
+    btn.setAttribute('data-lang', item.code);
+    
+    // ES siempre iluminado en naranja
+    const isSelected = item.code === selectedLang;
     btn.style.cssText = `
       background: transparent;
       border: none;
-      color: rgba(255,255,255,0.92);
+      outline: none;
+      color: ${isSelected ? '#f97316' : 'rgba(255,255,255,0.92)'};
       padding: 0;
       cursor: pointer;
       font-size: 1.05rem;
-      font-weight: ${code === selectedLang ? '700' : '500'};
+      font-weight: ${isSelected ? '700' : '500'};
       letter-spacing: 0.02em;
+      transition: color 0.2s ease;
     `;
-    btn.addEventListener('click', () => {
-      selectedLang = code;
-      Array.from(langList.children).forEach((el) => {
-        el.style.fontWeight = '500';
-      });
-      btn.style.fontWeight = '700';
+    
+    // Remover el círculo de enfoque
+    btn.addEventListener('focus', () => {
+      btn.style.outline = 'none';
     });
+    
+    btn.addEventListener('click', () => {
+      selectedLang = item.code;
+      
+      // Actualizar estilos de todos los botones
+      Array.from(langList.children).forEach((el) => {
+        const isActive = el.getAttribute('data-lang') === selectedLang;
+        el.style.color = isActive ? '#f97316' : 'rgba(255,255,255,0.92)';
+        el.style.fontWeight = isActive ? '700' : '500';
+      });
+    });
+    
     btn.addEventListener('mouseenter', () => {
+      if (item.code !== selectedLang) {
+        btn.style.color = '#f97316';
+      }
       btn.style.textDecoration = 'underline';
     });
+    
     btn.addEventListener('mouseleave', () => {
+      if (item.code !== selectedLang) {
+        btn.style.color = 'rgba(255,255,255,0.92)';
+      }
       btn.style.textDecoration = 'none';
     });
+    
     langList.appendChild(btn);
   });
 

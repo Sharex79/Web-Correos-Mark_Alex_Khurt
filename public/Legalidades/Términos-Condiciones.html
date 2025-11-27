@@ -199,7 +199,9 @@ button[title*="WhatsApp"]:hover {
   <div id="navbar"></div>
   <!-- Navbar -->
 
-  <div id="contenido-terminos" class="container margen-navbar">
+  <div id="contenido-terminos"></div>
+  <!-- Contenido cargado dinámicamente desde TerminosCondiciones.js -->
+  <div style="display:none;" class="container margen-navbar">
     <h1 class="Inicio-Informacion top_legalidades">Términos y Condiciones de Servicio</h1>
     <p><b>Última actualización: 10 de noviembre de 2025</b></p>
 
@@ -324,17 +326,30 @@ button[title*="WhatsApp"]:hover {
 
   <!-- Scripts -->
 <script type="module">
-  import { Navbar } from '/src/components/navbar.js';
+  import { Navbar } from '/src/components/navbarVolver.js';
   import { Footer } from '/src/components/footer.js';
   import { EmpanadaBanner } from '/src/components/EmpanadaBanner.js';
+  import { TerminosCondiciones } from '/src/components/Legalidades/TerminosCondiciones.js';
 
   window.addEventListener('DOMContentLoaded', () => {
+    // Iniciar con opacidad 0
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.6s ease';
+    
     EmpanadaBanner();
     const navbarDiv = document.getElementById('navbar');
     if (navbarDiv) navbarDiv.appendChild(Navbar());
 
+    const contentDiv = document.getElementById('contenido-terminos');
+    if (contentDiv) contentDiv.appendChild(TerminosCondiciones());
+
     const footerDiv = document.getElementById('footer');
     if (footerDiv) footerDiv.appendChild(Footer());
+    
+    // Animar aparición después de cargar todo
+    requestAnimationFrame(() => {
+      document.body.style.opacity = '1';
+    });
   });
 </script>
 </body>

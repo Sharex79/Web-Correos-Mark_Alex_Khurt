@@ -46,112 +46,163 @@ export function AvisosLegales() {
   
   container.innerHTML = `
     <h1 class="Inicio-Informacion top_legalidades">Aviso Legal</h1>
-    <p><b>Última actualización: 10 de noviembre de 2025</b></p>
+    <p><b>Última actualización: 27 de noviembre de 2025</b></p>
 
     <p>
-      Bienvenido al sitio web de nuestro despacho de abogados. Al acceder y utilizar este sitio web, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones legales, así como a nuestra <a href="/Legalidades/Política-Cookies.html">Política de Cookies</a>.
+      Bienvenido al sitio web de Correos Express. Al acceder y utilizar este portal web, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones legales, así como a nuestra <a href="/Legalidades/Política-Cookies.html">Política de Cookies</a> y demás normativas aplicables a nuestros servicios de mensajería y paquetería.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Identificación del responsable</h2>
+    <h2 class="top_legalidades">Identificación del titular</h2>
     <p>
-      En cumplimiento con el artículo 10 de la Ley 34/2002, de Servicios de la Sociedad de la Información y Comercio Electrónico (LSSI-CE), y la normativa colegial aplicable, le informamos que:
+      En cumplimiento con el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y de Comercio Electrónico (LSSI-CE), le informamos de los siguientes datos identificativos del titular de este sitio web:
     </p>
     <ul>
-      <li><b>Denominación profesional:</b> Despacho de Abogados Gabriel Tomás Gili</li>
-      <li><b>Domicilio profesional:</b> Calle de la Justicia, 25, 28001 Madrid, España</li>
-      <li><b>Correo electrónico profesional:</b> <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a></li>
-      <li><b>Teléfono de contacto:</b> 613 95 96 89</li>
-      <li><b>NIF:</b> 12345678A</li>
-      <li><b>Número de colegiado:</b> 15678 del Ilustre Colegio de Abogados de Madrid</li>
+      <li><b>Denominación social:</b> Correos Express y Paquetería, S.A.</li>
+      <li><b>Nombre comercial:</b> Correos Express</li>
+      <li><b>Domicilio social:</b> Avenida del Correo, 50, 28080 Madrid, España</li>
+      <li><b>Correo electrónico de contacto:</b> <a href="mailto:info@correosexpress.com">info@correosexpress.com</a></li>
+      <li><b>Teléfono de atención al cliente:</b> 902 100 102 / 613 95 96 89</li>
+      <li><b>CIF:</b> A-28123456</li>
+      <li><b>Registro Mercantil:</b> Inscrita en el Registro Mercantil de Madrid, Tomo 12345, Folio 67, Hoja M-123456</li>
+      <li><b>Actividad principal:</b> Servicios postales, mensajería urgente, transporte de mercancías y paquetería nacional e internacional</li>
     </ul>
 
     <br>
     <hr />
     <h2 class="top_legalidades">Objeto y ámbito de aplicación</h2>
     <p>
-      El presente Aviso Legal regula el acceso, navegación y uso de este sitio web profesional (en adelante, el "sitio web"), así como las condiciones para la contratación de servicios jurídicos ofrecidos por nuestro despacho de abogados, especializado en asesoramiento legal integral y representación judicial.
+      El presente Aviso Legal regula el acceso, navegación y uso de este sitio web (en adelante, el "sitio web" o "portal"), así como las condiciones generales para la contratación de servicios de mensajería, paquetería, envío de documentos y mercancías, tanto a nivel nacional como internacional, ofrecidos por Correos Express a través de sus diferentes canales.
+    </p>
+    <p>
+      Este portal tiene como finalidad proporcionar información sobre nuestros servicios postales, facilitar el seguimiento de envíos, permitir la contratación online de servicios de transporte y mensajería, y ofrecer herramientas para la gestión eficiente de envíos y recepciones de mercancías.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Condiciones de uso del sitio web</h2>
+    <h2 class="top_legalidades">Condiciones generales de uso del sitio web</h2>
     <p>
-      El usuario se compromete a utilizar el sitio web de conformidad con la legislación vigente, el presente Aviso Legal, las normas deontológicas de la abogacía, las buenas costumbres y el orden público, absteniéndose de utilizarlo para fines ilícitos o contrarios a la dignidad profesional.
+      El acceso y navegación por este sitio web implica la aceptación expresa y sin reservas de todas las condiciones establecidas en este Aviso Legal. El usuario se compromete a utilizar el sitio web de conformidad con la legislación vigente, el presente Aviso Legal, las buenas costumbres y el orden público.
     </p>
     <p>
-      El acceso y consulta del sitio web es gratuito, salvo en lo relativo al coste de conexión a través de la red de telecomunicaciones. La contratación de servicios profesionales estará sujeta a las condiciones específicas que se acuerden en cada caso.
+      El acceso al sitio web y la consulta de información general es gratuito, sin perjuicio del coste de conexión a través de la red de telecomunicaciones suministrada por el proveedor de acceso contratado por el usuario. La contratación de servicios de mensajería y paquetería estará sujeta a las tarifas vigentes y condiciones específicas de cada servicio.
+    </p>
+    <p>
+      Queda expresamente prohibido el uso del sitio web con fines ilícitos o lesivos contra Correos Express, otros usuarios o terceros, así como cualquier actuación que pueda dañar, inutilizar, sobrecargar o deteriorar el portal o impedir su normal utilización por otros usuarios.
     </p>
 
     <br>
     <hr />
     <h2 class="top_legalidades">Propiedad intelectual e industrial</h2>
     <p>
-      Todos los contenidos del sitio web, incluyendo pero no limitándose a textos jurídicos, modelos de documentos, artículos especializados, imágenes, gráficos, logotipos, software y nombres comerciales, son propiedad del despacho o de terceros que han autorizado su uso, y están protegidos por las leyes de propiedad intelectual e industrial.
+      Todos los contenidos del sitio web, incluyendo pero no limitándose a textos, fotografías, gráficos, imágenes, iconos, tecnología, software, diseño gráfico, código fuente, así como su diseño gráfico y códigos fuente, son propiedad intelectual de Correos Express o de terceros titulares que han autorizado su uso, y están protegidos por las leyes españolas e internacionales sobre propiedad intelectual e industrial.
     </p>
     <p>
-      Queda prohibida la reproducción, distribución, comunicación pública, transformación o cualquier otra forma de explotación de los contenidos sin la autorización expresa del titular. Los documentos y formularios disponibles tienen carácter meramente informativo y no sustituyen el asesoramiento profesional personalizado.
-    </p>
-
-    <br>
-    <hr />
-    <h2 class="top_legalidades">Limitaciones de responsabilidad</h2>
-    <p>
-      El despacho no garantiza la disponibilidad y continuidad ininterrumpida del funcionamiento del sitio web, ni se hace responsable de cualquier daño o perjuicio derivado de la falta de disponibilidad o de la interrupción del servicio, salvo en los casos que la ley establezca expresamente.
+      Las marcas, nombres comerciales, signos distintivos, logotipos y cualquier otro signo susceptible de protección como marca que aparezcan en el sitio web son propiedad de Correos Express o de terceros que han autorizado su uso. La exhibición de estos elementos en el sitio web no implica la concesión de licencia o autorización alguna para su uso sin la autorización expresa de sus titulares legítimos.
     </p>
     <p>
-      La información contenida en el sitio web tiene carácter general y orientativo. Para cualquier cuestión jurídica específica, es imprescindible la consulta profesional personalizada. El usuario asume toda responsabilidad por el uso que haga del sitio web y sus contenidos.
+      Queda estrictamente prohibida la reproducción, distribución, comunicación pública, transformación o cualquier otra forma de explotación de los contenidos del sitio web sin la autorización previa y expresa de Correos Express o de sus legítimos titulares. El incumplimiento de estas prohibiciones puede constituir una infracción sancionable por la legislación vigente.
+    </p>
+    <p>
+      Los usuarios únicamente están autorizados a visualizar, imprimir y descargar los contenidos del sitio web para su uso personal y privado, quedando prohibido cualquier uso comercial o de explotación económica de dichos contenidos sin autorización expresa.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Servicios profesionales y contratación</h2>
+    <h2 class="top_legalidades">Exclusión de garantías y limitación de responsabilidad</h2>
     <p>
-      Los servicios jurídicos ofrecidos a través de este sitio web están sujetos a la aceptación expresa del encargo por parte del letrado y a la firma del correspondiente contrato de servicios profesionales.
+      Correos Express no garantiza la disponibilidad y continuidad ininterrumpida del funcionamiento del sitio web. Cuando sea razonablemente posible, advertirá previamente de las interrupciones en el funcionamiento del portal por razones de mantenimiento, actualizaciones técnicas o mejoras del sistema.
     </p>
     <p>
-      La información sobre honorarios y condiciones de prestación de servicios se facilitará de forma personalizada en cada caso. Para más detalles sobre nuestros servicios, consulte nuestros <a href="./Términos-Condiciones.html">Términos y Condiciones de Servicio</a>.
+      Correos Express no se hace responsable de los daños y perjuicios de cualquier naturaleza que puedan derivarse de la falta de disponibilidad, accesibilidad o continuidad del sitio web, ni de los errores en el acceso a las distintas páginas o secciones del portal, salvo en los casos en que la legislación vigente establezca expresamente lo contrario.
+    </p>
+    <p>
+      La información y servicios incluidos o disponibles a través del sitio web pueden incluir inexactitudes técnicas o errores tipográficos. Correos Express realiza periódicamente mejoras y/o cambios en la información, servicios y tarifas descritos en el sitio web sin obligación de comunicación previa.
+    </p>
+    <p>
+      Correos Express no asume responsabilidad alguna derivada de la utilización que los usuarios puedan hacer de los materiales publicados o disponibles en el sitio web, ni por los daños y perjuicios que puedan derivarse del uso de información inexacta, incompleta o desactualizada. El usuario es el único responsable del uso que realice del sitio web, sus contenidos y servicios.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Protección de datos personales</h2>
+    <h2 class="top_legalidades">Servicios de mensajería y contratación online</h2>
     <p>
-      Nuestro despacho cumple estrictamente con la normativa vigente en materia de protección de datos personales (Reglamento General de Protección de Datos - RGPD y Ley Orgánica de Protección de Datos - LOPDGDD), garantizando además el secreto profesional propio de la relación abogado-cliente.
+      Los servicios de mensajería, paquetería y envío ofrecidos a través de este sitio web están sujetos a las Condiciones Generales de Contratación específicas de cada servicio, que complementan el presente Aviso Legal. La contratación de servicios puede realizarse a través de la web, aplicaciones móviles, puntos de atención presencial o mediante nuestro servicio telefónico de atención al cliente.
+    </p>
+    <p>
+      Los precios y tarifas de los servicios de transporte y mensajería están sujetos a las condiciones económicas vigentes en cada momento, que se encuentran publicadas en nuestro sitio web y están disponibles en nuestros puntos de venta. Las tarifas pueden variar en función del tipo de servicio, destino, peso, dimensiones y valor declarado del envío.
+    </p>
+    <p>
+      Para más información detallada sobre las condiciones de prestación de servicios, plazos de entrega, responsabilidades, limitaciones y procedimientos de reclamación, consulte nuestros <a href="/Legalidades/Términos-Condiciones.html">Términos y Condiciones de Servicio</a>.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Normativa deontológica y colegial</h2>
+    <h2 class="top_legalidades">Protección de datos personales y confidencialidad</h2>
     <p>
-      El ejercicio profesional se rige por el Estatuto General de la Abogacía Española, las normas deontológicas del Ilustre Colegio de Abogados de Madrid y demás normativa colegial aplicable. En caso de conflicto de intereses o cuestiones deontológicas, prevalecerán las normas colegiales y el Código Deontológico de la Abogacía.
+      Correos Express cumple estrictamente con la normativa vigente en materia de protección de datos de carácter personal, en particular el Reglamento (UE) 2016/679 del Parlamento Europeo y del Consejo de 27 de abril de 2016 (RGPD) y la Ley Orgánica 3/2018, de 5 de diciembre, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).
+    </p>
+    <p>
+      Los datos personales facilitados por los usuarios a través del sitio web o en el marco de la prestación de nuestros servicios serán tratados de conformidad con nuestra Política de Privacidad, donde se informa detalladamente sobre las finalidades, base legal, destinatarios, plazos de conservación y derechos de los interesados en materia de protección de datos.
+    </p>
+    <p>
+      Correos Express garantiza la confidencialidad de todos los datos de carácter personal facilitados y ha adoptado las medidas técnicas y organizativas necesarias para garantizar la seguridad de los datos personales y evitar su alteración, pérdida, tratamiento o acceso no autorizado, habida cuenta del estado de la tecnología, la naturaleza de los datos almacenados y los riesgos a que están expuestos.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">Enlaces externos y responsabilidad</h2>
+    <p>
+      El sitio web puede contener enlaces o hipervínculos a otros sitios web de terceros. Correos Express no ejerce ningún tipo de control sobre dichos sitios web de terceros ni sobre sus contenidos, por lo que no asume ninguna responsabilidad por los contenidos, políticas de privacidad, prácticas comerciales o servicios ofrecidos en dichos sitios externos.
+    </p>
+    <p>
+      La inclusión de enlaces a sitios web de terceros no implica la aprobación, recomendación o garantía por parte de Correos Express de dichos sitios o sus contenidos. El acceso a sitios web de terceros a través de los enlaces incluidos en nuestro portal se realiza bajo la exclusiva responsabilidad del usuario.
+    </p>
+
+    <br>
+    <hr />
+    <h2 class="top_legalidades">Normativa postal y de transporte aplicable</h2>
+    <p>
+      La prestación de servicios postales y de mensajería por parte de Correos Express se rige por la Ley 43/2010, de 30 de diciembre, del servicio postal universal, de los derechos de los usuarios y del mercado postal, así como por su normativa de desarrollo y demás disposiciones legales y reglamentarias aplicables al sector de las comunicaciones postales y el transporte de mercancías.
+    </p>
+    <p>
+      Los servicios de transporte internacional están sujetos adicionalmente a los convenios y tratados internacionales aplicables, así como a la normativa aduanera y de comercio exterior vigente en cada momento.
     </p>
 
     <br>
     <hr />
     <h2 class="top_legalidades">Modificaciones del aviso legal</h2>
     <p>
-      El despacho se reserva el derecho a modificar, sin previo aviso, la presentación, configuración y contenidos del sitio web, así como este Aviso Legal, para adaptarse a cambios normativos o mejoras en la prestación de servicios profesionales.
+      Correos Express se reserva el derecho a modificar, sin previo aviso, la presentación, configuración, información y contenidos del sitio web, así como las condiciones de acceso y uso establecidas en este Aviso Legal, para adaptarse a novedades legislativas, mejoras tecnológicas o cambios en la estructura comercial de la compañía.
+    </p>
+    <p>
+      Se recomienda a los usuarios revisar periódicamente este Aviso Legal para estar informados de cualquier modificación. El uso continuado del sitio web tras la publicación de cambios constituirá la aceptación de los mismos.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Legislación aplicable y jurisdicción</h2>
+    <h2 class="top_legalidades">Legislación aplicable y jurisdicción competente</h2>
     <p>
-      Las relaciones derivadas del uso de este sitio web se regirán por la legislación española vigente, especialmente la Ley Orgánica del Poder Judicial y el Estatuto General de la Abogacía. Para cualquier controversia, serán competentes los juzgados y tribunales de Madrid, renunciando expresamente a cualquier otro fuero que pudiera corresponder.
+      Las relaciones entre Correos Express y los usuarios de su sitio web se regirán por la normativa española vigente. Para la resolución de cualquier controversia o conflicto que pudiera surgir con relación al acceso o uso del sitio web, o con relación a la interpretación y cumplimiento de las condiciones recogidas en este Aviso Legal, Correos Express y el usuario acuerdan someterse expresamente a la jurisdicción de los Juzgados y Tribunales de Madrid capital, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.
+    </p>
+    <p>
+      No obstante lo anterior, cuando el usuario tenga la condición de consumidor o usuario según lo establecido en el Real Decreto Legislativo 1/2007, de 16 de noviembre, por el que se aprueba el texto refundido de la Ley General para la Defensa de los Consumidores y Usuarios, será de aplicación la normativa de protección de consumidores y los tribunales competentes según dicha legislación.
     </p>
 
     <br>
     <hr />
-    <h2 class="top_legalidades">Contacto profesional</h2>
+    <h2 class="top_legalidades">Servicio de atención al cliente</h2>
     <p>
-      Si tiene cualquier duda o consulta sobre este Aviso Legal o desea contactar con nuestro despacho, puede hacerlo a través de:
+      Para cualquier consulta, sugerencia o reclamación relacionada con este Aviso Legal, con el funcionamiento del sitio web o con nuestros servicios de mensajería y paquetería, puede contactar con nuestro Servicio de Atención al Cliente a través de los siguientes medios:
     </p>
     <ul>
-      <li>Correo electrónico profesional: <a href="mailto:luraproyecto@gmail.com">luraproyecto@gmail.com</a></li>
-      <li>Teléfono: 613 95 96 89</li>
-      <li class="FinalLegalidades">Horario de atención: Lunes a Viernes de 9:00h a 18:00h</li>
+      <li><b>Correo electrónico:</b> <a href="mailto:atencioncliente@correosexpress.com">atencioncliente@correosexpress.com</a></li>
+      <li><b>Teléfono de atención:</b> 902 100 102 / 613 95 96 89</li>
+      <li><b>Horario de atención telefónica:</b> Lunes a Viernes de 8:00h a 20:00h, Sábados de 9:00h a 14:00h</li>
+      <li><b>Dirección postal:</b> Correos Express - Servicio de Atención al Cliente, Avenida del Correo, 50, 28080 Madrid</li>
+      <li><b>Formulario web:</b> Disponible en la sección "Contacto" de este sitio web</li>
+      <li class="FinalLegalidades"><b>Oficinas de atención presencial:</b> Consulte el localizador de oficinas en nuestra web para encontrar el punto de atención más cercano</li>
     </ul>
   `;
   

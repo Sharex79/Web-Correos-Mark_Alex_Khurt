@@ -201,12 +201,9 @@ button[title*="WhatsApp"]:hover {
   BotonContacto();
   </script>
 
-  <div id="contenido-cookies" class="container margen-navbar">
-    <h1 class="Inicio-Informacion top_legalidades">Política de Cookies</h1>
-    <p><b>Última actualización: 10 de noviembre de 2025</b></p>
-
-    <p>
-      Esta Política de Cookies explica qué son las cookies y cómo las utilizamos en nuestro sitio web profesional. 
+  <div id="contenido-cookies"></div>
+  <!-- Placeholder eliminado - contenido cargado desde PoliticaCookies.js -->
+  <div style="display:none;"><p>Esta Política de Cookies explica qué son las cookies y cómo las utilizamos en nuestro sitio web profesional. 
       Le recomendamos leer esta política para comprender qué tipo de cookies empleamos, la información que recopilamos mediante cookies y cómo se utiliza dicha información en el marco de nuestros servicios jurídicos.
     </p>
     <p>
@@ -352,17 +349,30 @@ button[title*="WhatsApp"]:hover {
 
   <!-- Scripts -->
 <script type="module">
-  import { Navbar } from '/src/components/navbar.js';
+  import { Navbar } from '/src/components/navbarVolver.js';
   import { Footer } from '/src/components/footer.js';
   import { EmpanadaBanner } from '/src/components/EmpanadaBanner.js';
+  import { PoliticaCookies } from '/src/components/Legalidades/PoliticaCookies.js';
 
   window.addEventListener('DOMContentLoaded', () => {
+    // Iniciar con opacidad 0
+    document.body.style.opacity = '0';
+    document.body.style.transition = 'opacity 0.6s ease';
+    
     EmpanadaBanner();
     const navbarDiv = document.getElementById('navbar');
     if (navbarDiv) navbarDiv.appendChild(Navbar());
 
+    const contentDiv = document.getElementById('contenido-cookies');
+    if (contentDiv) contentDiv.appendChild(PoliticaCookies());
+
     const footerDiv = document.getElementById('footer');
     if (footerDiv) footerDiv.appendChild(Footer());
+    
+    // Animar aparición después de cargar todo
+    requestAnimationFrame(() => {
+      document.body.style.opacity = '1';
+    });
   });
 </script>
 </body>
