@@ -8,7 +8,6 @@ import { Navbar } from './components/navbar.js';
 import { FotoInicial } from './components/fotoInicial.js';
 import { Presentacion } from './components/presentacion.js';
 import { Explicacion } from './components/explicacion.js';
-import { ContenedoresDobles } from './components/ContenedoresDobles.js';
 import { BotonesRespuestas } from './components/botonesRespuestas.js';
 import { Footer } from './components/footer.js';
 import { BotonVerde } from './components/botonwhatsapp.js';
@@ -20,6 +19,8 @@ import { AvisosLegales } from './components/Legalidades/AvisosLegales.js';
 import { PoliticaCookies } from './components/Legalidades/PoliticaCookies.js';
 import { TerminosCondiciones } from './components/Legalidades/TerminosCondiciones.js';
 import { renderReclamos } from './components/Legalidades/Reclamos.js';
+import { Feedback } from './components/Feedback.js';
+import { Navbar as NavbarVolver } from './components/navbarVolver.js';
 
 
 
@@ -45,7 +46,6 @@ mainContent.append(
   EmpanadaBanner(),
   FotoInicial(),        // � Foto inicial - Hero principal
   Presentacion(),       // 👨‍💼 Presentación - Perfil del procurador
-  ContenedoresDobles(), // 🧩 Nuevo: Sección con 2 contenedores lado a lado (responsive)
   Explicacion(),        // 🌱 Explicación - Servicios legales mosaico
   BotonesRespuestas(),  // ❓ Botones respuestas - FAQ acordeones
   DireccionNueva(),     // 📍 Dirección
@@ -242,6 +242,23 @@ window.mostrarLegalidad = function(tipo) {
 //    FUNCIÓN PARA VOLVER AL INICIO (SMOOTH)
 // ==========================================
 window.volverAlInicio = function() {
+  // Quitar NavbarVolver si existe y restaurar la principal
+  const volverNav = document.querySelector('nav[data-variant="volver"]');
+  if (volverNav && volverNav.parentNode) {
+    volverNav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    volverNav.style.opacity = '0';
+    volverNav.style.transform = 'translateY(-10px)';
+    setTimeout(() => volverNav.remove(), 300);
+  }
+  const mainNav = document.querySelector('nav:not([data-variant])');
+  if (mainNav) {
+    mainNav.style.display = '';
+    mainNav.style.opacity = '1';
+    mainNav.style.transform = 'none';
+  } else {
+    // Por seguridad, crearla si no existe
+    document.body.prepend(Navbar());
+  }
   // Eliminar el formulario con transición
   const formularioContainer = document.getElementById('formulario-container');
   if (formularioContainer && formularioContainer.parentNode) {
@@ -297,7 +314,6 @@ window.volverAlInicio = function() {
         EmpanadaBanner(),
         FotoInicial(),
         Presentacion(),
-        ContenedoresDobles(),
         Explicacion(),
         BotonesRespuestas(),
         DireccionNueva(),
@@ -329,3 +345,112 @@ window.volverAlInicio = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 550);
 };
+
+// ==========================================
+//        FUNCIÓN PARA MOSTRAR FEEDBACK
+//    (Mismo patrón de animaciones que legal)
+// ==========================================
+window.mostrarFeedback = function() {
+  // Ocultar el main
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  // Ocultar footer
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  // Quitar botón flotante
+  const botonFlotante = document.querySelector('.boton-contacto');
+  if (botonFlotante && botonFlotante.parentNode) {
+    botonFlotante.remove();
+  }
+
+  // Quitar otros contenedores
+  const formularioContainer = document.getElementById('formulario-container');
+  if (formularioContainer && formularioContainer.parentNode) {
+    formularioContainer.style.opacity = '0';
+    setTimeout(() => formularioContainer.remove(), 500);
+  }
+  const legalidadContainer = document.getElementById('legalidad-container');
+  if (legalidadContainer && legalidadContainer.parentNode) {
+    legalidadContainer.style.opacity = '0';
+    setTimeout(() => legalidadContainer.remove(), 500);
+  }
+
+  // Intercambiar Navbar principal por NavbarVolver
+  const mainNav = document.querySelector('nav:not([data-variant])');
+  if (mainNav) {
+    mainNav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+    mainNav.style.opacity = '0';
+    mainNav.style.transform = 'translateY(-10px)';
+    setTimeout(() => { mainNav.style.display = 'none'; }, 300);
+  }
+  if (!document.querySelector('nav[data-variant="volver"]')) {
+    const volverNav = NavbarVolver();
+    document.body.prepend(volverNav);
+  }
+
+  // Crear contenedor de feedback
+  setTimeout(() => {
+    let feedbackContainer = document.getElementById('feedback-container');
+    if (!feedbackContainer) {
+      feedbackContainer = document.createElement('div');
+      feedbackContainer.id = 'feedback-container';
+      feedbackContainer.style.cssText = `
+        margin-top: 90px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: calc(100vh - 90px);
+        padding: 2rem 1rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      `;
+    } else {
+      feedbackContainer.innerHTML = '';
+    }
+
+    // Añadir Empanada + Feedback
+    feedbackContainer.appendChild(EmpanadaBanner());
+    feedbackContainer.appendChild(Feedback());
+
+    // Insertar tras la navbar visible
+    const navVisible = document.querySelector('nav[data-variant="volver"]') || document.querySelector('nav');
+    navVisible.after(feedbackContainer);
+
+    // Footer nuevo
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    feedbackContainer.after(newFooter);
+
+    // Animaciones
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        feedbackContainer.style.opacity = '1';
+        feedbackContainer.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    // Scroll top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
+// Disparar feedback por hash
+if (window.location.hash === '#feedback') {
+  setTimeout(() => window.mostrarFeedback(), 100);
+}

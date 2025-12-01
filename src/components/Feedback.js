@@ -145,8 +145,6 @@ export function Feedback() {
         height: auto;
         display: block;
         margin: 0 auto 2rem auto;
-        border-radius: 12px;
-        box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
       }
       
       @media (max-width: 768px) {
@@ -170,7 +168,7 @@ export function Feedback() {
         Ayúdanos a mejorar nuestro servicio. Comparte tu experiencia o reporta cualquier problema que hayas encontrado.
       </p>
       
-      <img src="/Correos_Icon.png" alt="Correos Express" class="feedback-image" />
+      <img src="/feedback.png" alt="Correos Express" class="feedback-image" />
       
       <form id="feedbackForm">
         <div class="form-group">

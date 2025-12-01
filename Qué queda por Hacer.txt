@@ -1,6 +1,5 @@
 1.)
 -Elementos de Correos visuales ( .js's )                                 Mark
--FeedBack.js ( Para rellenar y decir que fallo hay con NavbarVolver)     ALEX
 -Traducción desde navbar                                                 Khurt
 
 -Algún .JS de los Elementos de Correos visuales con NavbarVolver         xxxx
