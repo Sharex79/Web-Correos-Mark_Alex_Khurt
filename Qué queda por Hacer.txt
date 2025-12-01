@@ -1,12 +1,20 @@
 1.)
--Elementos de Correos visuales ( .js's )       Mark
--Ayuda.js ( Tutorial con misma NavbarVolver )        xxxx
+-Elementos de Correos visuales ( .js's )                                 Mark
 -FeedBack.js ( Para rellenar y decir que fallo hay con NavbarVolver)     ALEX
+-Traducción desde navbar                                                 Khurt
+
 -Algún .JS de los Elementos de Correos visuales con NavbarVolver         xxxx
+
+
+
 
 2.)
 -Linkear la navbar con todos los nuevos Elementos    Alex
 -Probar y Buscar Fallos     TODOS
+
+
+
+
 
 
 
