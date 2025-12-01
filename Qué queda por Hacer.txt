@@ -1,6 +1,6 @@
 1.)
 -Elementos de Correos visuales ( .js's )                                 Mark
--Traducción desde navbar                                                 Khurt
+-Fix de ultimas opciones de navbar
 
 -Algún .JS de los Elementos de Correos visuales con NavbarVolver         xxxx
 
