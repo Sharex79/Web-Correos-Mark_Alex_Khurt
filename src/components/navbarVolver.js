@@ -148,7 +148,7 @@ export function Navbar() {
     border-top: 1px solid #404040;
   `;
 
-  function makeBottomLink(label) {
+  function makeBottomLink(label, url = null) {
     const a = document.createElement('a');
     a.href = '#';
     a.textContent = label;
@@ -158,10 +158,22 @@ export function Navbar() {
       color: rgba(255,255,255,0.87) !important;
       text-decoration: none;
       transition: background-color 0.3s ease, color 0.2s ease;
-      cursor: default;
+      cursor: ${url ? 'pointer' : 'default'};
       border-bottom: 1px solid #2b2b2b;
     `;
-    a.addEventListener('click', (e) => e.preventDefault());
+    
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (url) {
+        // Animación de desvanecimiento antes de navegar
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+          window.location.href = url;
+        }, 500);
+      }
+    });
+    
     a.addEventListener('mouseenter', () => {
       a.style.backgroundColor = 'rgba(249, 115, 22, 0.1)';
       a.style.setProperty('color', '#f97316', 'important');
@@ -174,7 +186,7 @@ export function Navbar() {
   }
 
   // Orden de arriba hacia abajo: Feedback, Ayuda, Ajustes
-  bottomLinks.appendChild(makeBottomLink('Feedback'));
+  bottomLinks.appendChild(makeBottomLink('Feedback', '/Feedback.html'));
   bottomLinks.appendChild(makeBottomLink('Ayuda'));
   bottomLinks.appendChild(makeBottomLink('Ajustes'));
 
