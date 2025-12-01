@@ -187,7 +187,6 @@ export function Navbar() {
 
   // Orden de arriba hacia abajo: Feedback, Ayuda, Ajustes
   bottomLinks.appendChild(makeBottomLink('Feedback', '/Feedback.html'));
-  bottomLinks.appendChild(makeBottomLink('Ayuda'));
   bottomLinks.appendChild(makeBottomLink('Ajustes'));
 
   // Footer de idiomas (al fondo del panel)
