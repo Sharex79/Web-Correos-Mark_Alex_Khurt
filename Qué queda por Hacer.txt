@@ -1,25 +1,6 @@
 1.)
--Elementos de Correos visuales ( .js's )                                 Mark
--Fix de ultimas opciones de navbar
+Arreglar la transición de cambiar a un js unico                 Alex
+Hacer que el Informacion general quede bien, que funcione       Alex
 
--Algún .JS de los Elementos de Correos visuales con NavbarVolver         xxxx
-
-
-
-
-2.)
--Linkear la navbar con todos los nuevos Elementos    Alex
--Probar y Buscar Fallos     TODOS
-
-
-
-
-
-
-
-
-No.)
--Ajustes por ahora no
--Botón de Compras por ahora no
--Idiomas desde la Navbar por ahora no
+agregar elementos de comunidad autonoma                         Khurt
 
