@@ -54,6 +54,15 @@ export function Explicacion() {
     { type: 'double', title: '¿Quieres comprar en nuestras tiendas o enviar dinero?', text: `Tenemos todo tipo de productos que te ayudarán a realizar compras en tiendas o envíos de dinero de forma fácil. Descubre seguros, pagos y más servicios integrados.`, image: 'https://images.pexels.com/photos/394372/pexels-photo-394372.jpeg?auto=compress&cs=tinysrgb&w=800', buttonText: 'Más info compras/dinero', buttonSubject: 'Consulta compras o envío dinero', buttonBody: `¡Hola equipo!\n\nConsulta sobre compras en tiendas o envío de dinero.\n\n• Servicio específico:\n• Cantidad:\n• Destino:\n\nSaludos.` }
   ];
 
+  // Make specific entries text-only (remove images for the two double items per request)
+  mosaicData.forEach(it => {
+    if (it.title === 'El Camino con Correos' || it.title === '¿Quieres comprar en nuestras tiendas o enviar dinero?') {
+      // remove image and any positioning so the renderer emits text-only cards
+      if (it.hasOwnProperty('image')) delete it.image;
+      if (it.hasOwnProperty('imagePosition')) delete it.imagePosition;
+    }
+  });
+
   // BOTÓN COMÚN
   const createButton = (buttonText, buttonSubject, buttonBody) => {
     const btn = document.createElement('button');
@@ -108,24 +117,28 @@ export function Explicacion() {
       border: 1px solid rgba(255,159,64,0.25);
     `;
 
-    const imgWrapper = document.createElement('div');
-    imgWrapper.className = 'triple-img';
-    imgWrapper.style.cssText = `
-      height: 240px;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      border-bottom: 4px solid #ff9f40;
-      transition: all 0.4s ease;
-      order: 1;
-    `;
-    const img = document.createElement('img');
-    img.src = item.image;
-    img.alt = item.title;
-    img.style.cssText = `max-width: 95%; max-height: 95%; object-fit: contain; transition: transform 0.6s ease;`;
-    imgWrapper.appendChild(img);
+    // only render image when one exists for this item
+    let imgWrapper, img;
+    if (item.image) {
+      imgWrapper = document.createElement('div');
+      imgWrapper.className = 'triple-img';
+      imgWrapper.style.cssText = `
+        height: 240px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        border-bottom: 4px solid #ff9f40;
+        transition: all 0.4s ease;
+        order: 1;
+      `;
+      img = document.createElement('img');
+      img.src = item.image;
+      img.alt = item.title;
+      img.style.cssText = `max-width: 95%; max-height: 95%; object-fit: contain; transition: transform 0.6s ease;`;
+      imgWrapper.appendChild(img);
+    }
 
     const content = document.createElement('div');
     content.style.cssText = `padding: 1.8rem; display: flex; flex-direction: column; gap: 1.2rem; flex: 1; text-align: center; order: 2;`;
@@ -137,20 +150,18 @@ export function Explicacion() {
     p.style.cssText = `margin:0; font-size:0.95rem; line-height:1.65; opacity:0.92; flex:1;`;
     content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
 
-    card.append(imgWrapper, content);
+    if (imgWrapper) card.append(imgWrapper, content); else card.append(content);
     tripleContainer.appendChild(card);
 
     card.onmouseenter = () => {
       card.style.transform = 'translateY(-14px) scale(1.04)';
       card.style.boxShadow = '0 25px 60px rgba(255,159,64,0.35)';
-      img.style.transform = 'scale(1.1) rotate(2deg)';
-      imgWrapper.style.borderBottomColor = '#ffb340';
+      if (img) { img.style.transform = 'scale(1.1) rotate(2deg)'; if (imgWrapper) imgWrapper.style.borderBottomColor = '#ffb340'; }
     };
     card.onmouseleave = () => {
       card.style.transform = '';
       card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
-      img.style.transform = '';
-      imgWrapper.style.borderBottomColor = '#ff9f40';
+      if (img) { img.style.transform = ''; if (imgWrapper) imgWrapper.style.borderBottomColor = '#ff9f40'; }
     };
   }
   mosaicContainer.appendChild(tripleContainer);
@@ -161,9 +172,11 @@ export function Explicacion() {
   for (let i = 0; i < 3; i++) {
     const item = mosaicData[dataIndex++];
     const mosaicItem = document.createElement('div');
+    const hasImage = Boolean(item.image);
+    const columns = hasImage ? (item.imagePosition === 'right' ? '1fr 400px' : '400px 1fr') : '1fr';
     mosaicItem.style.cssText = `
       display: grid;
-      grid-template-columns: ${item.imagePosition === 'right' ? '1fr 400px' : '400px 1fr'};
+      grid-template-columns: ${columns};
       gap: 3rem;
       align-items: center;
       padding: 2rem;
@@ -183,25 +196,32 @@ export function Explicacion() {
     serviceText.style.cssText = `margin:0 0 1rem 0;line-height:1.7;color:rgba(255,255,255,0.9);font-size:1rem;`;
     textContainer.append(serviceTitle, serviceText, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
 
-    const imageContainer = document.createElement('div');
-    imageContainer.style.cssText = `${item.imagePosition==='right'?'order:2':'order:1'};border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.4s ease;`;
-    const image = document.createElement('img');
-    image.src = item.image;
-    image.alt = item.title;
-    image.style.cssText = `width:100%;height:280px;object-fit:cover;transition:transform 0.6s ease;`;
-    imageContainer.appendChild(image);
-    mosaicItem.append(textContainer, imageContainer);
+    // only render an image panel when the item has an image
+    let image, imageContainer;
+    if (hasImage) {
+      imageContainer = document.createElement('div');
+      imageContainer.style.cssText = `${item.imagePosition==='right'?'order:2':'order:1'};border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.4s ease;`;
+      image = document.createElement('img');
+      image.src = item.image;
+      image.alt = item.title;
+      image.style.cssText = `width:100%;height:280px;object-fit:cover;transition:transform 0.6s ease;`;
+      imageContainer.appendChild(image);
+      mosaicItem.append(textContainer, imageContainer);
+    } else {
+      // text-only layout
+      mosaicItem.append(textContainer);
+    }
     mosaicContainer.appendChild(mosaicItem);
 
     mosaicItem.onmouseenter = () => {
       mosaicItem.style.transform = 'translateY(-8px)';
       mosaicItem.style.boxShadow = '0 20px 45px rgba(255,159,64,0.3)';
-      image.style.transform = 'scale(1.08)';
+      if (image) image.style.transform = 'scale(1.08)';
     };
     mosaicItem.onmouseleave = () => {
       mosaicItem.style.transform = '';
       mosaicItem.style.boxShadow = '';
-      image.style.transform = '';
+      if (image) image.style.transform = '';
     };
   }
 
@@ -211,12 +231,16 @@ export function Explicacion() {
     const item = mosaicData[dataIndex++];
     const card = document.createElement('div');
     card.style.cssText = `background:rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,0.15);border:1px solid rgba(255,159,64,0.25);transition:all .4s;`;
-    const imgWrap = document.createElement('div');
-    imgWrap.style.cssText = `height:200px;background:white;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:4px solid #ff9f40;transition:all 0.4s ease;`;
-    const img = document.createElement('img');
-    img.src = item.image;
-    img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;transition:transform 0.6s ease;`;
-    imgWrap.appendChild(img);
+    // only render image wrapper when an image URL exists for this item
+    let imgWrap, img;
+    if (item.image) {
+      imgWrap = document.createElement('div');
+      imgWrap.style.cssText = `height:200px;background:white;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:4px solid #ff9f40;transition:all 0.4s ease;`;
+      img = document.createElement('img');
+      img.src = item.image;
+      img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;transition:transform 0.6s ease;`;
+      imgWrap.appendChild(img);
+    }
     const content = document.createElement('div');
     content.style.cssText = `padding:1.8rem;display:flex;flex-direction:column;gap:1rem;flex:1;text-align:center;`;
     const h3 = document.createElement('h3');
@@ -226,20 +250,18 @@ export function Explicacion() {
     p.textContent = item.text;
     p.style.cssText = `margin:0;font-size:0.95rem;line-height:1.6;opacity:0.92;flex:1;`;
     content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
-    card.append(imgWrap, content);
+    if (imgWrap) card.append(imgWrap, content); else card.append(content);
     doubleContainer.appendChild(card);
 
     card.onmouseenter = () => {
       card.style.transform = 'translateY(-14px) scale(1.04)';
       card.style.boxShadow = '0 25px 60px rgba(255,159,64,0.35)';
-      img.style.transform = 'scale(1.1) rotate(2deg)';
-      imgWrap.style.borderBottomColor = '#ffb340';
+      if (img) { img.style.transform = 'scale(1.1) rotate(2deg)'; if (imgWrap) imgWrap.style.borderBottomColor = '#ffb340'; }
     };
     card.onmouseleave = () => {
       card.style.transform = '';
       card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
-      img.style.transform = '';
-      imgWrap.style.borderBottomColor = '#ff9f40';
+      if (img) { img.style.transform = ''; if (imgWrap) imgWrap.style.borderBottomColor = '#ff9f40'; }
     };
   }
   mosaicContainer.appendChild(doubleContainer);
