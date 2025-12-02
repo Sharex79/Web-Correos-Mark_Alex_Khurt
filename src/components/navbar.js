@@ -295,8 +295,8 @@ export function Navbar() {
   // Opciones del menú con funcionalidad de navegación
   const menuItems = [
     { name: 'Inicio', target: 'inicio' },
-    { name: 'Procuradores Mallorca', target: 'presentacion' },
-    { name: 'Servicios Legales', target: 'explicacion' },
+    { name: 'Servicios de Correos', target: 'contenedores-dobles' },
+    { name: 'Información', target: 'explicacion' },
     { name: 'Preguntas', target: 'botones-respuestas' },
     { name: 'Dirección', target: 'direccion' },
     { name: 'Contacto', target: 'footer' }
@@ -347,7 +347,8 @@ export function Navbar() {
       }
       
       if (targetElement) {
-        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100; // 100px offset para la navbar
+        // Ajusta el valor -120 para mover más arriba (aumentar) o más abajo (disminuir)
+        const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset -100;
         window.scrollTo({
           top: offsetTop,
           behavior: 'smooth'
@@ -517,6 +518,17 @@ export function Navbar() {
     text-align: center;
     vertical-align: middle;
   `;
+  packageIcon.addEventListener('click', () => {
+    // Scroll to tracking widget section
+    const trackingInput = document.getElementById('tracking-input');
+    if (trackingInput) {
+      const offsetTop = trackingInput.getBoundingClientRect().top + window.pageYOffset -310;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
   packageIcon.addEventListener('mouseenter', () => {
     packageIcon.style.background = 'rgba(249, 115, 22, 0.1)';
   });

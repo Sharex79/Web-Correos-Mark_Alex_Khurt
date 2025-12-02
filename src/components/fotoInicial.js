@@ -14,6 +14,7 @@ export function FotoInicial() {
     height: 900px;
     margin: 0;
     margin-top: -20px;
+    margin-bottom: 30px;
     padding: 0;
     position: relative;
     overflow: hidden;

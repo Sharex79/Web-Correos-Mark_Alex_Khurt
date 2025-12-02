@@ -29,6 +29,7 @@ export function Explicacion() {
     font-weight: 700;
     color: #ff9f40;
     margin-bottom: 4rem;
+    margin-top: -1rem;
     text-shadow: 0 3px 8px rgba(0,0,0,0.3);
   `;
 
