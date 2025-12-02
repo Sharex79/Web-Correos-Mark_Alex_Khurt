@@ -176,7 +176,7 @@ export function FormularioPaqueteria() {
   }
 
   // Build and show a modal to ask for full name and DNI/NIE, then call onConfirm with {name,dni}
-  function showCustomerModal(onConfirm, onCancel) {
+  function showCustomerModal(onConfirm, onCancel, onAfterConfirm) {
     const previousFocus = document.activeElement;
 
     const overlay = document.createElement('div');
@@ -192,12 +192,20 @@ export function FormularioPaqueteria() {
     const p = document.createElement('p');
     p.textContent = 'Necesitamos tu nombre completo y DNI/NIE para calcular tarifas con precisión. Solo se almacenará localmente por ahora (mock).';
 
-    const fieldName = document.createElement('div');
-    fieldName.className = 'form-paqueteria__modal-field';
-    const labelName = document.createElement('label'); labelName.textContent = 'Nombre completo';
-    const inputName = document.createElement('input'); inputName.type = 'text'; inputName.placeholder = 'Tu nombre y apellidos';
-    const errName = document.createElement('div'); errName.className = 'error'; errName.style.display = 'none';
-    fieldName.append(labelName, inputName, errName);
+    // Two name fields: remitente (sender) and destinatario (receiver)
+    const fieldRemitente = document.createElement('div');
+    fieldRemitente.className = 'form-paqueteria__modal-field';
+    const labelRemitente = document.createElement('label'); labelRemitente.textContent = 'Nombre del remitente';
+    const inputRemitente = document.createElement('input'); inputRemitente.type = 'text'; inputRemitente.placeholder = 'Nombre del remitente';
+    const errRemitente = document.createElement('div'); errRemitente.className = 'error'; errRemitente.style.display = 'none';
+    fieldRemitente.append(labelRemitente, inputRemitente, errRemitente);
+
+    const fieldDestinatario = document.createElement('div');
+    fieldDestinatario.className = 'form-paqueteria__modal-field';
+    const labelDestinatario = document.createElement('label'); labelDestinatario.textContent = 'Nombre del destinatario';
+    const inputDestinatario = document.createElement('input'); inputDestinatario.type = 'text'; inputDestinatario.placeholder = 'Nombre del destinatario';
+    const errDestinatario = document.createElement('div'); errDestinatario.className = 'error'; errDestinatario.style.display = 'none';
+    fieldDestinatario.append(labelDestinatario, inputDestinatario, errDestinatario);
 
     const fieldDni = document.createElement('div');
     fieldDni.className = 'form-paqueteria__modal-field';
@@ -211,12 +219,13 @@ export function FormularioPaqueteria() {
     const confirmBtn = document.createElement('button'); confirmBtn.type = 'button'; confirmBtn.className = 'form-paqueteria__btn form-paqueteria__btn--primary'; confirmBtn.textContent = 'Confirmar';
     actions.append(cancelBtn, confirmBtn);
 
-    modal.append(h, p, fieldName, fieldDni, actions);
+    modal.append(h, p, fieldRemitente, fieldDestinatario, fieldDni, actions);
     overlay.append(modal);
     document.body.appendChild(overlay);
 
     // Focus handling
-    setTimeout(() => inputName.focus(), 40);
+    // Focus first field (remitente)
+    setTimeout(() => inputRemitente.focus(), 40);
 
     function cleanup() {
       try { overlay.remove(); } catch (e) { /* ignore */ }
@@ -235,7 +244,8 @@ export function FormularioPaqueteria() {
 
     function validateAndShowErrors() {
       let ok = true;
-      if (!validateTextMin(inputName.value, 3)) { errName.textContent = 'Introduce tu nombre completo (mín. 3 caracteres).'; errName.style.display = 'block'; ok = false; } else { errName.textContent = ''; errName.style.display = 'none'; }
+      if (!validateTextMin(inputRemitente.value, 3)) { errRemitente.textContent = 'Introduce el nombre del remitente (mín. 3 caracteres).'; errRemitente.style.display = 'block'; ok = false; } else { errRemitente.textContent = ''; errRemitente.style.display = 'none'; }
+      if (!validateTextMin(inputDestinatario.value, 3)) { errDestinatario.textContent = 'Introduce el nombre del destinatario (mín. 3 caracteres).'; errDestinatario.style.display = 'block'; ok = false; } else { errDestinatario.textContent = ''; errDestinatario.style.display = 'none'; }
       if (!validateDni(inputDni.value)) { errDni.textContent = 'DNI/NIE inválido (ej: 12345678A o X1234567B).'; errDni.style.display = 'block'; ok = false; } else { errDni.textContent = ''; errDni.style.display = 'none'; }
       return ok;
     }
@@ -248,13 +258,37 @@ export function FormularioPaqueteria() {
         if (errName.style.display === 'block') inputName.focus(); else if (errDni.style.display === 'block') inputDni.focus();
         return;
       }
-      const result = { nombre: inputName.value.trim(), dni: inputDni.value.trim() };
+      const result = { remitente: inputRemitente.value.trim(), destinatario: inputDestinatario.value.trim(), dni: inputDni.value.trim() };
+
+      // call the onConfirm hook first (for payload updates, logging, UI toggles)
       onConfirm && onConfirm(result);
-      cleanup();
+
+      // Replace modal content with a small confirmation ('pedido guardado') view
+      modal.innerHTML = '';
+      const okH = document.createElement('h4'); okH.textContent = 'Pedido guardado';
+      const okP = document.createElement('p'); okP.textContent = `Pedido guardado para ${result.remitente} → ${result.destinatario} (DNI/NIE: ${result.dni}).`;
+      const okInfo = document.createElement('div'); okInfo.style.marginTop = '.6rem'; okInfo.style.color = 'rgba(255,255,255,0.9)'; okInfo.style.fontSize = '.95rem'; okInfo.textContent = 'Se ha guardado localmente — en próximas versiones se mandará al servidor.';
+      const okActions = document.createElement('div'); okActions.className = 'form-paqueteria__modal-actions';
+      const closeBtn = document.createElement('button'); closeBtn.type = 'button'; closeBtn.className = 'form-paqueteria__btn form-paqueteria__btn--primary'; closeBtn.textContent = 'Cerrar';
+      okActions.append(closeBtn);
+
+      modal.append(okH, okP, okInfo, okActions);
+
+      // call after-confirm hook (reset UI / form) so the form resets while the success modal is visible
+      try { onAfterConfirm && onAfterConfirm(result); } catch (e) { /* don't break the UI flow */ }
+
+      // close modal only when the user clicks 'Cerrar' or clicks outside the modal
+      closeBtn.addEventListener('click', () => { cleanup(); });
+
+      // Clicking outside the modal (on the overlay) also closes it; clicks inside modal do not
+      overlay.addEventListener('click', (ev) => {
+        if (ev.target === overlay) cleanup();
+      });
     }
 
     // clear field errors as user types
-    inputName.addEventListener('input', () => { errName.style.display = 'none'; });
+    inputRemitente.addEventListener('input', () => { errRemitente.style.display = 'none'; });
+    inputDestinatario.addEventListener('input', () => { errDestinatario.style.display = 'none'; });
     inputDni.addEventListener('input', () => { errDni.style.display = 'none'; });
 
     // return overlay so caller can manipulate if needed
@@ -338,6 +372,19 @@ export function FormularioPaqueteria() {
     btnPrimary.textContent = 'Calcular envío';
   };
 
+  // reset form helper used by both the "Borrar" button and after successful confirmation
+  function resetForm() {
+    if (productoSelect) productoSelect.selectedIndex = 0;
+    direccionOrigen.value = '';
+    direccionDest.value = '';
+    codiOrigen.value = '';
+    codiDest.value = '';
+    const radios = form.querySelectorAll('input[name="size"]');
+    radios.forEach((r, i) => r.checked = i === 0);
+    pais.value = pais.defaultValue || 'España';
+    btnPrimary.textContent = 'Calcular envío';
+  }
+
   const btnPrimary = document.createElement('button');
   btnPrimary.type = 'submit';
   btnPrimary.className = 'form-paqueteria__btn form-paqueteria__btn--primary';
@@ -386,14 +433,16 @@ export function FormularioPaqueteria() {
     showCustomerModal(
       (customer) => {
         try {
-          payload.nombre_completo = customer.nombre;
+          payload.nombre_remitente = customer.remitente;
+          payload.nombre_destinatario = customer.destinatario;
           payload.dni_nie = customer.dni;
           // TODO: connect to price API or calculation — payload now includes customer data
           console.info('Formulario Paquetería (final):', payload);
 
           // show a simple visual confirmation
-          btnPrimary.textContent = 'Calculado ✓';
-          setTimeout(() => (btnPrimary.textContent = 'Calcular envío'), 1400);
+            // When the modal confirm flow finishes, caller will set the UI; keep this behavior here for successful immediate calculation
+            btnPrimary.textContent = 'Calculado ✓';
+            setTimeout(() => (btnPrimary.textContent = 'Calcular envío'), 1400);
         } finally {
           btnPrimary.disabled = false;
         }
@@ -401,6 +450,15 @@ export function FormularioPaqueteria() {
       () => {
         // user cancelled — re-enable primary button and keep form untouched
         try { btnPrimary.disabled = false; } catch (e) { /* ignore */ }
+      }
+      ,
+      (customer) => {
+        // after-confirm: modal has been swapped to a short "pedido guardado" message by the modal
+        // reset the form now (user has confirmed their identity)
+        try {
+          resetForm();
+          console.info('Pedido guardado localmente:', { payload });
+        } catch (e) { /* ignore */ }
       }
     );
   });
