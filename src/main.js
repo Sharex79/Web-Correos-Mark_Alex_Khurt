@@ -6,7 +6,6 @@
 // Importar todos los componentes
 import { Navbar } from './components/navbar.js';
 import { FotoInicial } from './components/fotoInicial.js';
-import { Presentacion } from './components/presentacion.js';
 import { Explicacion } from './components/explicacion.js';
 import { BotonesRespuestas } from './components/botonesRespuestas.js';
 import { Footer } from './components/footer.js';
@@ -47,7 +46,6 @@ mainContent.style.cssText = `
 mainContent.append(
   EmpanadaBanner(),
   FotoInicial(),        // � Foto inicial - Hero principal
-  Presentacion(),       // 👨‍💼 Presentación - Perfil del procurador
   ContenedoresDobles(), // 🧩 Sección doble con tracking y paquetería
   Explicacion(),        // 🌱 Explicación - Servicios legales mosaico
   BotonesRespuestas(),  // ❓ Botones respuestas - FAQ acordeones
@@ -313,7 +311,6 @@ window.volverAlInicio = function() {
       newMainContent.append(
         EmpanadaBanner(),
         FotoInicial(),
-        Presentacion(),
         ContenedoresDobles(),
         Explicacion(),
         BotonesRespuestas(),
