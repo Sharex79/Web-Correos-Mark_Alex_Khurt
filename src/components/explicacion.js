@@ -22,7 +22,7 @@ export function Explicacion() {
   `;
 
   const title = document.createElement('h2');
-  title.textContent = 'Servicios para Particulares - Correos España';
+  title.textContent = 'Correos España';
   title.style.cssText = `
     text-align: center;
     font-size: 2.8rem;
@@ -184,14 +184,25 @@ export function Explicacion() {
     textContainer.append(serviceTitle, serviceText, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
 
     const imageContainer = document.createElement('div');
-    imageContainer.style.cssText = `${item.imagePosition==='right'?'order:2':'order:1'};border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.2);`;
+    imageContainer.style.cssText = `${item.imagePosition==='right'?'order:2':'order:1'};border-radius:12px;overflow:hidden;box-shadow:0 8px 25px rgba(0,0,0,0.2);transition:all 0.4s ease;`;
     const image = document.createElement('img');
     image.src = item.image;
     image.alt = item.title;
-    image.style.cssText = `width:100%;height:280px;object-fit:cover;`;
+    image.style.cssText = `width:100%;height:280px;object-fit:cover;transition:transform 0.6s ease;`;
     imageContainer.appendChild(image);
     mosaicItem.append(textContainer, imageContainer);
     mosaicContainer.appendChild(mosaicItem);
+
+    mosaicItem.onmouseenter = () => {
+      mosaicItem.style.transform = 'translateY(-8px)';
+      mosaicItem.style.boxShadow = '0 20px 45px rgba(255,159,64,0.3)';
+      image.style.transform = 'scale(1.08)';
+    };
+    mosaicItem.onmouseleave = () => {
+      mosaicItem.style.transform = '';
+      mosaicItem.style.boxShadow = '';
+      image.style.transform = '';
+    };
   }
 
   const doubleContainer = document.createElement('div');
@@ -201,10 +212,10 @@ export function Explicacion() {
     const card = document.createElement('div');
     card.style.cssText = `background:rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,0.15);border:1px solid rgba(255,159,64,0.25);transition:all .4s;`;
     const imgWrap = document.createElement('div');
-    imgWrap.style.cssText = `height:200px;background:white;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:4px solid #ff9f40;`;
+    imgWrap.style.cssText = `height:200px;background:white;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:4px solid #ff9f40;transition:all 0.4s ease;`;
     const img = document.createElement('img');
     img.src = item.image;
-    img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;`;
+    img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;transition:transform 0.6s ease;`;
     imgWrap.appendChild(img);
     const content = document.createElement('div');
     content.style.cssText = `padding:1.8rem;display:flex;flex-direction:column;gap:1rem;flex:1;text-align:center;`;
@@ -217,6 +228,19 @@ export function Explicacion() {
     content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
     card.append(imgWrap, content);
     doubleContainer.appendChild(card);
+
+    card.onmouseenter = () => {
+      card.style.transform = 'translateY(-14px) scale(1.04)';
+      card.style.boxShadow = '0 25px 60px rgba(255,159,64,0.35)';
+      img.style.transform = 'scale(1.1) rotate(2deg)';
+      imgWrap.style.borderBottomColor = '#ffb340';
+    };
+    card.onmouseleave = () => {
+      card.style.transform = '';
+      card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
+      img.style.transform = '';
+      imgWrap.style.borderBottomColor = '#ff9f40';
+    };
   }
   mosaicContainer.appendChild(doubleContainer);
 

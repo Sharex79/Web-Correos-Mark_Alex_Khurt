@@ -53,24 +53,24 @@ export function BotonesRespuestas() {
   // Datos de los desplegables
   const accordionData = [
     {
-      title: '¿Qué es el servicio integral?',
-      icon: '🏢',
-      content: `El servicio integral es una modalidad de atención jurídica que abarca todos los aspectos necesarios para resolver tu caso de manera completa y eficiente. 
+      title: '¿Es confiable este método de enviar correos?',
+      icon: '🔒',
+      content: `Sí, nuestro servicio de envío de correos es totalmente confiable y seguro. Trabajamos con estándares de seguridad certificados para garantizar que tus envíos lleguen en perfectas condiciones.
 
-Incluye desde la consulta inicial, análisis del caso, preparación de documentación, representación legal, hasta el seguimiento post-resolución. 
+Todos nuestros paquetes cuentan con seguimiento en tiempo real, seguro de responsabilidad y protección contra pérdidas o daños. Tu tranquilidad es nuestra prioridad.
 
-Nuestro equipo multidisciplinario trabaja de forma coordinada para brindarte una solución completa, ahorrándote tiempo y garantizando la mejor defensa de tus intereses.`,
-      image: '/Servicio_integral.png'
+Además, contamos con años de experiencia en el sector y miles de clientes satisfechos que confían en nosotros para sus envíos más importantes.`,
+      image: '/FotoRespuesta1.jpg'
     },
     {
-      title: 'Actos de comunicación',
-      icon: '📋',
-      content: `Los actos de comunicación son procedimientos legales mediante los cuales se notifican oficialmente las decisiones judiciales, citaciones, emplazamientos y otros documentos legales a las partes involucradas.
+      title: '¿Cómo puedo enviar un paquete?',
+      icon: '📦',
+      content: `Tienes 2 maneras de enviar tu paquete con nosotros:
 
-Incluyen notificaciones, citaciones, emplazamientos, requerimientos y embargos. Cada tipo tiene sus propios plazos y formalidades específicas que deben cumplirse estrictamente.
+<strong>1. De forma física:</strong> Acude a cualquiera de nuestras oficinas con tu paquete ya preparado. Nuestro personal te ayudará con el proceso de envío y te proporcionará el número de seguimiento al instante.
 
-Nuestros profesionales se encargan de gestionar todos estos trámites con la máxima precisión y dentro de los plazos establecidos por la ley.`,
-      image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
+<strong>2. De manera digital:</strong> Solicita la recogida desde casa usando el widget de arriba. Completa el formulario con los detalles de tu envío y nuestro equipo irá a buscar tu paquete directamente a tu domicilio. ¡Rápido, fácil y sin salir de casa!`,
+      image: 'FotoRespuesta2.jpg'
     }
   ];
   
@@ -148,7 +148,7 @@ Nuestros profesionales se encargan de gestionar todos estos trámites con la má
     image.alt = item.title;
     image.style.cssText = `
       width: 100%;
-      height: 200px;
+      height: 300px;
       object-fit: cover;
       border-radius: 8px;
       transition: transform 0.3s ease;
