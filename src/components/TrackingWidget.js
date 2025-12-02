@@ -45,7 +45,7 @@ export function TrackingWidget() {
   // Title and description
   const title = document.createElement('h3');
   title.className = 'tracking-widget__title';
-  title.textContent = 'Seguimiento de envío';
+  title.textContent = '';
 
   const desc = document.createElement('p');
   desc.className = 'tracking-widget__desc';

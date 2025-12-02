@@ -21,6 +21,7 @@ import { TerminosCondiciones } from './components/Legalidades/TerminosCondicione
 import { renderReclamos } from './components/Legalidades/Reclamos.js';
 import { Feedback } from './components/Feedback.js';
 import { Config } from './components/Config.js';
+import { Tienda } from './components/Tienda.js';
 import { Navbar as NavbarVolver } from './components/navbarVolver.js';
 
 
@@ -475,7 +476,7 @@ window.mostrarConfig = function() {
   }
 
   // Eliminar otros contenedores alternativos
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -521,4 +522,73 @@ window.mostrarConfig = function() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 550);
 };
+
+// ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR TIENDA
+// ==========================================
+window.mostrarTienda = function() {
+  // Ocultar/eliminar contenido principal
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  // Eliminar footer existente
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  // Eliminar otros contenedores alternativos
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    // Limpiar navbars y elementos auxiliares
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    // Insertar navbarVolver
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    // Contenedor de Tienda
+    const tiendaContainer = Tienda();
+    volverNav.after(tiendaContainer);
+
+    // Footer
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    tiendaContainer.after(newFooter);
+
+    // Animaciones de entrada
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        tiendaContainer.style.opacity = '1';
+        tiendaContainer.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
 

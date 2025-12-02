@@ -473,6 +473,11 @@ export function Navbar() {
     text-align: center;
     vertical-align: middle;
   `;
+  cartIcon.addEventListener('click', () => {
+    if (window.mostrarTienda) {
+      window.mostrarTienda();
+    }
+  });
   cartIcon.addEventListener('mouseenter', () => {
     cartIcon.style.background = 'rgba(249, 115, 22, 0.1)';
   });
@@ -519,9 +524,9 @@ export function Navbar() {
     packageIcon.style.background = 'transparent';
   });
 
-  rightIconsSection.appendChild(cartIcon);
-  rightIconsSection.appendChild(rightSeparator);
   rightIconsSection.appendChild(packageIcon);
+  rightIconsSection.appendChild(rightSeparator);
+  rightIconsSection.appendChild(cartIcon);
 
   // Ensamblar la navbar
   nav.appendChild(logoSection);

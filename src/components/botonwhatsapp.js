@@ -31,8 +31,8 @@ export function BotonContacto() {
   boton.onclick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (window.mostrarFormulario) {
-      window.mostrarFormulario();
+    if (window.mostrarTienda) {
+      window.mostrarTienda();
     }
   };
 

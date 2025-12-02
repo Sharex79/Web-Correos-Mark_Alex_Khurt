@@ -83,7 +83,7 @@ export function FormularioPaqueteria() {
   header.className = 'form-paqueteria__header';
 
   const heroTitle = document.createElement('h3');
-  heroTitle.textContent = 'Servicio Especial de Paquetería';
+  heroTitle.textContent = '';
   heroTitle.style.cssText = 'margin:0;color:#ff9f40;font-size:1.2rem;font-weight:800;text-shadow:0 1px 4px rgba(0,0,0,0.4)';
 
   const heroSubtitle = document.createElement('div');

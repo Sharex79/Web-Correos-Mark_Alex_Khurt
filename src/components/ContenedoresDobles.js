@@ -131,7 +131,7 @@ export function ContenedoresDobles() {
   // Título
   const title = document.createElement('h2');
   title.className = 'contenedores-dobles__title';
-  title.textContent = '🧩 Sección doble — Contenedores principales';
+  title.textContent = 'Servicios Destacados';
 
   // Grid
   const grid = document.createElement('div');
@@ -145,6 +145,8 @@ export function ContenedoresDobles() {
 
   const leftTitle = document.createElement('h3');
   leftTitle.textContent = 'Sigue tu envío';
+  leftTitle.style.fontSize = '2rem';
+  leftTitle.style.color = '#f97316';
 
   // Use new TrackingWidget component for left box content
   const leftBody = TrackingWidget();
@@ -158,7 +160,9 @@ export function ContenedoresDobles() {
   boxRight.setAttribute('aria-label', 'Contenedor derecho');
 
   const rightTitle = document.createElement('h3');
-  rightTitle.textContent = 'Información / Bloque B';
+  rightTitle.textContent = 'Envíos y Paquetería sin Moverte de Casa';
+  rightTitle.style.fontSize = '2rem';
+  rightTitle.style.color = '#f97316';
 
   // Add right side form component (paquetería)
   const rightBody = FormularioPaqueteria();
