@@ -14,6 +14,7 @@ import { BotonVerde } from './components/botonwhatsapp.js';
 import { DireccionNueva } from './components/direccionNueva.js';
 import { EmpanadaBanner } from './components/EmpanadaBanner.js';
 import { Contacto } from './components/Formulario.js';
+import { ContenedoresDobles } from './components/ContenedoresDobles.js';
 import { renderAccesibilidad } from './components/Legalidades/Accesibilidad.js';
 import { AvisosLegales } from './components/Legalidades/AvisosLegales.js';
 import { PoliticaCookies } from './components/Legalidades/PoliticaCookies.js';
@@ -47,6 +48,7 @@ mainContent.append(
   EmpanadaBanner(),
   FotoInicial(),        // � Foto inicial - Hero principal
   Presentacion(),       // 👨‍💼 Presentación - Perfil del procurador
+  ContenedoresDobles(), // 🧩 Sección doble con tracking y paquetería
   Explicacion(),        // 🌱 Explicación - Servicios legales mosaico
   BotonesRespuestas(),  // ❓ Botones respuestas - FAQ acordeones
   DireccionNueva(),     // 📍 Dirección
@@ -312,6 +314,7 @@ window.volverAlInicio = function() {
         EmpanadaBanner(),
         FotoInicial(),
         Presentacion(),
+        ContenedoresDobles(),
         Explicacion(),
         BotonesRespuestas(),
         DireccionNueva(),
