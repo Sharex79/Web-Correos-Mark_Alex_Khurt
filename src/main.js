@@ -166,6 +166,17 @@ window.mostrarLegalidad = function(tipo) {
     setTimeout(() => formularioContainer.remove(), 500);
   }
   
+  // Sustituir cualquier navbar por la navbarVolver y limpiar overlays/paneles
+  document.querySelectorAll('nav').forEach((n) => {
+    if (n && n.parentNode) n.remove();
+  });
+  document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+    if (el && el.parentNode) el.remove();
+  });
+  const volverNav = NavbarVolver();
+  volverNav.setAttribute('data-variant', 'volver');
+  document.body.prepend(volverNav);
+
   // Crear el contenedor de legalidad con transición
   setTimeout(() => {
     let legalidadContainer = document.getElementById('legalidad-container');
@@ -214,9 +225,8 @@ window.mostrarLegalidad = function(tipo) {
     
     legalidadContainer.appendChild(componenteLegal);
     
-    // Insertar después del navbar
-    const navbar = document.querySelector('nav');
-    navbar.after(legalidadContainer);
+    // Insertar después de la navbar de volver
+    volverNav.after(legalidadContainer);
     
     // Crear footer nuevo
     const newFooter = Footer();
@@ -454,6 +464,25 @@ window.mostrarFeedback = function() {
 if (window.location.hash === '#feedback') {
   setTimeout(() => window.mostrarFeedback(), 100);
 }
+
+// Escuchar y manejar hash para legalidades como fallback
+function handleLegalidadHash() {
+  const hash = window.location.hash || '';
+  if (hash.startsWith('#legalidad:')) {
+    const tipo = hash.replace('#legalidad:', '');
+    if (tipo) {
+      // Limpiar hash para evitar recargas repetidas
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+      if (typeof window.mostrarLegalidad === 'function') {
+        window.mostrarLegalidad(tipo);
+      }
+    }
+  }
+}
+
+// Invocar al cargar y en cambios de hash
+handleLegalidadHash();
+window.addEventListener('hashchange', handleLegalidadHash);
 
 // ==========================================
 //  FUNCIÓN GLOBAL PARA MOSTRAR CONFIG

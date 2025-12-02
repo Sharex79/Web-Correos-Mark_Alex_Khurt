@@ -1,9 +1,39 @@
+import { EmpanadaBanner } from '../EmpanadaBanner.js';
+
 export function renderReclamos() {
-  const container = document.createElement('div');
-  container.className = 'container margen-navbar';
-  container.id = 'legalidades-styles';
-  
-  container.innerHTML = `
+  const outer = document.createElement('div');
+  outer.id = 'reclamos-container';
+  outer.style.cssText = `
+    margin-top: 90px;
+    width: 100vw;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 2rem 1rem;
+  `;
+
+  const banner = EmpanadaBanner();
+  outer.appendChild(banner);
+
+  const contentBox = document.createElement('div');
+  contentBox.className = 'container margen-navbar';
+  contentBox.style.cssText = `
+    color: #fff !important;
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  `;
+
+  contentBox.innerHTML = `
     <h1 class="top_legalidades">Reclamaciones y Atención al Cliente</h1>
     <p><b>Última actualización: 27 de noviembre de 2025</b></p>
     <hr>
@@ -371,6 +401,46 @@ export function renderReclamos() {
       <strong>Correos Express - Su confianza, nuestra responsabilidad.</strong>
     </p>
   `;
-  
-  return container;
+
+  // Scoped styles to match other legal pages
+  if (!document.getElementById('legalidades-reclamos-styles')) {
+    const style = document.createElement('style');
+    style.id = 'legalidades-reclamos-styles';
+    style.textContent = `
+      #reclamos-container .container.margen-navbar h1,
+      #reclamos-container .container.margen-navbar h2,
+      #reclamos-container .container.margen-navbar h3,
+      #reclamos-container .container.margen-navbar h4,
+      #reclamos-container .top_legalidades,
+      #reclamos-container .Inicio-Informacion {
+        color: #f97316 !important;
+      }
+      #reclamos-container .container.margen-navbar p,
+      #reclamos-container .container.margen-navbar li,
+      #reclamos-container .container.margen-navbar td,
+      #reclamos-container .container.margen-navbar th {
+        color: #fff !important;
+      }
+      #reclamos-container .container.margen-navbar a {
+        color: #60a5fa !important;
+        text-decoration: underline;
+      }
+      #reclamos-container .container.margen-navbar a:hover {
+        color: #93c5fd !important;
+      }
+      #reclamos-container .container.margen-navbar hr {
+        border-color: rgba(249, 115, 22, 0.3);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  outer.appendChild(contentBox);
+
+  requestAnimationFrame(() => {
+    outer.style.opacity = '1';
+    outer.style.transform = 'translateY(0)';
+  });
+
+  return outer;
 }

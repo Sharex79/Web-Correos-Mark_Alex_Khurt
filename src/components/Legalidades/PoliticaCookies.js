@@ -1,14 +1,44 @@
+import { EmpanadaBanner } from '../EmpanadaBanner.js';
+
 export function PoliticaCookies() {
+  const outer = document.createElement('div');
+  outer.id = 'cookies-container';
+  outer.style.cssText = `
+    margin-top: 90px;
+    width: 100vw;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 2rem 1rem;
+  `;
+
+  outer.appendChild(EmpanadaBanner());
+
   const container = document.createElement('div');
   container.className = 'container margen-navbar';
   container.id = 'contenido-cookies';
+  container.style.cssText = `
+    color: #fff !important;
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  `;
   
   // Agregar estilos
-  if (!document.getElementById('legalidades-styles')) {
+  if (!document.getElementById('legalidades-cookies-styles')) {
     const style = document.createElement('style');
-    style.id = 'legalidades-styles';
+    style.id = 'legalidades-cookies-styles';
     style.textContent = `
-      .container.margen-navbar {
+      #cookies-container .container.margen-navbar {
         color: #fff !important;
         max-width: 1200px;
         padding: 2rem;
@@ -16,46 +46,46 @@ export function PoliticaCookies() {
         border-radius: 15px;
         margin-top: 2rem;
       }
-      .container.margen-navbar h1,
-      .container.margen-navbar h2,
-      .container.margen-navbar h3,
-      .container.margen-navbar h4,
-      .top_legalidades,
-      .Inicio-Informacion {
+      #cookies-container .container.margen-navbar h1,
+      #cookies-container .container.margen-navbar h2,
+      #cookies-container .container.margen-navbar h3,
+      #cookies-container .container.margen-navbar h4,
+      #cookies-container .top_legalidades,
+      #cookies-container .Inicio-Informacion {
         color: #f97316 !important;
       }
-      .container.margen-navbar p,
-      .container.margen-navbar li,
-      .container.margen-navbar td,
-      .container.margen-navbar th {
+      #cookies-container .container.margen-navbar p,
+      #cookies-container .container.margen-navbar li,
+      #cookies-container .container.margen-navbar td,
+      #cookies-container .container.margen-navbar th {
         color: #fff !important;
       }
-      .container.margen-navbar a {
+      #cookies-container .container.margen-navbar a {
         color: #60a5fa !important;
         text-decoration: underline;
       }
-      .container.margen-navbar a:hover {
+      #cookies-container .container.margen-navbar a:hover {
         color: #93c5fd !important;
       }
-      .container.margen-navbar hr {
+      #cookies-container .container.margen-navbar hr {
         border-color: rgba(249, 115, 22, 0.3);
       }
-      .tabla-cookie {
+      #cookies-container .tabla-cookie {
         background: rgba(30, 30, 30, 0.8);
         border-collapse: collapse;
         width: 100%;
       }
-      .tabla-cookie th {
+      #cookies-container .tabla-cookie th {
         background: rgba(249, 115, 22, 0.2);
         padding: 1rem;
         text-align: left;
         border: 1px solid rgba(249, 115, 22, 0.3);
       }
-      .tabla-cookie td {
+      #cookies-container .tabla-cookie td {
         padding: 0.75rem 1rem;
         border: 1px solid rgba(255, 255, 255, 0.1);
       }
-      .tabla-scroll {
+      #cookies-container .tabla-scroll {
         overflow-x: auto;
         margin: 1rem 0;
       }
@@ -270,5 +300,14 @@ export function PoliticaCookies() {
     </ul>
   `;
   
-  return container;
+  outer.appendChild(container);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      outer.style.opacity = '1';
+      outer.style.transform = 'translateY(0)';
+    });
+  });
+
+  return outer;
 }

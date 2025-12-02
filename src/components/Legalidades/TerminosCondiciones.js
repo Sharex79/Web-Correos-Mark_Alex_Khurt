@@ -1,14 +1,44 @@
+import { EmpanadaBanner } from '../EmpanadaBanner.js';
+
 export function TerminosCondiciones() {
+  const outer = document.createElement('div');
+  outer.id = 'terminos-container';
+  outer.style.cssText = `
+    margin-top: 90px;
+    width: 100vw;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 2rem 1rem;
+  `;
+
+  outer.appendChild(EmpanadaBanner());
+
   const container = document.createElement('div');
   container.className = 'container margen-navbar';
   container.id = 'contenido-terminos';
+  container.style.cssText = `
+    color: #fff !important;
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  `;
   
   // Agregar estilos
-  if (!document.getElementById('legalidades-styles')) {
+  if (!document.getElementById('legalidades-terminos-styles')) {
     const style = document.createElement('style');
-    style.id = 'legalidades-styles';
+    style.id = 'legalidades-terminos-styles';
     style.textContent = `
-      .container.margen-navbar {
+      #terminos-container .container.margen-navbar {
         color: #fff !important;
         max-width: 1200px;
         padding: 2rem;
@@ -16,28 +46,28 @@ export function TerminosCondiciones() {
         border-radius: 15px;
         margin-top: 2rem;
       }
-      .container.margen-navbar h1,
-      .container.margen-navbar h2,
-      .container.margen-navbar h3,
-      .container.margen-navbar h4,
-      .top_legalidades,
-      .Inicio-Informacion {
+      #terminos-container .container.margen-navbar h1,
+      #terminos-container .container.margen-navbar h2,
+      #terminos-container .container.margen-navbar h3,
+      #terminos-container .container.margen-navbar h4,
+      #terminos-container .top_legalidades,
+      #terminos-container .Inicio-Informacion {
         color: #f97316 !important;
       }
-      .container.margen-navbar p,
-      .container.margen-navbar li,
-      .container.margen-navbar td,
-      .container.margen-navbar th {
+      #terminos-container .container.margen-navbar p,
+      #terminos-container .container.margen-navbar li,
+      #terminos-container .container.margen-navbar td,
+      #terminos-container .container.margen-navbar th {
         color: #fff !important;
       }
-      .container.margen-navbar a {
+      #terminos-container .container.margen-navbar a {
         color: #60a5fa !important;
         text-decoration: underline;
       }
-      .container.margen-navbar a:hover {
+      #terminos-container .container.margen-navbar a:hover {
         color: #93c5fd !important;
       }
-      .container.margen-navbar hr {
+      #terminos-container .container.margen-navbar hr {
         border-color: rgba(249, 115, 22, 0.3);
       }
     `;
@@ -267,5 +297,14 @@ export function TerminosCondiciones() {
     </p>
   `;
   
-  return container;
+  outer.appendChild(container);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      outer.style.opacity = '1';
+      outer.style.transform = 'translateY(0)';
+    });
+  });
+
+  return outer;
 }

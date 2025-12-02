@@ -1,43 +1,65 @@
+import { EmpanadaBanner } from '../EmpanadaBanner.js';
+
 export function AvisosLegales() {
+  const mainContainer = document.createElement('div');
+  mainContainer.id = 'avisos-legales-container';
+  mainContainer.style.cssText = `
+    margin-top: 90px;
+    width: 100vw;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 2rem 1rem;
+  `;
+
+  mainContainer.appendChild(EmpanadaBanner());
+
   const container = document.createElement('div');
   container.className = 'container margen-navbar';
   container.id = 'aviso-legal';
+  container.style.cssText = `
+    color: #fff !important;
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  `;
   
   // Agregar estilos
-  if (!document.getElementById('legalidades-styles')) {
+  if (!document.getElementById('legalidades-avisos-styles')) {
     const style = document.createElement('style');
-    style.id = 'legalidades-styles';
+    style.id = 'legalidades-avisos-styles';
     style.textContent = `
-      .container.margen-navbar {
-        color: #fff !important;
-        max-width: 1200px;
-        padding: 2rem;
-        background: rgba(42, 42, 42, 0.95);
-        border-radius: 15px;
-        margin-top: 2rem;
-      }
-      .container.margen-navbar h1,
-      .container.margen-navbar h2,
-      .container.margen-navbar h3,
-      .container.margen-navbar h4,
-      .top_legalidades,
-      .Inicio-Informacion {
+      #avisos-legales-container .container.margen-navbar h1,
+      #avisos-legales-container .container.margen-navbar h2,
+      #avisos-legales-container .container.margen-navbar h3,
+      #avisos-legales-container .container.margen-navbar h4,
+      #avisos-legales-container .top_legalidades,
+      #avisos-legales-container .Inicio-Informacion {
         color: #f97316 !important;
       }
-      .container.margen-navbar p,
-      .container.margen-navbar li,
-      .container.margen-navbar td,
-      .container.margen-navbar th {
+      #avisos-legales-container .container.margen-navbar p,
+      #avisos-legales-container .container.margen-navbar li,
+      #avisos-legales-container .container.margen-navbar td,
+      #avisos-legales-container .container.margen-navbar th {
         color: #fff !important;
       }
-      .container.margen-navbar a {
+      #avisos-legales-container .container.margen-navbar a {
         color: #60a5fa !important;
         text-decoration: underline;
       }
-      .container.margen-navbar a:hover {
+      #avisos-legales-container .container.margen-navbar a:hover {
         color: #93c5fd !important;
       }
-      .container.margen-navbar hr {
+      #avisos-legales-container .container.margen-navbar hr {
         border-color: rgba(249, 115, 22, 0.3);
       }
     `;
@@ -206,5 +228,14 @@ export function AvisosLegales() {
     </ul>
   `;
   
-  return container;
+  mainContainer.appendChild(container);
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      mainContainer.style.opacity = '1';
+      mainContainer.style.transform = 'translateY(0)';
+    });
+  });
+  
+  return mainContainer;
 }

@@ -237,17 +237,17 @@ export function Footer() {
   `;
 
   const legalLinks = [
-    { text: 'Accesibilidad', href: '/Legalidades/Accesibilidad.html' },
-    { text: 'Avisos Legales', href: '/Legalidades/Avisos-Legales.html' },
-    { text: 'Política de Cookies', href: '/Legalidades/Política-Cookies.html' },
-    { text: 'Términos y Condiciones', href: '/Legalidades/Términos-Condiciones.html' },
-    { text: 'Reclamos', href: '/Legalidades/Reclamos.html' }
+    { text: 'Accesibilidad', type: 'accesibilidad' },
+    { text: 'Avisos Legales', type: 'avisos-legales' },
+    { text: 'Política de Cookies', type: 'politica-cookies' },
+    { text: 'Términos y Condiciones', type: 'terminos-condiciones' },
+    { text: 'Reclamos', type: 'reclamos' }
   ];
 
   function makeLegalLink(item) {
     const a = document.createElement('a');
     a.textContent = item.text;
-    a.href = item.href;
+    a.href = '#';
     a.style.cssText = `
       background: #242424;
       color: #d7d7d7;
@@ -261,18 +261,15 @@ export function Footer() {
       transition: transform .25s ease, box-shadow .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
     `;
     
-    // Interceptar el click para agregar animación de desvanecimiento
+    // Interceptar el click para abrir el componente JS
     a.addEventListener('click', (e) => {
       e.preventDefault();
-      
-      // Desvanecer todo el contenido actual
-      document.body.style.transition = 'opacity 0.5s ease';
-      document.body.style.opacity = '0';
-      
-      // Después de la animación, navegar a la página
-      setTimeout(() => {
-        window.location.href = item.href;
-      }, 500);
+      if (typeof window.mostrarLegalidad === 'function') {
+        window.mostrarLegalidad(item.type);
+      } else {
+        // Fallback por hash para que main.js lo capture
+        window.location.hash = `#legalidad:${item.type}`;
+      }
     });
     
     a.addEventListener('mouseenter', () => {

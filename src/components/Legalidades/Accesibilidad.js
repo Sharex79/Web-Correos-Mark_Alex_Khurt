@@ -1,49 +1,73 @@
+import { EmpanadaBanner } from '../EmpanadaBanner.js';
+
 export function renderAccesibilidad() {
   const container = document.createElement('div');
-  container.className = 'container margen-navbar';
+  container.id = 'accesibilidad-container';
+  container.style.cssText = `
+    margin-top: 90px;
+    width: 100vw;
+    min-height: calc(100vh - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    padding: 2rem 1rem;
+  `;
+
+  // Banner de empanadas
+  container.appendChild(EmpanadaBanner());
+
+  // Contenido principal
+  const contentBox = document.createElement('div');
+  contentBox.className = 'container margen-navbar';
+  contentBox.style.cssText = `
+    color: #fff !important;
+    max-width: 1200px;
+    width: 100%;
+    padding: 2rem;
+    background: rgba(42, 42, 42, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  `;
   
-  // Agregar estilos
-  if (!document.getElementById('legalidades-styles')) {
+  // Agregar estilos específicos
+  if (!document.getElementById('legalidades-accesibilidad-styles')) {
     const style = document.createElement('style');
-    style.id = 'legalidades-styles';
+    style.id = 'legalidades-accesibilidad-styles';
     style.textContent = `
-      .container.margen-navbar {
-        color: #fff !important;
-        max-width: 1200px;
-        padding: 2rem;
-        background: rgba(42, 42, 42, 0.95);
-        border-radius: 15px;
-        margin-top: 2rem;
-      }
-      .container.margen-navbar h1,
-      .container.margen-navbar h2,
-      .container.margen-navbar h3,
-      .container.margen-navbar h4,
-      .top_legalidades,
-      .Inicio-Informacion {
+      #accesibilidad-container .container.margen-navbar h1,
+      #accesibilidad-container .container.margen-navbar h2,
+      #accesibilidad-container .container.margen-navbar h3,
+      #accesibilidad-container .container.margen-navbar h4,
+      #accesibilidad-container .top_legalidades,
+      #accesibilidad-container .Inicio-Informacion {
         color: #f97316 !important;
       }
-      .container.margen-navbar p,
-      .container.margen-navbar li,
-      .container.margen-navbar td,
-      .container.margen-navbar th {
+      #accesibilidad-container .container.margen-navbar p,
+      #accesibilidad-container .container.margen-navbar li,
+      #accesibilidad-container .container.margen-navbar td,
+      #accesibilidad-container .container.margen-navbar th {
         color: #fff !important;
       }
-      .container.margen-navbar a {
+      #accesibilidad-container .container.margen-navbar a {
         color: #60a5fa !important;
         text-decoration: underline;
       }
-      .container.margen-navbar a:hover {
+      #accesibilidad-container .container.margen-navbar a:hover {
         color: #93c5fd !important;
       }
-      .container.margen-navbar hr {
+      #accesibilidad-container .container.margen-navbar hr {
         border-color: rgba(249, 115, 22, 0.3);
       }
     `;
     document.head.appendChild(style);
   }
   
-  container.innerHTML = `
+  contentBox.innerHTML = `
     <h1 class="top_legalidades">Declaración de Accesibilidad Web</h1>
     <p><b>Última actualización: 27 de noviembre de 2025</b></p>
     <hr>
@@ -215,6 +239,16 @@ export function renderAccesibilidad() {
       <strong>Correos Express - Conectando personas, entregando confianza, accesibles para todos.</strong>
     </p>
   `;
+
+  container.appendChild(contentBox);
+
+  // Animar entrada
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      container.style.opacity = '1';
+      container.style.transform = 'translateY(0)';
+    });
+  });
   
   return container;
 }
