@@ -51,6 +51,17 @@ export function FormularioPaqueteria() {
       .form-paqueteria__error{ color: #ffd1c2; font-size: .86rem; margin-top: .3rem; display:block; }
       .form-paqueteria input.invalid, .form-paqueteria select.invalid{ border-color: #ff6b6b; box-shadow: 0 0 0 3px rgba(255,107,107,0.06) inset; }
 
+      /* modal / popup for customer confirmation */
+      .form-paqueteria__modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; z-index:9999; }
+      .form-paqueteria__modal{ width:100%; max-width:520px; background:linear-gradient(180deg, #0f1724, #0b1220); border-radius:12px; padding:1rem; border:1px solid rgba(255,255,255,0.04); box-shadow:0 18px 60px rgba(0,0,0,0.6); }
+      .form-paqueteria__modal h4{ margin:0 0 0.6rem 0; color:var(--accent-orange); font-weight:800; }
+      .form-paqueteria__modal p{ margin:0 0 1rem 0; color:rgba(255,255,255,0.85); font-size:.95rem; }
+      .form-paqueteria__modal-field{ display:flex; flex-direction:column; gap:.35rem; margin-bottom:.65rem; }
+      .form-paqueteria__modal-field input{ padding:.6rem .8rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:rgba(255,255,255,0.96); }
+      .form-paqueteria__modal-actions{ display:flex; gap:.6rem; justify-content:flex-end; margin-top:.5rem; }
+      .form-paqueteria__modal-actions .form-paqueteria__btn{ min-width:120px; }
+      .form-paqueteria__modal .error{ color:#ffd1c2; font-size:.88rem; }
+
       @media (max-width: 900px){
         .form-paqueteria__row{ flex-direction:column; }
         .form-paqueteria__sizegrid{ grid-template-columns: 1fr 1fr; }
@@ -155,6 +166,100 @@ export function FormularioPaqueteria() {
   [direccionOrigen, direccionDest, codiOrigen, codiDest, productoSelect].forEach((el) => {
     el.addEventListener('input', () => clearErrorFor(el));
   });
+
+  // DNI / NIE validation (basic format): 8 digits + letter OR X/Y/Z + 7 digits + letter
+  function validateDni(value) {
+    const s = String(value || '').trim();
+    if (!s) return false;
+    const pattern = /^(?:\d{8}|[XxYyZz]\d{7})[A-Za-z]$/;
+    return pattern.test(s);
+  }
+
+  // Build and show a modal to ask for full name and DNI/NIE, then call onConfirm with {name,dni}
+  function showCustomerModal(onConfirm, onCancel) {
+    const previousFocus = document.activeElement;
+
+    const overlay = document.createElement('div');
+    overlay.className = 'form-paqueteria__modal-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+
+    const modal = document.createElement('div');
+    modal.className = 'form-paqueteria__modal';
+
+    const h = document.createElement('h4');
+    h.textContent = 'Confirma tus datos para continuar';
+    const p = document.createElement('p');
+    p.textContent = 'Necesitamos tu nombre completo y DNI/NIE para calcular tarifas con precisión. Solo se almacenará localmente por ahora (mock).';
+
+    const fieldName = document.createElement('div');
+    fieldName.className = 'form-paqueteria__modal-field';
+    const labelName = document.createElement('label'); labelName.textContent = 'Nombre completo';
+    const inputName = document.createElement('input'); inputName.type = 'text'; inputName.placeholder = 'Tu nombre y apellidos';
+    const errName = document.createElement('div'); errName.className = 'error'; errName.style.display = 'none';
+    fieldName.append(labelName, inputName, errName);
+
+    const fieldDni = document.createElement('div');
+    fieldDni.className = 'form-paqueteria__modal-field';
+    const labelDni = document.createElement('label'); labelDni.textContent = 'DNI / NIE';
+    const inputDni = document.createElement('input'); inputDni.type = 'text'; inputDni.placeholder = 'Ej: 12345678A o X1234567B';
+    const errDni = document.createElement('div'); errDni.className = 'error'; errDni.style.display = 'none';
+    fieldDni.append(labelDni, inputDni, errDni);
+
+    const actions = document.createElement('div'); actions.className = 'form-paqueteria__modal-actions';
+    const cancelBtn = document.createElement('button'); cancelBtn.type = 'button'; cancelBtn.className = 'form-paqueteria__btn form-paqueteria__btn--ghost'; cancelBtn.textContent = 'Cancelar';
+    const confirmBtn = document.createElement('button'); confirmBtn.type = 'button'; confirmBtn.className = 'form-paqueteria__btn form-paqueteria__btn--primary'; confirmBtn.textContent = 'Confirmar';
+    actions.append(cancelBtn, confirmBtn);
+
+    modal.append(h, p, fieldName, fieldDni, actions);
+    overlay.append(modal);
+    document.body.appendChild(overlay);
+
+    // Focus handling
+    setTimeout(() => inputName.focus(), 40);
+
+    function cleanup() {
+      try { overlay.remove(); } catch (e) { /* ignore */ }
+      if (previousFocus && previousFocus.focus) previousFocus.focus();
+      document.removeEventListener('keydown', onKeyDown);
+    }
+
+    function onKeyDown(e) {
+      if (e.key === 'Escape') { e.preventDefault(); onCancel && onCancel(); cleanup(); }
+      if (e.key === 'Enter') { e.preventDefault(); confirm(); }
+    }
+
+    document.addEventListener('keydown', onKeyDown);
+
+    cancelBtn.addEventListener('click', () => { onCancel && onCancel(); cleanup(); });
+
+    function validateAndShowErrors() {
+      let ok = true;
+      if (!validateTextMin(inputName.value, 3)) { errName.textContent = 'Introduce tu nombre completo (mín. 3 caracteres).'; errName.style.display = 'block'; ok = false; } else { errName.textContent = ''; errName.style.display = 'none'; }
+      if (!validateDni(inputDni.value)) { errDni.textContent = 'DNI/NIE inválido (ej: 12345678A o X1234567B).'; errDni.style.display = 'block'; ok = false; } else { errDni.textContent = ''; errDni.style.display = 'none'; }
+      return ok;
+    }
+
+    confirmBtn.addEventListener('click', confirm);
+
+    function confirm() {
+      if (!validateAndShowErrors()) {
+        // focus first invalid
+        if (errName.style.display === 'block') inputName.focus(); else if (errDni.style.display === 'block') inputDni.focus();
+        return;
+      }
+      const result = { nombre: inputName.value.trim(), dni: inputDni.value.trim() };
+      onConfirm && onConfirm(result);
+      cleanup();
+    }
+
+    // clear field errors as user types
+    inputName.addEventListener('input', () => { errName.style.display = 'none'; });
+    inputDni.addEventListener('input', () => { errDni.style.display = 'none'; });
+
+    // return overlay so caller can manipulate if needed
+    return overlay;
+  }
 
   // País
   const pais = document.createElement('input');
@@ -274,11 +379,30 @@ export function FormularioPaqueteria() {
       pais: 'España',
       talla: form.querySelector('input[name="size"]:checked')?.value || ''
     };
-    // TODO: connect to price API or calculation
-    console.info('Formulario Paquetería:', payload);
-    // show a simple visual confirmation
-    btnPrimary.textContent = 'Calculado ✓';
-    setTimeout(() => (btnPrimary.textContent = 'Calcular envío'), 1400);
+    // At this point base validations passed — ask the user for name and DNI/NIE
+    // disable button to avoid double clicks while modal is open
+    try { btnPrimary.disabled = true; } catch (e) { /* ignore */ }
+
+    showCustomerModal(
+      (customer) => {
+        try {
+          payload.nombre_completo = customer.nombre;
+          payload.dni_nie = customer.dni;
+          // TODO: connect to price API or calculation — payload now includes customer data
+          console.info('Formulario Paquetería (final):', payload);
+
+          // show a simple visual confirmation
+          btnPrimary.textContent = 'Calculado ✓';
+          setTimeout(() => (btnPrimary.textContent = 'Calcular envío'), 1400);
+        } finally {
+          btnPrimary.disabled = false;
+        }
+      },
+      () => {
+        // user cancelled — re-enable primary button and keep form untouched
+        try { btnPrimary.disabled = false; } catch (e) { /* ignore */ }
+      }
+    );
   });
 
   container.append(header, form);
