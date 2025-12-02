@@ -93,6 +93,7 @@ export function Navbar() {
   
   // Panel lateral (slide-out) + overlay
   const overlay = document.createElement('div');
+  overlay.setAttribute('data-role', 'navbar-overlay');
   overlay.style.cssText = `
     position: fixed;
     top: 90px; /* debajo de la navbar */
@@ -107,6 +108,7 @@ export function Navbar() {
   `;
 
   const sidePanel = document.createElement('aside');
+  sidePanel.setAttribute('data-role', 'navbar-sidepanel');
   sidePanel.style.cssText = `
     position: fixed;
     top: 90px; /* debajo de la navbar */
@@ -177,8 +179,28 @@ export function Navbar() {
   }
 
   // Orden de arriba hacia abajo: Feedback, Ayuda, Ajustes
-  bottomLinks.appendChild(makeBottomLink('Feedback', '/src/components/Feedback.html'));
-  bottomLinks.appendChild(makeBottomLink('Ajustes'));
+  const feedbackLink = makeBottomLink('Feedback');
+  feedbackLink.style.cursor = 'pointer';
+  feedbackLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.mostrarFeedback) {
+      window.mostrarFeedback();
+    }
+    closePanel();
+  });
+  bottomLinks.appendChild(feedbackLink);
+
+  // Botón Ajustes: abre la vista Config
+  const ajustesLink = makeBottomLink('Ajustes');
+  ajustesLink.style.cursor = 'pointer';
+  ajustesLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (window.mostrarConfig) {
+      window.mostrarConfig();
+    }
+    closePanel();
+  });
+  bottomLinks.appendChild(ajustesLink);
 
   // Footer de idiomas (al fondo del panel)
   const langFooter = document.createElement('div');

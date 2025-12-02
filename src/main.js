@@ -20,6 +20,7 @@ import { PoliticaCookies } from './components/Legalidades/PoliticaCookies.js';
 import { TerminosCondiciones } from './components/Legalidades/TerminosCondiciones.js';
 import { renderReclamos } from './components/Legalidades/Reclamos.js';
 import { Feedback } from './components/Feedback.js';
+import { Config } from './components/Config.js';
 import { Navbar as NavbarVolver } from './components/navbarVolver.js';
 
 
@@ -242,22 +243,19 @@ window.mostrarLegalidad = function(tipo) {
 //    FUNCIÓN PARA VOLVER AL INICIO (SMOOTH)
 // ==========================================
 window.volverAlInicio = function() {
-  // Quitar NavbarVolver si existe y restaurar la principal
-  const volverNav = document.querySelector('nav[data-variant="volver"]');
-  if (volverNav && volverNav.parentNode) {
-    volverNav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    volverNav.style.opacity = '0';
-    volverNav.style.transform = 'translateY(-10px)';
-    setTimeout(() => volverNav.remove(), 300);
-  }
-  const mainNav = document.querySelector('nav:not([data-variant])');
-  if (mainNav) {
+  // Eliminar cualquier navbarVolver
+  document.querySelectorAll('nav[data-variant="volver"]').forEach((n) => {
+    n.remove();
+  });
+  // Asegurar que existe la navbar principal
+  let mainNav = document.querySelector('nav:not([data-variant])');
+  if (!mainNav) {
+    mainNav = Navbar();
+    document.body.prepend(mainNav);
+  } else {
     mainNav.style.display = '';
     mainNav.style.opacity = '1';
     mainNav.style.transform = 'none';
-  } else {
-    // Por seguridad, crearla si no existe
-    document.body.prepend(Navbar());
   }
   // Eliminar el formulario con transición
   const formularioContainer = document.getElementById('formulario-container');
@@ -347,6 +345,10 @@ window.volverAlInicio = function() {
 };
 
 // ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR FEEDBACK
+// ==========================================
+
+// ==========================================
 //        FUNCIÓN PARA MOSTRAR FEEDBACK
 //    (Mismo patrón de animaciones que legal)
 // ==========================================
@@ -385,18 +387,16 @@ window.mostrarFeedback = function() {
     setTimeout(() => legalidadContainer.remove(), 500);
   }
 
-  // Intercambiar Navbar principal por NavbarVolver
-  const mainNav = document.querySelector('nav:not([data-variant])');
-  if (mainNav) {
-    mainNav.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-    mainNav.style.opacity = '0';
-    mainNav.style.transform = 'translateY(-10px)';
-    setTimeout(() => { mainNav.style.display = 'none'; }, 300);
-  }
-  if (!document.querySelector('nav[data-variant="volver"]')) {
-    const volverNav = NavbarVolver();
-    document.body.prepend(volverNav);
-  }
+  // Sustituir cualquier navbar por la navbarVolver y limpiar overlays/paneles
+  document.querySelectorAll('nav').forEach((n) => {
+    if (n && n.parentNode) n.remove();
+  });
+  document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+    if (el && el.parentNode) el.remove();
+  });
+  const volverNav = NavbarVolver();
+  volverNav.setAttribute('data-variant', 'volver');
+  document.body.prepend(volverNav);
 
   // Crear contenedor de feedback
   setTimeout(() => {
@@ -425,8 +425,7 @@ window.mostrarFeedback = function() {
     feedbackContainer.appendChild(Feedback());
 
     // Insertar tras la navbar visible
-    const navVisible = document.querySelector('nav[data-variant="volver"]') || document.querySelector('nav');
-    navVisible.after(feedbackContainer);
+    volverNav.after(feedbackContainer);
 
     // Footer nuevo
     const newFooter = Footer();
@@ -454,3 +453,72 @@ window.mostrarFeedback = function() {
 if (window.location.hash === '#feedback') {
   setTimeout(() => window.mostrarFeedback(), 100);
 }
+
+// ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR CONFIG
+// ==========================================
+window.mostrarConfig = function() {
+  // Ocultar/eliminar contenido principal
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  // Eliminar footer existente
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  // Eliminar otros contenedores alternativos
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    // Limpiar navbars y elementos auxiliares
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    // Insertar navbarVolver
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    // Contenedor de Config
+    const configContainer = Config();
+    volverNav.after(configContainer);
+
+    // Footer
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    configContainer.after(newFooter);
+
+    // Animaciones de entrada
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        configContainer.style.opacity = '1';
+        configContainer.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+

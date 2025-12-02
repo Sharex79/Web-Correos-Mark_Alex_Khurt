@@ -102,6 +102,7 @@ export function Navbar() {
   
   // Panel lateral (slide-out) + overlay
   const overlay = document.createElement('div');
+  overlay.setAttribute('data-role', 'navbar-overlay');
   overlay.style.cssText = `
     position: fixed;
     top: 90px; /* debajo de la navbar */
@@ -116,6 +117,7 @@ export function Navbar() {
   `;
 
   const sidePanel = document.createElement('aside');
+  sidePanel.setAttribute('data-role', 'navbar-sidepanel');
   sidePanel.style.cssText = `
     position: fixed;
     top: 90px; /* debajo de la navbar */
