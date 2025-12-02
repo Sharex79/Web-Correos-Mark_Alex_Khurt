@@ -47,6 +47,10 @@ export function FormularioPaqueteria() {
 
       .form-paqueteria__small{ font-size:.92rem; color: rgba(255,255,255,0.82); }
 
+      /* validation styles */
+      .form-paqueteria__error{ color: #ffd1c2; font-size: .86rem; margin-top: .3rem; display:block; }
+      .form-paqueteria input.invalid, .form-paqueteria select.invalid{ border-color: #ff6b6b; box-shadow: 0 0 0 3px rgba(255,107,107,0.06) inset; }
+
       @media (max-width: 900px){
         .form-paqueteria__row{ flex-direction:column; }
         .form-paqueteria__sizegrid{ grid-template-columns: 1fr 1fr; }
@@ -89,6 +93,12 @@ export function FormularioPaqueteria() {
     label.textContent = labelText;
     wrapper.appendChild(label);
     wrapper.appendChild(inputEl);
+
+    // Add an inline error span (hidden by default) so we can show validation errors
+    const err = document.createElement('span');
+    err.className = 'form-paqueteria__error';
+    err.hidden = true;
+    wrapper.appendChild(err);
     return wrapper;
   }
 
@@ -116,6 +126,35 @@ export function FormularioPaqueteria() {
   const codiDest = document.createElement('input');
   codiDest.type = 'text'; codiDest.placeholder = 'Código postal destino';
   form.appendChild(addField('Código postal destino', codiDest));
+
+  // Helper validation functions
+  function showErrorFor(inputEl, message) {
+    const container = inputEl.parentElement;
+    if (!container) return;
+    const err = container.querySelector('.form-paqueteria__error');
+    if (err) { err.textContent = message; err.hidden = false; }
+    inputEl.classList.add('invalid');
+  }
+
+  function clearErrorFor(inputEl) {
+    const container = inputEl.parentElement;
+    if (!container) return;
+    const err = container.querySelector('.form-paqueteria__error');
+    if (err) { err.textContent = ''; err.hidden = true; }
+    inputEl.classList.remove('invalid');
+  }
+
+  function validatePostal(code) {
+    // Strict Spain postal code rule: exactly 5 numeric digits
+    return /^[0-9]{5}$/.test(String(code || '').trim());
+  }
+
+  function validateTextMin(value, minLen = 3) { return String(value || '').trim().length >= minLen; }
+
+  // Add real-time listeners to clear errors as user types
+  [direccionOrigen, direccionDest, codiOrigen, codiDest, productoSelect].forEach((el) => {
+    el.addEventListener('input', () => clearErrorFor(el));
+  });
 
   // País
   const pais = document.createElement('input');
@@ -205,6 +244,26 @@ export function FormularioPaqueteria() {
   // Prevent default submit and show console-friendly object for now
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // basic validation before creating payload
+    let ok = true;
+
+    // basic address validation
+    if (!validateTextMin(direccionOrigen.value)) { showErrorFor(direccionOrigen, 'Introduce una dirección de origen válida (mín. 3 caracteres).'); ok = false; }
+    if (!validateTextMin(direccionDest.value)) { showErrorFor(direccionDest, 'Introduce una dirección de destino válida (mín. 3 caracteres).'); ok = false; }
+
+    // postal codes: only numbers and exact length 5
+    if (!validatePostal(codiOrigen.value)) { showErrorFor(codiOrigen, 'Código postal inválido — debe contener exactamente 5 números.'); ok = false; }
+    if (!validatePostal(codiDest.value)) { showErrorFor(codiDest, 'Código postal inválido — debe contener exactamente 5 números.'); ok = false; }
+
+    if (!ok) {
+      // focus the first invalid field for quick correction
+      const firstInvalid = form.querySelector('input.invalid, select.invalid');
+      if (firstInvalid) firstInvalid.focus();
+      console.warn('Formulario Paquetería: validación fallida');
+      return;
+    }
+
     // simple payload
     const payload = {
       producto: productoSelect.value,

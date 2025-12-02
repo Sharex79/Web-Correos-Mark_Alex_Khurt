@@ -169,6 +169,21 @@ export function ContenedoresDobles() {
   grid.append(boxLeft, boxRight);
   section.append(title, grid);
 
+  // Integration-safe accessibility helpers: ensure inner elements have useful ids
+  try {
+    // id for tracking input (if present)
+    const trackingInput = section.querySelector('.tracking-widget__input');
+    if (trackingInput && !trackingInput.id) trackingInput.id = 'tracking-input';
+
+    // id for paqueteria form element
+    const paqForm = section.querySelector('.form-paqueteria__form');
+    if (paqForm && !paqForm.id) paqForm.id = 'form-paqueteria-form';
+  } catch (e) {
+    // do not break rendering — this is only a best-effort enhancement
+    // eslint-disable-next-line no-console
+    console.debug('ContenedoresDobles: optional accessibility ids not applied', e);
+  }
+
   return section;
 }
 

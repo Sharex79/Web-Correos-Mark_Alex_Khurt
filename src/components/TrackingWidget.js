@@ -28,6 +28,8 @@ export function TrackingWidget() {
       .tracking-widget__card p{ margin:0; color:rgba(255,255,255,0.78); font-size:0.9rem; }
 
       .tracking-widget__result{ margin-top:0.8rem; padding:0.8rem; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:10px; border:1px solid rgba(255,255,255,0.03); color:rgba(255,255,255,0.92); font-size:0.95rem; }
+      .tracking-widget__error{ color:#ffd1c2; font-weight:700; }
+      .tracking-widget__input.invalid{ border-color:#ff6b6b; box-shadow: 0 0 0 4px rgba(255,107,107,0.06) inset; }
       .tracking-widget__linkbtn{ display:inline-block; margin-top:.65rem; padding:.5rem .85rem; border-radius:8px; text-decoration:none; background:linear-gradient(135deg,#60a5fa,#3b82f6); color:white; font-weight:700; box-shadow:0 8px 20px rgba(59,130,246,0.12); }
 
       @media (max-width:720px){ .tracking-widget__search{ flex-direction:column; align-items:stretch; } .tracking-widget__button{ width:100%; } .tracking-widget__mini{ gap:0.5rem; } }
@@ -102,13 +104,37 @@ export function TrackingWidget() {
   mini.append(card1, card2, card3, card4);
 
   // Tracking handler (mock)
+  // Basic validation for tracking inputs: allow letters, digits, dash and spaces, require minimum length
+  function isValidTracking(s) { return /^[A-Za-z0-9\-\s]{5,}$/.test(String(s || '').trim()); }
+
   btn.addEventListener('click', () => {
     const val = String(input.value || '').trim();
-    if (!val) { showResult('<strong>Error:</strong> Introduce un número de seguimiento.'); return; }
+
+    // clear previous invalid state
+    input.classList.remove('invalid');
+    resultBox.hidden = true;
+
+    if (!val) {
+      input.classList.add('invalid');
+      showResult('<span class="tracking-widget__error">Error:</span> Introduce un número de seguimiento.');
+      return;
+    }
+
+    if (!isValidTracking(val)) {
+      input.classList.add('invalid');
+      showResult('<span class="tracking-widget__error">Error:</span> Formato inválido. Usa solo letras, números, espacios o guiones (mín. 5 caracteres).');
+      return;
+    }
 
     // Mock result — replace later with API call
     const now = new Date().toLocaleString();
     showResult(`<strong>Seguimiento: ${val}</strong><br/><em>Última actualización:</em> ${now}<br/><br/>Estado: En tránsito<br/>Origen: Oficina central<br/>Destino: Tu ciudad (estimado 2-3 días)`);
+  });
+
+  // clear error as user types
+  input.addEventListener('input', () => {
+    input.classList.remove('invalid');
+    if (!resultBox.hidden) { resultBox.hidden = true; }
   });
 
   // removed the extra 'Buscar CP' button — quick actions are now the vertical buttons above
