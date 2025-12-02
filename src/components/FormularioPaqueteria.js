@@ -311,10 +311,10 @@ export function FormularioPaqueteria() {
   sizeGrid.className = 'form-paqueteria__sizegrid';
 
   const sizes = [
-    { code: 'XS', weight: 'Hasta 2 kg', dims: '30x20x20' },
-    { code: 'S', weight: 'Hasta 5 kg', dims: '35x35x24' },
-    { code: 'M', weight: 'Hasta 10 kg', dims: '40x40x37' },
-    { code: 'L', weight: 'Hasta 20 kg', dims: '55x55x39' }
+    { code: 'XS', weight: 'Hasta 2 kg', dims: '30x20x20', price: '5,63€' },
+    { code: 'S', weight: 'Hasta 5 kg', dims: '35x35x24', price: '7,99€' },
+    { code: 'M', weight: 'Hasta 10 kg', dims: '40x40x37', price: '12,50€' },
+    { code: 'L', weight: 'Hasta 20 kg', dims: '55x55x39', price: '19,90€' }
   ];
 
   sizes.forEach((s, i) => {
@@ -336,7 +336,14 @@ export function FormularioPaqueteria() {
     dims.className = 'form-paqueteria__small';
     dims.textContent = `Dimensiones: ${s.dims}`;
 
-    card.append(radio, strong, dims);
+    // Add price info visually prominent
+    const price = document.createElement('span');
+    price.className = 'form-paqueteria__small';
+    price.style.color = '#ff9f40';
+    price.style.fontWeight = 'bold';
+    price.textContent = `Precio: ${s.price}`;
+
+    card.append(radio, strong, dims, price);
     sizeGrid.appendChild(card);
   });
 
