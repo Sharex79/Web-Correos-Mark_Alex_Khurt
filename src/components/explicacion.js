@@ -55,15 +55,6 @@ export function Explicacion() {
     { type: 'double', title: '¿Quieres comprar en nuestras tiendas o enviar dinero?', text: `Tenemos todo tipo de productos que te ayudarán a realizar compras en tiendas o envíos de dinero de forma fácil. Descubre seguros, pagos y más servicios integrados.`, image: 'https://images.pexels.com/photos/394372/pexels-photo-394372.jpeg?auto=compress&cs=tinysrgb&w=800', buttonText: 'Más info compras/dinero', buttonSubject: 'Consulta compras o envío dinero', buttonBody: `¡Hola equipo!\n\nConsulta sobre compras en tiendas o envío de dinero.\n\n• Servicio específico:\n• Cantidad:\n• Destino:\n\nSaludos.` }
   ];
 
-  // Make specific entries text-only (remove images for the two double items per request)
-  mosaicData.forEach(it => {
-    if (it.title === 'El Camino con Correos' || it.title === '¿Quieres comprar en nuestras tiendas o enviar dinero?') {
-      // remove image and any positioning so the renderer emits text-only cards
-      if (it.hasOwnProperty('image')) delete it.image;
-      if (it.hasOwnProperty('imagePosition')) delete it.imagePosition;
-    }
-  });
-
   // BOTÓN COMÚN
   const createButton = (buttonText, buttonSubject, buttonBody) => {
     const btn = document.createElement('button');
@@ -226,47 +217,6 @@ export function Explicacion() {
     };
   }
 
-  const doubleContainer = document.createElement('div');
-  doubleContainer.style.cssText = `display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;`;
-  for (let i = 0; i < 2; i++) {
-    const item = mosaicData[dataIndex++];
-    const card = document.createElement('div');
-    card.style.cssText = `background:rgba(255,255,255,0.07);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 8px 30px rgba(0,0,0,0.15);border:1px solid rgba(255,159,64,0.25);transition:all .4s;`;
-    // only render image wrapper when an image URL exists for this item
-    let imgWrap, img;
-    if (item.image) {
-      imgWrap = document.createElement('div');
-      imgWrap.style.cssText = `height:200px;background:white;display:flex;align-items:center;justify-content:center;padding:20px;border-bottom:4px solid #ff9f40;transition:all 0.4s ease;`;
-      img = document.createElement('img');
-      img.src = item.image;
-      img.style.cssText = `max-width:90%;max-height:90%;object-fit:contain;transition:transform 0.6s ease;`;
-      imgWrap.appendChild(img);
-    }
-    const content = document.createElement('div');
-    content.style.cssText = `padding:1.8rem;display:flex;flex-direction:column;gap:1rem;flex:1;text-align:center;`;
-    const h3 = document.createElement('h3');
-    h3.textContent = item.title;
-    h3.style.cssText = `margin:0;font-size:1.5rem;color:#ff9f40;font-weight:600;`;
-    const p = document.createElement('p');
-    p.textContent = item.text;
-    p.style.cssText = `margin:0;font-size:0.95rem;line-height:1.6;opacity:0.92;flex:1;`;
-    content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
-    if (imgWrap) card.append(imgWrap, content); else card.append(content);
-    doubleContainer.appendChild(card);
-
-    card.onmouseenter = () => {
-      card.style.transform = 'translateY(-14px) scale(1.04)';
-      card.style.boxShadow = '0 25px 60px rgba(255,159,64,0.35)';
-      if (img) { img.style.transform = 'scale(1.1) rotate(2deg)'; if (imgWrap) imgWrap.style.borderBottomColor = '#ffb340'; }
-    };
-    card.onmouseleave = () => {
-      card.style.transform = '';
-      card.style.boxShadow = '0 8px 30px rgba(0,0,0,0.15)';
-      if (img) { img.style.transform = ''; if (imgWrap) imgWrap.style.borderBottomColor = '#ff9f40'; }
-    };
-  }
-  mosaicContainer.appendChild(doubleContainer);
-
   // ==========================================
   // RESPONSIVE PERFECTO
   // ==========================================
@@ -282,8 +232,6 @@ export function Explicacion() {
       img.style.height = veryMobile.matches ? '190px' : '240px';
       img.style.padding = veryMobile.matches ? '15px' : '20px';
     });
-    // Double
-    doubleContainer.style.gridTemplateColumns = mobile.matches ? '1fr' : '1fr 1fr';
   };
   mobile.addListener(adaptLayout);
   veryMobile.addListener(adaptLayout);
