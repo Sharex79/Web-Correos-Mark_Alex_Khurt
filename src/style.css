@@ -35,7 +35,6 @@ body {
   background-attachment: fixed !important;
   overflow-x: hidden;
   overflow-y: auto;
-  zoom: 0.75;
 }
 
 h1 {
