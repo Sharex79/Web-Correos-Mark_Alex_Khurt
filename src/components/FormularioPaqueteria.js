@@ -4,6 +4,59 @@
 //  CSS inyectado y contenido EN ESPAÑOL
 // ==========================================
 
+// Spanish provinces data with postal code ranges
+const PROVINCIAS_ESPAÑA = {
+  'Álava': { code: '01', postalCodes: [1000, 1999] },
+  'Albacete': { code: '02', postalCodes: [2000, 2999] },
+  'Alicante': { code: '03', postalCodes: [3000, 3999] },
+  'Almería': { code: '04', postalCodes: [4000, 4999] },
+  'Ávila': { code: '05', postalCodes: [5000, 5999] },
+  'Badajoz': { code: '06', postalCodes: [6000, 6999] },
+  'Baleares': { code: '07', postalCodes: [7000, 7999] },
+  'Barcelona': { code: '08', postalCodes: [8000, 8999] },
+  'Burgos': { code: '09', postalCodes: [9000, 9999] },
+  'Cáceres': { code: '10', postalCodes: [10000, 10999] },
+  'Cádiz': { code: '11', postalCodes: [11000, 11999] },
+  'Castellón': { code: '12', postalCodes: [12000, 12999] },
+  'Ciudad Real': { code: '13', postalCodes: [13000, 13999] },
+  'Córdoba': { code: '14', postalCodes: [14000, 14999] },
+  'Cuenca': { code: '16', postalCodes: [16000, 16999] },
+  'Girona': { code: '17', postalCodes: [17000, 17999] },
+  'Granada': { code: '18', postalCodes: [18000, 18999] },
+  'Guadalajara': { code: '19', postalCodes: [19000, 19999] },
+  'Guipúzcoa': { code: '20', postalCodes: [20000, 20999] },
+  'Huelva': { code: '21', postalCodes: [21000, 21999] },
+  'Huesca': { code: '22', postalCodes: [22000, 22999] },
+  'Jaén': { code: '23', postalCodes: [23000, 23999] },
+  'La Coruña': { code: '15', postalCodes: [15000, 15999] },
+  'La Rioja': { code: '26', postalCodes: [26000, 26999] },
+  'Las Palmas': { code: '35', postalCodes: [35000, 35999] },
+  'León': { code: '24', postalCodes: [24000, 24999] },
+  'Lleida': { code: '25', postalCodes: [25000, 25999] },
+  'Lugo': { code: '27', postalCodes: [27000, 27999] },
+  'Madrid': { code: '28', postalCodes: [28000, 28999] },
+  'Málaga': { code: '29', postalCodes: [29000, 29999] },
+  'Murcia': { code: '30', postalCodes: [30000, 30999] },
+  'Navarra': { code: '31', postalCodes: [31000, 31999] },
+  'Ourense': { code: '32', postalCodes: [32000, 32999] },
+  'Palencia': { code: '34', postalCodes: [34000, 34999] },
+  'Palma de Mallorca': { code: '07', postalCodes: [7000, 7999] },
+  'Pontevedra': { code: '36', postalCodes: [36000, 36999] },
+  'Salamanca': { code: '37', postalCodes: [37000, 37999] },
+  'Santa Cruz de Tenerife': { code: '38', postalCodes: [38000, 38999] },
+  'Segovia': { code: '40', postalCodes: [40000, 40999] },
+  'Sevilla': { code: '41', postalCodes: [41000, 41999] },
+  'Soria': { code: '42', postalCodes: [42000, 42999] },
+  'Tarragona': { code: '43', postalCodes: [43000, 43999] },
+  'Teruel': { code: '44', postalCodes: [44000, 44999] },
+  'Toledo': { code: '45', postalCodes: [45000, 45999] },
+  'Valencia': { code: '46', postalCodes: [46000, 46999] },
+  'Valladolid': { code: '47', postalCodes: [47000, 47999] },
+  'Vizcaya': { code: '48', postalCodes: [48000, 48999] },
+  'Zamora': { code: '49', postalCodes: [49000, 49999] },
+  'Zaragoza': { code: '50', postalCodes: [50000, 50999] }
+};
+
 export function FormularioPaqueteria() {
   const container = document.createElement('div');
   container.className = 'form-paqueteria';
@@ -27,9 +80,12 @@ export function FormularioPaqueteria() {
 
       label{ display:block; font-weight:600; font-size:.95rem; color:rgba(255,255,255,0.95); margin-bottom: .35rem; }
 
-      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; min-width:0; }
+      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(26,26,26,0.8); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; min-width:0; }
       input[type=text]::placeholder{ color:rgba(255,255,255,0.5); }
       input[type=text]:focus, select:focus{ outline: none; box-shadow: 0 6px 18px rgba(50,50,50,0.35) inset, 0 0 0 4px rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.35); }
+      
+      /* Style select dropdown options */
+      select option { background-color: #1a1a1a; color: rgba(255,255,255,0.96); }
 
       .form-paqueteria__sizegrid{ display:grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap:.6rem; }
       .form-paqueteria__size{ padding:.6rem .85rem; border-radius:12px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:.5rem; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; min-width:0; }
@@ -128,6 +184,28 @@ export function FormularioPaqueteria() {
   direccionDest.type = 'text'; direccionDest.placeholder = 'Dirección de destino (calle, nº, referencia)';
   form.appendChild(addField('Dirección de destino', direccionDest));
 
+  // Comunidad Autónoma / Provincia de Origen
+  const provinciaOrigen = document.createElement('select');
+  provinciaOrigen.innerHTML = '<option value="">Selecciona la comunidad autónoma de origen</option>';
+  Object.keys(PROVINCIAS_ESPAÑA).sort().forEach((prov) => {
+    const opt = document.createElement('option');
+    opt.value = prov;
+    opt.textContent = prov;
+    provinciaOrigen.appendChild(opt);
+  });
+  form.appendChild(addField('Comunidad Autónoma - Origen', provinciaOrigen));
+
+  // Comunidad Autónoma / Provincia de Destino
+  const provinciaDest = document.createElement('select');
+  provinciaDest.innerHTML = '<option value="">Selecciona la comunidad autónoma de destino</option>';
+  Object.keys(PROVINCIAS_ESPAÑA).sort().forEach((prov) => {
+    const opt = document.createElement('option');
+    opt.value = prov;
+    opt.textContent = prov;
+    provinciaDest.appendChild(opt);
+  });
+  form.appendChild(addField('Comunidad Autónoma - Destino', provinciaDest));
+
   // Codi postal origen
   const codiOrigen = document.createElement('input');
   codiOrigen.type = 'text'; codiOrigen.placeholder = 'Código postal origen';
@@ -162,9 +240,19 @@ export function FormularioPaqueteria() {
 
   function validateTextMin(value, minLen = 3) { return String(value || '').trim().length >= minLen; }
 
+  // Validate if postal code matches the selected province
+  function isPostalCodeInProvince(postalCode, provinceName) {
+    const province = PROVINCIAS_ESPAÑA[provinceName];
+    if (!province) return false;
+    const code = parseInt(postalCode, 10);
+    const [min, max] = province.postalCodes;
+    return code >= min && code <= max;
+  }
+
   // Add real-time listeners to clear errors as user types
-  [direccionOrigen, direccionDest, codiOrigen, codiDest, productoSelect].forEach((el) => {
+  [direccionOrigen, direccionDest, codiOrigen, codiDest, productoSelect, provinciaOrigen, provinciaDest].forEach((el) => {
     el.addEventListener('input', () => clearErrorFor(el));
+    el.addEventListener('change', () => clearErrorFor(el));
   });
 
   // DNI / NIE validation (basic format): 8 digits + letter OR X/Y/Z + 7 digits + letter
@@ -368,6 +456,10 @@ export function FormularioPaqueteria() {
     codiOrigen.value = '';
     codiDest.value = '';
 
+    // Reset province selects
+    provinciaOrigen.selectedIndex = 0;
+    provinciaDest.selectedIndex = 0;
+
     // Reset radios to first option
     const radios = form.querySelectorAll('input[name="size"]');
     radios.forEach((r, i) => r.checked = i === 0);
@@ -386,6 +478,8 @@ export function FormularioPaqueteria() {
     direccionDest.value = '';
     codiOrigen.value = '';
     codiDest.value = '';
+    provinciaOrigen.selectedIndex = 0;
+    provinciaDest.selectedIndex = 0;
     const radios = form.querySelectorAll('input[name="size"]');
     radios.forEach((r, i) => r.checked = i === 0);
     pais.value = pais.defaultValue || 'España';
@@ -411,9 +505,23 @@ export function FormularioPaqueteria() {
     if (!validateTextMin(direccionOrigen.value)) { showErrorFor(direccionOrigen, 'Introduce una dirección de origen válida (mín. 3 caracteres).'); ok = false; }
     if (!validateTextMin(direccionDest.value)) { showErrorFor(direccionDest, 'Introduce una dirección de destino válida (mín. 3 caracteres).'); ok = false; }
 
+    // Validate province selection
+    if (!provinciaOrigen.value) { showErrorFor(provinciaOrigen, 'Selecciona la comunidad autónoma de origen.'); ok = false; }
+    if (!provinciaDest.value) { showErrorFor(provinciaDest, 'Selecciona la comunidad autónoma de destino.'); ok = false; }
+
     // postal codes: only numbers and exact length 5
     if (!validatePostal(codiOrigen.value)) { showErrorFor(codiOrigen, 'Código postal inválido — debe contener exactamente 5 números.'); ok = false; }
     if (!validatePostal(codiDest.value)) { showErrorFor(codiDest, 'Código postal inválido — debe contener exactamente 5 números.'); ok = false; }
+
+    // Validate postal codes match selected provinces
+    if (ok && !isPostalCodeInProvince(codiOrigen.value, provinciaOrigen.value)) {
+      showErrorFor(codiOrigen, `El código postal no corresponde a ${provinciaOrigen.value}.`);
+      ok = false;
+    }
+    if (ok && !isPostalCodeInProvince(codiDest.value, provinciaDest.value)) {
+      showErrorFor(codiDest, `El código postal no corresponde a ${provinciaDest.value}.`);
+      ok = false;
+    }
 
     if (!ok) {
       // focus the first invalid field for quick correction
@@ -428,6 +536,8 @@ export function FormularioPaqueteria() {
       producto: productoSelect.value,
       direccion_origen: direccionOrigen.value || '',
       direccion_destino: direccionDest.value || '',
+      provincia_origen: provinciaOrigen.value || '',
+      provincia_destino: provinciaDest.value || '',
       codigo_postal_origen: codiOrigen.value || '',
       codigo_postal_destino: codiDest.value || '',
       pais: 'España',
