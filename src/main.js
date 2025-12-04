@@ -25,6 +25,7 @@ import { Tienda } from './components/Tienda.js';
 import { GestionAduanera } from './components/GestionAduanera.js';
 import { TramiteDGT } from './components/TramiteDGT.js';
 import { TramitePublico } from './components/TramitePublico.js';
+import { MisEnvios } from './components/MisEnvios.js';
 import { Navbar as NavbarVolver } from './components/navbarVolver.js';
 
 
@@ -536,7 +537,7 @@ window.mostrarConfig = function() {
   }
 
   // Eliminar otros contenedores alternativos
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -604,7 +605,7 @@ window.mostrarTienda = function() {
   }
 
   // Eliminar otros contenedores alternativos
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -669,7 +670,7 @@ window.mostrarGestionAduanera = function() {
     setTimeout(() => existingFooter.remove(), 500);
   }
 
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -711,6 +712,65 @@ window.mostrarGestionAduanera = function() {
 };
 
 // ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR MIS ENVÍOS
+// ==========================================
+window.mostrarMisEnvios = function() {
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    const container = MisEnvios();
+    document.body.appendChild(container);
+
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    document.body.appendChild(newFooter);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
+// ==========================================
 //  FUNCIÓN GLOBAL PARA MOSTRAR TRÁMITE DGT
 // ==========================================
 window.mostrarTramiteDGT = function() {
@@ -728,7 +788,7 @@ window.mostrarTramiteDGT = function() {
     setTimeout(() => existingFooter.remove(), 500);
   }
 
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -787,7 +847,7 @@ window.mostrarTramitePublico = function() {
     setTimeout(() => existingFooter.remove(), 500);
   }
 
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container', 'misenvios-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {

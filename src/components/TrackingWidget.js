@@ -97,11 +97,68 @@ export function TrackingWidget() {
 
   // Four static buttons (non-functional for now) stacked vertically
   const card1 = createCard('Localitza oficines, bústies i Citypaq', 'Localiza puntos cercanos (oficinas, buzones, Citypaq).', '/localitza');
-  const card2 = createCard('Troba codis postals', 'Busca códigos postales por dirección o localidad.', '/codis-postals');
-  const card3 = createCard('Verificador de correu electrònic', 'Comprobar formato y disponibilidad de un correo.', '/verificador-email');
   const card4 = createCard('Mis envíos', 'Historial y detalles de tus paquetes.', '/mis-paquetes.html');
 
-  mini.append(card1, card2, card3, card4);
+  // Add hover effect (orange border)
+  [card1, card4].forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.borderColor = '#f97316';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.borderColor = 'rgba(255,255,255,0.04)';
+    });
+    
+    // Add click effect (full orange flash)
+    card.addEventListener('click', () => {
+      const originalBg = card.style.background;
+      const originalBorder = card.style.borderColor;
+      card.style.background = '#f97316';
+      card.style.borderColor = '#f97316';
+      
+      setTimeout(() => {
+        card.style.background = originalBg || 'rgba(255,255,255,0.02)';
+        card.style.borderColor = 'rgba(255,255,255,0.04)';
+      }, 150);
+    });
+  });
+
+  // Add functionality to card1 to scroll to direccion like navbar
+  card1.addEventListener('click', () => {
+    // Check if original components are loaded
+    const mainContent = document.querySelector('main');
+    const formularioContainer = document.getElementById('formulario-container');
+    const legalidadContainer = document.getElementById('legalidad-container');
+    
+    const componentesOriginalesNoCargados = !mainContent || formularioContainer || legalidadContainer;
+    
+    if (componentesOriginalesNoCargados) {
+      // If not all original components loaded, go back to inicio
+      if (window.volverAlInicio) {
+        window.volverAlInicio();
+      }
+      return;
+    }
+    
+    // Find direccion element
+    const targetElement = document.querySelector('[class*="direccion"]');
+    
+    if (targetElement) {
+      const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
+      });
+    }
+  });
+
+  // Add functionality to card4 to open Mis Envíos view
+  card4.addEventListener('click', () => {
+    if (window.mostrarMisEnvios) {
+      window.mostrarMisEnvios();
+    }
+  });
+
+  mini.append(card1, card4);
 
   // Tracking handler (mock)
   // Basic validation for tracking inputs: allow letters, digits, dash and spaces, require minimum length
