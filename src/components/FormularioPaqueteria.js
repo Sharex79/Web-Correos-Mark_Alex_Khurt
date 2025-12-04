@@ -27,9 +27,12 @@ export function FormularioPaqueteria() {
 
       label{ display:block; font-weight:600; font-size:.95rem; color:rgba(255,255,255,0.95); margin-bottom: .35rem; }
 
-      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.03); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; min-width:0; }
+      input[type=text], select{ width:100%; padding:.6rem .75rem; border-radius:10px; border:1px solid rgba(255,255,255,0.06); background:rgba(26,26,26,0.8); color:rgba(255,255,255,0.96); font-size:.96rem; box-sizing:border-box; min-width:0; }
       input[type=text]::placeholder{ color:rgba(255,255,255,0.5); }
       input[type=text]:focus, select:focus{ outline: none; box-shadow: 0 6px 18px rgba(50,50,50,0.35) inset, 0 0 0 4px rgba(96,165,250,0.06); border-color: rgba(96,165,250,0.35); }
+      
+      /* Style select dropdown options */
+      select option { background-color: #1a1a1a; color: rgba(255,255,255,0.96); }
 
       .form-paqueteria__sizegrid{ display:grid; grid-template-columns: repeat(2, minmax(120px, 1fr)); gap:.6rem; }
       .form-paqueteria__size{ padding:.6rem .85rem; border-radius:12px; background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); display:flex; flex-direction:row; justify-content:space-between; align-items:center; gap:.5rem; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; min-width:0; }
