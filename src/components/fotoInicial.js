@@ -10,21 +10,15 @@ export function FotoInicial() {
   
   // Estilos del contenedor - Ancho completo que toca los bordes
   section.style.cssText = `
-    width: 100vw;
+    width: 100%;
     height: 900px;
     margin: 0;
-    margin-top: -20px;
     margin-bottom: 30px;
     padding: 0;
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    margin-left: calc(-50vw + 50%);
-    margin-right: calc(-50vw + 50%);
-    left: 50%;
-    right: 50%;
-    transform: translateX(-50%);
   `;
   
   // Imagen de fondo

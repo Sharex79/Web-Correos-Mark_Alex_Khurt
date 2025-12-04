@@ -7,7 +7,7 @@ export function Footer() {
   // Ajusta estas proporciones para cambiar la altura relativa
   // Se interpretan como fracciones de viewport (vh). Ej.: 0.4 = 40vh, 0.1 = 10vh
   // No se normalizan a 100%: el footer medirá la suma de ambos.
-  const TOP_RATIO = 0.15;    // 15vh por defecto
+  const TOP_RATIO = 0.1875;    // 18.75vh (15vh + 25%)
   const BOTTOM_RATIO = 0.06; // 6vh por defecto
   let topVH = Math.max(0, TOP_RATIO * 100);
   const bottomVH = Math.max(0, BOTTOM_RATIO * 100);
