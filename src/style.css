@@ -35,6 +35,8 @@ body {
   background-attachment: fixed !important;
   overflow-x: hidden;
   overflow-y: auto;
+  transform: scale(0.5);
+  transform-origin: top left;
 }
 
 h1 {
