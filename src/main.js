@@ -22,6 +22,9 @@ import { renderReclamos } from './components/Legalidades/Reclamos.js';
 import { Feedback } from './components/Feedback.js';
 import { Config } from './components/Config.js';
 import { Tienda } from './components/Tienda.js';
+import { GestionAduanera } from './components/GestionAduanera.js';
+import { TramiteDGT } from './components/TramiteDGT.js';
+import { TramitePublico } from './components/TramitePublico.js';
 import { Navbar as NavbarVolver } from './components/navbarVolver.js';
 
 
@@ -465,6 +468,34 @@ if (window.location.hash === '#feedback') {
   setTimeout(() => window.mostrarFeedback(), 100);
 }
 
+// Función global para scroll a servicios (ContenedoresDobles) - igual que navbar
+window.scrollToServices = function() {
+  const mainContent = document.querySelector('main');
+  const formularioContainer = document.getElementById('formulario-container');
+  const legalidadContainer = document.getElementById('legalidad-container');
+  const configContainer = document.getElementById('config-container');
+  const tiendaContainer = document.getElementById('tienda-container');
+  const feedbackContainer = document.getElementById('feedback-container');
+  
+  // Si no están todos los componentes originales, recargar
+  if (!mainContent || formularioContainer || legalidadContainer || configContainer || tiendaContainer || feedbackContainer) {
+    if (window.volverAlInicio) {
+      window.volverAlInicio();
+    }
+    return;
+  }
+  
+  // Hacer scroll a contenedores-dobles
+  const targetElement = document.getElementById('contenedores-dobles');
+  if (targetElement) {
+    const offsetTop = targetElement.getBoundingClientRect().top + window.pageYOffset - 120;
+    window.scrollTo({
+      top: offsetTop,
+      behavior: 'smooth'
+    });
+  }
+};
+
 // Escuchar y manejar hash para legalidades como fallback
 function handleLegalidadHash() {
   const hash = window.location.hash || '';
@@ -505,7 +536,7 @@ window.mostrarConfig = function() {
   }
 
   // Eliminar otros contenedores alternativos
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -573,7 +604,7 @@ window.mostrarTienda = function() {
   }
 
   // Eliminar otros contenedores alternativos
-  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container'];
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'ajustes-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
   toRemoveIds.forEach((id) => {
     const el = document.getElementById(id);
     if (el && el.parentNode) {
@@ -616,6 +647,183 @@ window.mostrarTienda = function() {
     });
 
     // Scroll al inicio
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
+// ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR GESTIÓN ADUANERA
+// ==========================================
+window.mostrarGestionAduanera = function() {
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    const container = GestionAduanera();
+    volverNav.after(container);
+
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    container.after(newFooter);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
+// ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR TRÁMITE DGT
+// ==========================================
+window.mostrarTramiteDGT = function() {
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    const container = TramiteDGT();
+    volverNav.after(container);
+
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    container.after(newFooter);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 550);
+};
+
+// ==========================================
+//  FUNCIÓN GLOBAL PARA MOSTRAR TRÁMITE PÚBLICO
+// ==========================================
+window.mostrarTramitePublico = function() {
+  const existingMain = document.querySelector('main');
+  if (existingMain && existingMain.parentNode) {
+    existingMain.style.opacity = '0';
+    existingMain.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingMain.remove(), 500);
+  }
+
+  const existingFooter = document.querySelector('footer');
+  if (existingFooter && existingFooter.parentNode) {
+    existingFooter.style.opacity = '0';
+    existingFooter.style.transform = 'translateY(-20px)';
+    setTimeout(() => existingFooter.remove(), 500);
+  }
+
+  const toRemoveIds = ['formulario-container', 'legalidad-container', 'feedback-container', 'config-container', 'tienda-container', 'gestionaduanera-container', 'tramitedgt-container', 'tramitepublico-container'];
+  toRemoveIds.forEach((id) => {
+    const el = document.getElementById(id);
+    if (el && el.parentNode) {
+      el.style.opacity = '0';
+      setTimeout(() => el.remove(), 500);
+    }
+  });
+
+  setTimeout(() => {
+    document.querySelectorAll('nav').forEach((n) => { if (n && n.parentNode) n.remove(); });
+    document.querySelectorAll('[data-role="navbar-overlay"], [data-role="navbar-sidepanel"]').forEach((el) => {
+      if (el && el.parentNode) el.remove();
+    });
+
+    const volverNav = NavbarVolver();
+    volverNav.setAttribute('data-variant', 'volver');
+    document.body.prepend(volverNav);
+
+    const container = TramitePublico();
+    volverNav.after(container);
+
+    const newFooter = Footer();
+    newFooter.style.opacity = '0';
+    newFooter.style.transform = 'translateY(20px)';
+    newFooter.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    container.after(newFooter);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        container.style.opacity = '1';
+        container.style.transform = 'translateY(0)';
+        newFooter.style.opacity = '1';
+        newFooter.style.transform = 'translateY(0)';
+      });
+    });
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 550);
 };

@@ -56,7 +56,7 @@ export function Explicacion() {
   ];
 
   // BOTÓN COMÚN
-  const createButton = (buttonText, buttonSubject, buttonBody) => {
+  const createButton = (buttonText, buttonSubject, buttonBody, isStoreButton = false, isServicesButton = false, actionType = null) => {
     const btn = document.createElement('button');
     btn.innerHTML = `${buttonText}`;
     btn.style.cssText = `
@@ -82,7 +82,21 @@ export function Explicacion() {
       btn.style.background = 'linear-gradient(135deg, #f59f00, #fc9700)';
       btn.style.boxShadow = '0 6px 20px rgba(245,159,0,0.4)';
     };
-    btn.onclick = () => location.href = `mailto:clientes@correos.es?subject=${encodeURIComponent(buttonSubject + ' - ' + new Date().toLocaleDateString('es-ES'))}&body=${encodeURIComponent(buttonBody)}`;
+    btn.onclick = () => {
+      if (isStoreButton && typeof window.mostrarTienda === 'function') {
+        window.mostrarTienda();
+      } else if (isServicesButton && typeof window.scrollToServices === 'function') {
+        window.scrollToServices();
+      } else if (actionType === 'gestionaduanera' && typeof window.mostrarGestionAduanera === 'function') {
+        window.mostrarGestionAduanera();
+      } else if (actionType === 'tramitedgt' && typeof window.mostrarTramiteDGT === 'function') {
+        window.mostrarTramiteDGT();
+      } else if (actionType === 'tramitepublico' && typeof window.mostrarTramitePublico === 'function') {
+        window.mostrarTramitePublico();
+      } else {
+        location.href = `mailto:clientes@correos.es?subject=${encodeURIComponent(buttonSubject + ' - ' + new Date().toLocaleDateString('es-ES'))}&body=${encodeURIComponent(buttonBody)}`;
+      }
+    };
     return btn;
   };
 
@@ -140,7 +154,13 @@ export function Explicacion() {
     const p = document.createElement('p');
     p.textContent = item.text;
     p.style.cssText = `margin:0; font-size:0.95rem; line-height:1.65; opacity:0.92; flex:1;`;
-    content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
+    const isStore = item.buttonText === 'Ir a la tienda';
+    const isServices = item.buttonText === 'Preparar envío' || item.buttonText === 'Seguir mi envío';
+    let actionType = null;
+    if (item.buttonText === 'Consulta aduanera') actionType = 'gestionaduanera';
+    if (item.buttonText === 'Iniciar trámite DGT') actionType = 'tramitedgt';
+    if (item.buttonText === 'Gestionar trámite público') actionType = 'tramitepublico';
+    content.append(h3, p, createButton(item.buttonText, item.buttonSubject, item.buttonBody, isStore, isServices, actionType));
 
     if (imgWrapper) card.append(imgWrapper, content); else card.append(content);
     tripleContainer.appendChild(card);
@@ -186,7 +206,13 @@ export function Explicacion() {
     const serviceText = document.createElement('p');
     serviceText.textContent = item.text;
     serviceText.style.cssText = `margin:0 0 1rem 0;line-height:1.7;color:rgba(255,255,255,0.9);font-size:1rem;`;
-    textContainer.append(serviceTitle, serviceText, createButton(item.buttonText, item.buttonSubject, item.buttonBody));
+    const isStore = item.buttonText === 'Ir a la tienda';
+    const isServices = item.buttonText === 'Preparar envío' || item.buttonText === 'Seguir mi envío';
+    let actionType = null;
+    if (item.buttonText === 'Consulta aduanera') actionType = 'gestionaduanera';
+    if (item.buttonText === 'Iniciar trámite DGT') actionType = 'tramitedgt';
+    if (item.buttonText === 'Gestionar trámite público') actionType = 'tramitepublico';
+    textContainer.append(serviceTitle, serviceText, createButton(item.buttonText, item.buttonSubject, item.buttonBody, isStore, isServices, actionType));
 
     // only render an image panel when the item has an image
     let image, imageContainer;
